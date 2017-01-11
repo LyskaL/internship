@@ -14,10 +14,8 @@ public class TestLayout {
 		shell.setLayout(new FillLayout());
 		shell.setBounds(800, 300, 500, 500);
 		
-		
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
-		//gridLayout.makeColumnsEqualWidth = true;
 		shell.setLayout(gridLayout);
 		
 		Button b1 = new Button(shell, SWT.PUSH);
@@ -43,8 +41,6 @@ public class TestLayout {
 		new Button(shell, SWT.PUSH).setText("Button 5");
 		shell.pack();
 		shell.open();
-		
-		
 		
 		while (!shell.isDisposed()) {
 		        if (!display.readAndDispatch()){
