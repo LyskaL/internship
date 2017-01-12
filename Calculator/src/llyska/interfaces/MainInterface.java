@@ -23,7 +23,6 @@ public class MainInterface {
 		_shell.setBounds(x, y, width, height);
 		
 		setTabsPanel();
-		setHistoryPanel();
 		
 		_shell.open();
 		while (!_shell.isDisposed()) {
@@ -33,11 +32,6 @@ public class MainInterface {
 		}
 		display.dispose();
 	}
-	
-	private void setHistoryPanel() {
-		// TODO Auto-generated method stub
-	}
-
 
 
 	private void setTabsPanel() {
