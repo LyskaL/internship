@@ -10,10 +10,11 @@ public class ServiceProvider {
 	static {
 		_services = new HashMap<>();
 		_services.put(CalculatorService.class, new CalculatorServiceImpl());
+		_services.put(HistoryManager.class, new HistoryManagerImpl());
+		_services.put(HistoryService.class, new HistoryServiceImpl());
 	}
 	
-	public static <T> T getService(Class<T> serviceType) {
-		return null;
+	public static <T>T getService(Class<T> serviceType) {
+		return (T) _services.get(serviceType);
 	}
-	
 }

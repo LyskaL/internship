@@ -6,6 +6,9 @@ import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
+import llyska.services.CalculatorService;
+import llyska.services.ServiceProvider;
+
 public class CalculatorView extends Composite {
 	private Button _calculateButton;
 	private Button _checkButton;
@@ -86,6 +89,10 @@ public class CalculatorView extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//count();
+				CalculatorService calculator = ServiceProvider.getService(CalculatorService.class);
+				double result = calculator.count(_fromNumber.getText(), _toNumber.getText(), _sign.getText().charAt(1));
+				//TODO result save in History
+				_resultText.setText(""+result);
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
