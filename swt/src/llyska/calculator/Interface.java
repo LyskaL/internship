@@ -1,7 +1,6 @@
 package llyska.calculator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.custom.*;
 import org.eclipse.swt.events.*;
@@ -10,14 +9,15 @@ import org.eclipse.swt.widgets.*;
 
 public class Interface {
 	private Shell shell;
+	
 	private CTabFolder folder;
 	private Button calculateButton;
-	private Button chackButton;
-
+	private Button checkButton;
 	private Text fromNumber;
 	private Combo combo;
 	private Text toNumber;
 	private Text resultText;
+	
 	private Label history;
 	
 	private static final String REGEX_FOR_NUMBER = "^[+\\-]?\\d+(?:\\.\\d+)?$";
@@ -85,14 +85,14 @@ public class Interface {
 		Composite buttonPanel = new Composite(calculatorPanel, SWT.NONE);
 		buttonPanel.setLayout(new GridLayout(2, true));
 
-		chackButton = new Button(buttonPanel, SWT.CHECK);
-		chackButton.setText("Calculate on the fly");
-		chackButton.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, true));
-		chackButton.setSelection(true);
-		chackButton.addSelectionListener(new SelectionListener() {
+		checkButton = new Button(buttonPanel, SWT.CHECK);
+		checkButton.setText("Calculate on the fly");
+		checkButton.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, true));
+		checkButton.setSelection(true);
+		checkButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (chackButton.getSelection()) {
+				if (checkButton.getSelection()) {
 					calculateButton.setEnabled(false);
 				} else {
 					calculateButton.setEnabled(true);
@@ -106,7 +106,7 @@ public class Interface {
 		combo.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(chackButton.getSelection()) {
+				if(checkButton.getSelection()) {
 					count();
 				}
 			}
@@ -155,7 +155,6 @@ public class Interface {
 		toolBar.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, false, true));
 	}
 	
-	//TODO
 	private void count(){
 		if(fromNumber.getCharCount() > 0 && toNumber.getCharCount() > 0) {
 			double firstNumber = 0.0;
@@ -198,18 +197,18 @@ public class Interface {
 		return m.matches();
 	}
 
-	public static void main(String[] args) {
-		new Interface();
-	}
-
 	class TextListener implements FocusListener {
 		@Override
 		public void focusGained(FocusEvent e) {}
 		@Override
 		public void focusLost(FocusEvent e) {
-			if (chackButton.getSelection()) {
+			if (checkButton.getSelection()) {
 				count();
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		new Interface();
 	}
 }
