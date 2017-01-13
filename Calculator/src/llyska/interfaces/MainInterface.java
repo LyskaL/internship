@@ -5,6 +5,9 @@ import org.eclipse.swt.custom.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
+import llyska.services.*;
+import llyska.util.Constants;
+
 public class MainInterface {
 	private Shell _shell;
 	private CTabFolder _folder;
@@ -12,6 +15,7 @@ public class MainInterface {
 	public MainInterface() {
 		Display display = new Display();
 		_shell = new Shell(display);
+		Constants.setDisplay(display);
 		_shell.setText("Calculator");
 		_shell.setLayout(new GridLayout(1, true));
 
@@ -45,8 +49,9 @@ public class MainInterface {
 		
 		CTabItem history = new CTabItem(_folder, SWT.NONE);
 		history.setText("History");
-		history.setControl(new HistoryView(_folder, SWT.BORDER));
-		
+		HistoryManager historyTab = ServiceProvider.getService(HistoryManager.class);
+		historyTab.setParentToHistoryView(_folder);
+		history.setControl(historyTab.getCompositeToHistoryView());
 		ToolBar bar = new ToolBar(_shell, SWT.BORDER);
 		bar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 	}

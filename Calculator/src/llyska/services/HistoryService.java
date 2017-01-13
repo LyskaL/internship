@@ -9,6 +9,6 @@ public interface HistoryService {
 	void addItem(String result);
 	void removeItem(int index);
 	void removeItem(int[] indexes);
-	void clear(); 
+	void clean(); 
 	
 }

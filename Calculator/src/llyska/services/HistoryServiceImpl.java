@@ -37,7 +37,7 @@ class HistoryServiceImpl implements HistoryService {
 	}
 
 	@Override
-	public void clear() {
+	public void clean() {
 		_history.clear();
 	}
 	
