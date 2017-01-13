@@ -61,7 +61,14 @@ public class HistoryView extends Composite{
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
 	}
-	
-	
 
+	public void cleanHistory() {
+		_history.removeAll();
+	}
+
+	public void createHistory(java.util.List<String> history) {
+		for (String string : history) {
+			_history.add(string);
+		}
+	}
 }
