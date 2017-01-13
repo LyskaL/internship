@@ -2,6 +2,7 @@ package llyska.services;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import llyska.events.*;
@@ -12,6 +13,7 @@ class HistoryServiceImpl implements HistoryService, DataEventGenerator {
 
 	public HistoryServiceImpl() {
 		_history = new ArrayList<>();
+		_listeners = new HashSet<>();
 	}
 	
 	@Override
@@ -33,13 +35,15 @@ class HistoryServiceImpl implements HistoryService, DataEventGenerator {
 	@Override
 	public void removeItem(int index) {
 		_history.remove(index);
+		notifyListeners();
 	}
 
 	@Override
-	public void removeItem(int[] indexes) {
+	public void removeItems(int[] indexes) {
 		for (int i = indexes.length-1; i >= 0; i--) {
 			_history.remove(indexes[i]);
 		}
+		notifyListeners();
 	}
 
 	@Override
@@ -49,18 +53,17 @@ class HistoryServiceImpl implements HistoryService, DataEventGenerator {
 
 	@Override
 	public void addDataEventListener(DataEventListener listener) {
-		// TODO Auto-generated method stub
+		_listeners.add(listener);
 	}
 
 	@Override
 	public void removeDataEventListener(DataEventListener listener) {
-		// TODO Auto-generated method stub
+		_listeners.remove(listener);
 	}
 
 	@Override
 	public Set<DataEventListener> getListeners() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableSet(_listeners);
 	}
 	
 	private void notifyListeners() {

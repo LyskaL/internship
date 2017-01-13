@@ -24,7 +24,6 @@ public class CalculatorView extends Composite {
 
 		_fromNumber = new Text(dataPanel, SWT.BORDER);
 		_fromNumber.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
-		_fromNumber.addFocusListener(new TextListener());
 		_fromNumber.addKeyListener(new EnterListener());
 
 		_sign = new Combo(dataPanel, SWT.READ_ONLY);
@@ -37,7 +36,6 @@ public class CalculatorView extends Composite {
 
 		_toNumber = new Text(dataPanel, SWT.BORDER);
 		_toNumber.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
-		_toNumber.addFocusListener(new TextListener());
 		_toNumber.addKeyListener(new EnterListener());
 		
 		Composite buttonPanel = new Composite(this, SWT.NONE);
@@ -112,18 +110,8 @@ public class CalculatorView extends Composite {
 	}
 	
 	private void saveInHistory(String item) {
-		//TODO
-	}
-	
-	class TextListener implements FocusListener {
-		@Override
-		public void focusGained(FocusEvent e) {}
-		@Override
-		public void focusLost(FocusEvent e) {
-			if (_checkButton.getSelection()) {
-				count();
-			}
-		}
+		HistoryManager historyTab = ServiceProvider.getService(HistoryManager.class);
+		historyTab.addItem(item);
 	}
 	
 	class EnterListener implements KeyListener {

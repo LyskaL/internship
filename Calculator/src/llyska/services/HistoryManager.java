@@ -8,6 +8,6 @@ public interface HistoryManager {
 	
 	void clean();
 	void remove(int index);
-	void removeItem(int[] indexes);
+	void removeItems(int[] indexes);
 	void addItem(String result);
 }

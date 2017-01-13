@@ -1,6 +1,11 @@
 package llyska.events;
 
-public interface DataEvent {
+public class DataEvent {
+	
+	public DataEvent() {
+		
+	}
+	/*
 	DataEventGenerator getSource();
-	Object getData();
+	Object getData();*/
 }

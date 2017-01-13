@@ -10,26 +10,25 @@ public class HistoryView extends Composite{
 	private List _history;
 	private Button _clean;
 	private Button _remove;
+	private Button _deselect;
 
 	public HistoryView(Composite parent) {
 		super(parent, SWT.BORDER);
 		setLayout(new GridLayout(1, true));
 		
-		_history = new List(this, SWT.V_SCROLL | SWT.BORDER | SWT.SINGLE);
+		_history = new List(this, SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
 		_history.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		_history.setBackground(getBackground());
-		for (int i = 0; i < 10; i++) {
-			_history.add(""+i);
-		}
 		
 		_history.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
 				_remove.setEnabled(true);
+				_deselect.setEnabled(true);
 			}
 		});
 		
 		Composite buttonsPanel = new Composite(this, SWT.NONE);
-		buttonsPanel.setLayout(new GridLayout(2, true));
+		buttonsPanel.setLayout(new GridLayout(3, true));
 		
 		_clean = new Button(buttonsPanel, SWT.NONE);
 		_clean.setText("Clean");
@@ -52,11 +51,23 @@ public class HistoryView extends Composite{
 		_remove.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				int selection = _history.getSelectionIndex();
-				ServiceProvider.getService(HistoryManager.class).remove(selection);
-				_history.remove(selection);
+				int[] indexes = _history.getSelectionIndices();
+				ServiceProvider.getService(HistoryManager.class).removeItems(indexes);
 			}
-			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {}
+		});
+		_deselect = new Button(buttonsPanel, SWT.NONE);
+		_deselect.setText("Deselect");
+		_deselect.setEnabled(false);
+		_deselect.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true));
+		_deselect.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				_history.deselectAll();
+				_deselect.setEnabled(false);
+				_remove.setEnabled(false);
+			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
@@ -64,9 +75,13 @@ public class HistoryView extends Composite{
 
 	public void cleanHistory() {
 		_history.removeAll();
+		_deselect.setEnabled(false);
+		_clean.setEnabled(false);
+		_remove.setEnabled(false);
 	}
 
 	public void createHistory(java.util.List<String> history) {
+		_clean.setEnabled(true);
 		for (String string : history) {
 			_history.add(string);
 		}

@@ -12,7 +12,9 @@ public class HistoryManagerImpl implements HistoryManager, DataEventListener {
 	public HistoryManagerImpl() {
 		Shell shell = new Shell(Constants.DISPLAY_OUR_PROGRAM);
 		_historiService = new HistoryServiceImpl();
+		_historiService.addDataEventListener(this);
 		_historyView = new HistoryView(shell);
+		
 	}
 	
 	@Override
@@ -41,12 +43,14 @@ public class HistoryManagerImpl implements HistoryManager, DataEventListener {
 	}
 
 	@Override
-	public void removeItem(int[] indexes) {
-		_historiService.removeItem(indexes);
+	public void removeItems(int[] indexes) {
+		_historiService.removeItems(indexes);
 	}
 
 	@Override
 	public void handleEvent(DataEvent e) {
+		/*_history.removeAll();
+		_clean.setEnabled(false);*/
 		_historyView.cleanHistory();
 		_historyView.createHistory(_historiService.getHistory());
 	}
