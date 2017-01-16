@@ -103,9 +103,14 @@ public class CalculatorView extends Composite {
 	private void count() {
 		if(_fromNumber.getCharCount() > 0 && _toNumber.getCharCount() > 0) {
 			CalculatorService calculator = ServiceProvider.getService(CalculatorService.class);
-			double result = calculator.count(_fromNumber.getText(), _toNumber.getText(), _sign.getText().charAt(1));
-			saveInHistory("" + result);
-			_resultText.setText("" + result);
+			try {
+				double result = calculator.count(_fromNumber.getText(), _toNumber.getText(), _sign.getText().charAt(1));
+				saveInHistory("" + result);
+				_resultText.setText("" + result);
+			} catch (IllegalArgumentException e) {
+				_resultText.setText("" + e.getMessage());
+				saveInHistory("" + e.getMessage());
+			}
 		}
 	}
 	

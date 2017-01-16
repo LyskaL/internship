@@ -12,7 +12,7 @@ class CalculatorServiceImpl implements CalculatorService {
 			firstNumber = Double.parseDouble(fromNumber);
 			secondNumber = Double.parseDouble(toNumber);
 		} else {
-			// TODO error exception
+			throw new IllegalArgumentException("Incorrect data");
 		}
 
 		switch (symbol) {
@@ -26,8 +26,8 @@ class CalculatorServiceImpl implements CalculatorService {
 			result = firstNumber * secondNumber;
 			break;
 		case '/':
-			if (firstNumber == 0.0) {
-				// TODO error exception
+			if (secondNumber == 0.0) {
+				throw new IllegalArgumentException("Can't divide zero");
 			}
 			result = firstNumber / secondNumber;
 			break;
