@@ -10,7 +10,7 @@ public class HistoryManagerImpl implements HistoryManager, DataEventListener {
 	private HistoryView _historyView;
 	
 	public HistoryManagerImpl() {
-		Shell shell = new Shell(Constants.DISPLAY_OUR_PROGRAM);
+		Shell shell = new Shell(Constants.DISPLAY);
 		_historiService = new HistoryServiceImpl();
 		_historiService.addDataEventListener(this);
 		_historyView = new HistoryView(shell);
