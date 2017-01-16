@@ -15,13 +15,13 @@ public class CalculatorView extends Composite {
 	private Text _toNumber;
 	private Text _resultText;
 	
-	private boolean _timer = false;
-	private MyTimer thread;
+	private MyTimer _timer = new MyTimer(2000);
 	
 	private static final int KEY_CODE_ENTER = 13;
 	
 	public CalculatorView(Composite parent, int style) {
 		super(parent, style);
+		_timer.start();
 		setLayout(new FillLayout(SWT.VERTICAL));
 		Composite dataPanel = new Composite(this, SWT.NONE);
 		dataPanel.setLayout(new GridLayout(3, true));
@@ -134,13 +134,10 @@ public class CalculatorView extends Composite {
 				count();
 			} else {
 				if(count()) {
-					System.out.println("до старта: " + _resultText.getText());
-					if(!_timer) {
-						thread = new MyTimer(2000);
-						thread.start();
-						_timer = true;
+					if(_timer.isStartTime()) {
+						_timer.updateTime();
 					} else {
-						thread.updateTime();
+						_timer.setStartedTime(true);
 					}
 				}
 			}	
@@ -152,30 +149,53 @@ public class CalculatorView extends Composite {
 	private class MyTimer extends Thread {
 		private int _delay;
 		private long _runTime;
+		
+		private boolean _startTime;
 
 		public MyTimer(int seconds) {
 			_delay = seconds;
-		}
-		
-		public void updateTime() {
-			_runTime = System.currentTimeMillis();
+			_startTime = false;
 		}
 		
 		@Override
 		public void run() {
 			try {
+				while (true) {
+					Thread.sleep(100);
+					if (isStartTime()) {
+						countdown();
+					}
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public boolean isStartTime() {
+			return _startTime;
+		}
+
+		public void setStartedTime(boolean startedTime) {
+			_startTime = startedTime;
+		}
+
+		public void updateTime() {
+			_runTime = System.currentTimeMillis();
+		}
+		
+		private void countdown() {
+			try {
 				_runTime = System.currentTimeMillis();
 				while (System.currentTimeMillis() < _runTime + _delay) {
 					Thread.sleep(100);
 				}
-				System.out.println("Thread name: " + this.getClass());
 				llyska.util.Constants.DISPLAY.asyncExec(new Runnable() {
 					@Override
 					public void run() {
-						saveInHistory("" + _resultText.getText());  
+						saveInHistory("" + _resultText.getText());
 					}
 				});
-				_timer = false;
+				setStartedTime(false);
 			} catch (InterruptedException e) {
 				System.out.println("Just exiting...");
 			}
