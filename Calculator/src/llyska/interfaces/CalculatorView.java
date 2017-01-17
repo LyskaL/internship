@@ -76,6 +76,7 @@ public class CalculatorView extends Composite {
 		_resultText = new TextWithBorder(resultPanel, SWT.NONE);
 		_resultText.setEditable(false);
 		_resultText.changeStyle(SWT.RIGHT);
+		_resultText.setBackground(_toNumber.getBackground());
 		//_resultText.redrawBorder(Constants.GREEN);
 	}
 

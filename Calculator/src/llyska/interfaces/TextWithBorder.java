@@ -24,7 +24,7 @@ public class TextWithBorder extends Composite {
 		_canvas = new Canvas(this, SWT.NONE);
 		_canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		
-		_text = new Text(_canvas, SWT.NONE);
+		_text = new Text(_canvas, SWT.READ_ONLY);
 		setPaintListener();
 	}
 	
@@ -33,13 +33,17 @@ public class TextWithBorder extends Composite {
 	}
 	
 	public void changeStyle(int style) {
-		_text = new Text(_canvas, style);
+		_text = new Text(_canvas, style | SWT.READ_ONLY);
 	}
 
 	public void setText(String text) {
 		if(text != null) {
 			_text.setText(text);
 		}
+	}
+	
+	public void setBackground(Color color) {
+		_text.setBackground(color);
 	}
 
 	public String getText() {
