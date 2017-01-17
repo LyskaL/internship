@@ -52,7 +52,7 @@ public class TextWithBorder extends Composite {
 	
 	public void redrawBorder(Color color) {
 		_color = color;
-		redraw();
+		_canvas.redraw();
 	}
 	
 	private void setPaintListener() {

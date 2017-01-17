@@ -2,7 +2,6 @@ package llyska.interfaces;
 
 import org.eclipse.swt.*; 
 import org.eclipse.swt.events.*;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
@@ -16,8 +15,10 @@ public class CalculatorView extends Composite {
 	private Combo _sign;
 	private Text _toNumber;
 	private TextWithBorder _resultText;
+	private Timer _timer = new Timer(2000);
 	
-	private MyTimer _timer = new MyTimer(2000);
+	private HistoryManager _historyTab = ServiceProvider.getService(HistoryManager.class);
+	private CalculatorService _calculator = ServiceProvider.getService(CalculatorService.class);
 	
 	private static final int KEY_CODE_ENTER = 13;
 	
@@ -77,22 +78,17 @@ public class CalculatorView extends Composite {
 		_resultText.setEditable(false);
 		_resultText.changeStyle(SWT.RIGHT);
 		_resultText.setBackground(_toNumber.getBackground());
-		//_resultText.redrawBorder(Constants.GREEN);
 	}
 
 	private void setupButtonPanel(Composite buttonPanel) {
 		_checkButton = new Button(buttonPanel, SWT.CHECK);
 		_checkButton.setText("Calculate on the fly");
-		_checkButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true));
+		_checkButton.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, true));
 		_checkButton.setSelection(true);
 		_checkButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (_checkButton.getSelection()) {
-					_calculateButton.setEnabled(false);
-				} else {
-					_calculateButton.setEnabled(true);
-				}
+				_calculateButton.setEnabled(!_checkButton.getSelection());
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {}
@@ -100,65 +96,67 @@ public class CalculatorView extends Composite {
 		_calculateButton = new Button(buttonPanel, SWT.NONE);
 		_calculateButton.setText("Calculate");
 		_calculateButton.setEnabled(false);
-		_calculateButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
+		_calculateButton.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, true));
 		_calculateButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				count();
-				saveInHistory("" + _resultText.getText());
+				if(count()){
+					_resultText.redrawBorder(Constants.GREEN);
+					saveInHistory("" + _resultText.getText());
+				}
 			}
 			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
+			public void widgetDefaultSelected(SelectionEvent e) {}
 		});
 	}
 
 	private boolean count() {
-		if(_fromNumber.getCharCount() > 0 && _toNumber.getCharCount() > 0) {
-			CalculatorService calculator = ServiceProvider.getService(CalculatorService.class);
-			try {
-				double result = calculator.count(_fromNumber.getText(), _toNumber.getText(), _sign.getText().charAt(1));
-				_resultText.setText("" + result);
-			} catch (IllegalArgumentException e) {
-				_resultText.setText("" + e.getMessage());
-			}
-			return true;
-		} else {
+		if (_fromNumber.getCharCount() == 0 || _toNumber.getCharCount() == 0) {
 			return false;
 		}
+		try {
+			double result = _calculator.count(_fromNumber.getText(), _toNumber.getText(), _sign.getText().charAt(1));
+			_resultText.setText(String.valueOf(result));
+		} catch (IllegalArgumentException e) {
+			_resultText.setText(e.getMessage());
+			saveInHistory(e.getMessage());
+			_resultText.redrawBorder(Constants.RED);
+			return false;
+		}
+		return true;
 	}
 	
 	private void saveInHistory(String item) {
-		HistoryManager historyTab = ServiceProvider.getService(HistoryManager.class);
-		historyTab.addItem(item);
+		_historyTab.addItem(item);
 	}
 	
 	class EnterListener implements KeyListener {
 		@Override
 		public void keyReleased(KeyEvent e) {
-			if (e.keyCode == KEY_CODE_ENTER) {
-				count();
-			} else {
-				if(count()) {
-					if(_timer.isStartTime()) {
-						_timer.updateTime();
-					} else {
-						_timer.setStartedTime(true);
-					}
+			if (!_checkButton.getSelection()) {
+				return;
+			}
+			if (count() && e.keyCode != KEY_CODE_ENTER) {
+				if (_timer.isStartTime()) {
+					_timer.updateTime();
+				} else {
+					_timer.setStartedTime(true);
+					_resultText.redrawBorder(Constants.YELLOW);
 				}
-			}	
+			}
 		}
+
 		@Override
 		public void keyPressed(KeyEvent e) {}
 	}
 	
-	private class MyTimer extends Thread {
+	private class Timer extends Thread {
 		private int _delay;
 		private long _runTime;
 		
 		private boolean _startTime;
 
-		public MyTimer(int seconds) {
+		public Timer(int seconds) {
 			_delay = seconds;
 			_startTime = false;
 			setDaemon(true);
@@ -201,6 +199,7 @@ public class CalculatorView extends Composite {
 					public void run() {
 						setStartedTime(false);
 						saveInHistory("" + _resultText.getText());
+						_resultText.redrawBorder(Constants.GREEN);
 					}
 				});
 			} catch (InterruptedException e) {
