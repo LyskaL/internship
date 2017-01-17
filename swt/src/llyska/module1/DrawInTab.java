@@ -7,7 +7,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
-
 public class DrawInTab {
 
 	public static void main(String[] args) {
@@ -31,6 +30,7 @@ public class DrawInTab {
 		panelTab.setLayout(new GridLayout(1, true));
 		panelTab.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		tab.setControl(panelTab);
+		
 		Canvas canvas = new Canvas(panelTab, SWT.NONE);
 		canvas.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		Text text = new Text(canvas, SWT.NONE);
