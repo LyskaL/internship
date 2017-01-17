@@ -4,7 +4,6 @@ import org.eclipse.swt.*;
 import org.eclipse.swt.custom.*;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
-
 import llyska.services.*;
 import llyska.util.Constants;
 
@@ -25,7 +24,6 @@ public class MainInterface {
 		int x = (monitor.getBounds().width / 2) - width / 2;
 		int y = (monitor.getBounds().height / 2) - height / 2;
 		_shell.setBounds(x, y, width, height);
-		
 		setTabsPanel();
 		
 		_shell.open();
@@ -55,8 +53,6 @@ public class MainInterface {
 		ToolBar bar = new ToolBar(_shell, SWT.BORDER);
 		bar.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 	}
-
-
 
 	public static void main(String[] args) {
 		new MainInterface();

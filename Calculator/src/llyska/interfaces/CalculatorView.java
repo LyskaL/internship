@@ -2,10 +2,12 @@ package llyska.interfaces;
 
 import org.eclipse.swt.*; 
 import org.eclipse.swt.events.*;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
 import llyska.services.*;
+import llyska.util.Constants;
 
 public class CalculatorView extends Composite {
 	private Button _calculateButton;
@@ -13,7 +15,7 @@ public class CalculatorView extends Composite {
 	private Text _fromNumber;
 	private Combo _sign;
 	private Text _toNumber;
-	private Text _resultText;
+	private TextWithBorder _resultText;
 	
 	private MyTimer _timer = new MyTimer(2000);
 	
@@ -51,7 +53,7 @@ public class CalculatorView extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 				if(_checkButton.getSelection()) {
 					count();
-					saveInHistory("" + _resultText);
+					saveInHistory("" + _resultText.getText());
 				}
 			}
 			@Override
@@ -64,19 +66,23 @@ public class CalculatorView extends Composite {
 	}
 	
 	private void setupResultPanel(Composite resultPanel) {
-		Label result = new Label(resultPanel, SWT.NONE);
+		Composite labelPanel = new Composite(resultPanel, SWT.NONE);
+		labelPanel.setLayout(new GridLayout(1, true));
+		labelPanel.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, true));
+		Label result = new Label(labelPanel, SWT.NONE);
 		result.setText("Result: ");
 		result.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, true));
 		
-		_resultText = new Text(resultPanel, SWT.RIGHT | SWT.BORDER);
-		_resultText.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, true));
-		_resultText.setEnabled(false);
+		_resultText = new TextWithBorder(resultPanel, SWT.NONE);
+		_resultText.setEditable(false);
+		_resultText.changeStyle(SWT.RIGHT);
+		//_resultText.redrawBorder(Constants.GREEN);
 	}
 
 	private void setupButtonPanel(Composite buttonPanel) {
 		_checkButton = new Button(buttonPanel, SWT.CHECK);
 		_checkButton.setText("Calculate on the fly");
-		_checkButton.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, true));
+		_checkButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true));
 		_checkButton.setSelection(true);
 		_checkButton.addSelectionListener(new SelectionListener() {
 			@Override
@@ -93,12 +99,12 @@ public class CalculatorView extends Composite {
 		_calculateButton = new Button(buttonPanel, SWT.NONE);
 		_calculateButton.setText("Calculate");
 		_calculateButton.setEnabled(false);
-		_calculateButton.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, true));
+		_calculateButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
 		_calculateButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				count();
-				saveInHistory("" + _resultText);
+				saveInHistory("" + _resultText.getText());
 			}
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -114,7 +120,6 @@ public class CalculatorView extends Composite {
 				_resultText.setText("" + result);
 			} catch (IllegalArgumentException e) {
 				_resultText.setText("" + e.getMessage());
-				saveInHistory("" + e.getMessage());
 			}
 			return true;
 		} else {
@@ -155,6 +160,7 @@ public class CalculatorView extends Composite {
 		public MyTimer(int seconds) {
 			_delay = seconds;
 			_startTime = false;
+			setDaemon(true);
 		}
 		
 		@Override
@@ -192,14 +198,13 @@ public class CalculatorView extends Composite {
 				llyska.util.Constants.DISPLAY.asyncExec(new Runnable() {
 					@Override
 					public void run() {
+						setStartedTime(false);
 						saveInHistory("" + _resultText.getText());
 					}
 				});
-				setStartedTime(false);
 			} catch (InterruptedException e) {
 				System.out.println("Just exiting...");
 			}
 		}
-	}
-	   
+	}   
 }
