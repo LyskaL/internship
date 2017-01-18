@@ -6,6 +6,13 @@ import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 import llyska.services.*;
 
+/**
+ * Class HistoryView create history tab that placed on main window.
+ * 
+ * 
+ * 
+ * @author Lyska Lyudmila
+ */
 public class HistoryView extends Composite{
 	private List _history;
 	private Button _clean;

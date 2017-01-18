@@ -7,6 +7,15 @@ import org.eclipse.swt.widgets.*;
 import llyska.services.*;
 import llyska.util.Constants;
 
+/**
+ * Class MainInterface started our program.
+ * Calculator has two tabs such as "Calculator" and "History".
+ * It performs mathematical operations such as addition, substraction,
+ * multiplication and divided.
+ * The result of calculations saves in history tab.
+ * 
+ * @author Lyska Lyudmila
+ */
 public class MainInterface {
 	private Shell _shell;
 	private CTabFolder _folder;
