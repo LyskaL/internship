@@ -1,4 +1,4 @@
-package llyska.jface;
+package llyska.module1;
 
 import org.eclipse.swt.*;
 import org.eclipse.swt.custom.SashForm;
