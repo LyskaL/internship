@@ -1,16 +1,11 @@
 package llyska.jface;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-import org.eclipse.jface.viewers.ColumnViewer;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
@@ -46,14 +41,14 @@ public class Table {
         column.setText("Column 1");
         TableViewerColumn viewerColumn1 = new TableViewerColumn(v, column);
         viewerColumn1.setLabelProvider(new ColumnLabelProvider());
-        viewerColumn1.setEditingSupport(new EditColumns(v));
+        //viewerColumn1.setEditingSupport(new EditColumns(v));
 
         column = new TableColumn(v.getTable(), SWT.NONE);
         column.setWidth(100);
         column.setText("Column 2");
         TableViewerColumn viewerColumn2 = new TableViewerColumn(v, column);
         viewerColumn2.setLabelProvider(new ColumnLabelProvider());
-        viewerColumn2.setEditingSupport(new EditColumns(v));
+        //viewerColumn2.setEditingSupport(new EditColumns(v));
 
         MyModel[] model = createModel();
         v.setInput(model);
@@ -61,7 +56,6 @@ public class Table {
         v.getTable().setHeaderVisible(true);
 
         v.getTable().addListener(SWT.EraseItem, new Listener() {
-
             @Override
             public void handleEvent(Event event) {
                 event.detail &= ~SWT.SELECTED;
@@ -108,7 +102,7 @@ public class Table {
 
     }
 
-    private class EditColumns extends EditingSupport {
+   /* private class EditColumns extends EditingSupport {
 
         public EditColumns(ColumnViewer viewer) {
             super(viewer);
@@ -135,6 +129,6 @@ public class Table {
             getViewer().update(element, null);
         }
 
-    }
+    }*/
 
 }
