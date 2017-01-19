@@ -46,6 +46,19 @@ public class TestTableViewer {
         display.dispose();
     }
 
+    public class MyModel {
+        public int counter;
+
+        public MyModel(int counter) {
+            this.counter = counter;
+        }
+
+        @Override
+        public String toString() {
+            return "Item " + this.counter;
+        }
+    }
+
     private void createTable(Composite com) {
         viewer = new TableViewer(com, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         viewer.setContentProvider(ArrayContentProvider.getInstance());
@@ -54,18 +67,32 @@ public class TestTableViewer {
         int[] bounds = { 100, 100, 100, 100 };
 
         // first column is for the first name
-        for (String title : titles) {
-            TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+        for (int i = 0; i < titles.length; i++) {
+            TableViewerColumn col = createTableViewerColumn(titles[i], bounds[i], i);
             col.setLabelProvider(new ColumnLabelProvider() {
                 @Override
                 public String getText(Object element) {
-                    return "4363";
+                    return "I could :)";
                 }
             });
+
         }
+
+        MyModel[] model = createModel();
+        viewer.setInput(model);
 
         viewer.getTable().setLinesVisible(true);
         viewer.getTable().setHeaderVisible(true);
+    }
+
+    private MyModel[] createModel() {
+        MyModel[] elements = new MyModel[10];
+
+        for (int i = 0; i < 10; i++) {
+            elements[i] = new MyModel(i);
+        }
+
+        return elements;
     }
 
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
