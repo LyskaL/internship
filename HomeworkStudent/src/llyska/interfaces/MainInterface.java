@@ -1,11 +1,13 @@
 package llyska.interfaces;
 
+import org.eclipse.swt.*;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
 public class MainInterface {
 	private Shell _shell;
-	
+	private MenuView _menu;
 	
 	public MainInterface() {
 		Display display = new Display();
@@ -13,13 +15,15 @@ public class MainInterface {
 		_shell.setText("JFace homework log");
 		_shell.setLayout(new GridLayout(1, true));
 		
-		final int width = 700;
+		final int width = 600;
 		final int height = 400;
 		Monitor monitor = display.getPrimaryMonitor();
 		int x = (monitor.getBounds().width / 2) - width / 2;
 		int y = (monitor.getBounds().height / 2) - height / 2;
 		_shell.setBounds(x, y, width, height);
+		
 		setMenuPanel();
+		setMainPanel();
 		
 		_shell.open();
 		while (!_shell.isDisposed()) {
@@ -30,15 +34,20 @@ public class MainInterface {
 		display.dispose();
 	}
 	
-	
-	
-	
+	private void setMainPanel() {
+		SashForm sashForm = new SashForm(_shell, SWT.HORIZONTAL | SWT.BORDER);
+		sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+		Composite tablePanel = new Composite(sashForm, SWT.BORDER); // TableView
+		Composite formPanel = new Composite(sashForm, SWT.BORDER); // FormView
+		
+		//sashForm.setWeights(new int[] {1, 2});
+	}
 	
 	private void setMenuPanel() {
-		// TODO Auto-generated method stub
-		
+		_menu = new MenuView(_shell, SWT.BAR);
+	    _shell.setMenuBar(_menu.getMenu());
 	}
-
 
 
 
