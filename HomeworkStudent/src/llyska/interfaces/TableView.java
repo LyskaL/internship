@@ -44,7 +44,8 @@ public class TableView extends Composite {
         String[] titles = { "Name", "Group", "SWT done" };
         int[] bounds = { 140, 70, 100 };
 
-        //TODO: magic
+        //Avoiding of padding in the first column
+        //see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=43910
         TableViewerColumn bagColumn = createTableViewerColumn("", 0);
         bagColumn.setLabelProvider(new NameProvider());
 
