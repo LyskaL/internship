@@ -63,8 +63,6 @@ public class TableView extends Composite {
 
         MyModel[] model = createModel();
         _viewer.setInput(model);
-
-
         _viewer.getTable().setLinesVisible(true);
         _viewer.getTable().setHeaderVisible(true);
 
@@ -81,16 +79,14 @@ public class TableView extends Composite {
             case 1:
                 return String.valueOf(ae.getNumber());
             }
-            return "";
+            return element.toString();
         }
 
         @Override
-        public void addListener(ILabelProviderListener arg0) {
-        }
+        public void addListener(ILabelProviderListener arg0) {}
 
         @Override
-        public void dispose() {
-        }
+        public void dispose() {}
 
         @Override
         public boolean isLabelProperty(Object arg0, String arg1) {
@@ -98,9 +94,7 @@ public class TableView extends Composite {
         }
 
         @Override
-        public void removeListener(ILabelProviderListener arg0) {
-
-        }
+        public void removeListener(ILabelProviderListener arg0) {}
 
         @Override
         public Image getColumnImage(Object element, int index) {
@@ -111,7 +105,7 @@ public class TableView extends Composite {
 
     public class MyModel {
         private final String name;
-        int number;
+        private final int number;
         private final boolean isCheck;
         public int counter;
 
@@ -156,6 +150,15 @@ public class TableView extends Composite {
         column.setWidth(bound);
         column.setResizable(false);
         column.setMoveable(false);
+
+        switch(colNumber){
+        case 0:
+            column.setAlignment(SWT.CENTER);
+            break;
+        case 1:
+            column.setAlignment(SWT.RIGHT);
+            break;
+        }
         return viewerColumn;
     }
 }

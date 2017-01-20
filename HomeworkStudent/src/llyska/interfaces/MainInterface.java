@@ -9,17 +9,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
+import llyska.util.Constants;
+
 public class MainInterface {
     private final Shell _shell;
     private MenuView _menu;
 
     public MainInterface() {
         Display display = new Display();
+        Constants.setDisplay(display);
+
         _shell = new Shell(display);
         _shell.setText("JFace homework log");
         _shell.setLayout(new GridLayout(1, true));
 
-        final int width = 600;
+        final int width = 700;
         final int height = 400;
         Monitor monitor = display.getPrimaryMonitor();
         int x = (monitor.getBounds().width / 2) - width / 2;
@@ -39,10 +43,14 @@ public class MainInterface {
     }
 
     private void setMainPanel() {
-        SashForm sashForm = new SashForm(_shell, SWT.HORIZONTAL | SWT.BORDER);
+        SashForm sashForm = new SashForm(_shell, SWT.HORIZONTAL | SWT.NONE);
         sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        Composite tablePanel = new Composite(sashForm, SWT.BORDER); // TableView
+        Composite tablePanel = new Composite(sashForm, SWT.BORDER);
+        tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        tablePanel.setLayout(new GridLayout(1, true));
+        new TableView(tablePanel, SWT.NONE);
+
         Composite formPanel = new Composite(sashForm, SWT.BORDER); // FormView
 
         // sashForm.setWeights(new int[] {1, 2});
