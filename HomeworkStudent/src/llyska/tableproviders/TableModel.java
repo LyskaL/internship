@@ -15,7 +15,7 @@ public class TableModel {
 
     @Override
     public String toString() {
-        return "Table Model";
+        return getName()+" "+String.valueOf(isCheck())+" "+String.valueOf(getNumber());
     }
 
     public String getName() {

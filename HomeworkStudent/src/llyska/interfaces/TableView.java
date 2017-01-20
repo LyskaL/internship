@@ -1,6 +1,9 @@
 package llyska.interfaces;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -19,6 +22,7 @@ import llyska.tableproviders.CheckButtonProvider;
 import llyska.tableproviders.NameProvider;
 import llyska.tableproviders.NumberGroupProvider;
 import llyska.tableproviders.TableModel;
+import llyska.util.Constants;
 
 public class TableView extends Composite {
     private TableViewer _viewer;
@@ -59,6 +63,21 @@ public class TableView extends Composite {
         _viewer.setInput(model);
         _viewer.getTable().setLinesVisible(true);
         _viewer.getTable().setHeaderVisible(true);
+
+        _viewer.addSelectionChangedListener(new ISelectionChangedListener()
+        {
+            @Override
+            public void selectionChanged(SelectionChangedEvent selectionEvent)
+            {
+                //changed rows
+                //get Table Model
+                final IStructuredSelection selection = (IStructuredSelection) _viewer.getSelection();
+                if (selection != null) {
+                   //System.out.println(selection.toString());
+                }
+            }
+        });
+
         _viewer.getTable().addListener(SWT.MouseDown, new Listener(){
             @Override
             public void handleEvent(Event event){
@@ -67,9 +86,12 @@ public class TableView extends Composite {
                 if(item != null) {
                     for (int col = 0; col < _viewer.getTable().getColumnCount(); col++) {
                         Rectangle rect = item.getBounds(col);
-                        if (rect.contains(pt)) {
-                            System.out.println("item clicked.");
-                            System.out.println("column is " + col);
+                        if (rect.contains(pt) && col == 3) {
+                            if(_viewer.getCell(pt).getImage().equals(Constants.CHECKED)) {
+                                _viewer.getCell(pt).setImage(Constants.UNCHECKED);
+                            } else {
+                                _viewer.getCell(pt).setImage(Constants.CHECKED);
+                            }
                         }
                     }
                 }
