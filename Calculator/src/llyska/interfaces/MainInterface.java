@@ -8,11 +8,11 @@ import llyska.services.*;
 import llyska.util.Constants;
 
 /**
- * Class MainInterface started our program.
+ * Class MainInterface starts our program.
  * Calculator has two tabs such as "Calculator" and "History".
- * It performs mathematical operations such as addition, substraction,
- * multiplication and divided.
- * The result of calculations saves in history tab.
+ * It performs mathematical operations such as addition, subtraction,
+ * multiplication and division.
+ * The result of calculations are saved in history tab.
  * 
  * @author Lyska Lyudmila
  */
