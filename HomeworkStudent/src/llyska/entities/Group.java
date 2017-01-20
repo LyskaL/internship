@@ -1,15 +1,25 @@
 package llyska.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
-    private List<Student> _students;
-    private int numberGroup;
+    private final List<Student> _students;
+    private int _numberGroup;
 
-    public Group(Student student, int numberGroup) {
+    public Group(int numberGroup) {
+        _students = new ArrayList<>();
+        _numberGroup = numberGroup;
+
+
+
+        addStudents(new Student("Lyuda", false));
+        addStudents(new Student("Mihail", false));
+        addStudents(new Student("Denis", false));
+        addStudents(new Student("Max", true));
+        addStudents(new Student("Maria", false));
+
         // TODO Validator
-        addStudents(student);
-        setNumberGroup(numberGroup);
     }
 
     public Student getStudent(int index) {
@@ -29,11 +39,11 @@ public class Group {
     }
 
     public int getNumberGroup() {
-        return numberGroup;
+        return _numberGroup;
     }
 
     public void setNumberGroup(int numberGroup) {
-        this.numberGroup = numberGroup;
+        this._numberGroup = numberGroup;
     }
 
 }
