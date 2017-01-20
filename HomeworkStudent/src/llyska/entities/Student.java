@@ -1,12 +1,14 @@
 package llyska.entities;
 
 public class Student {
-    private String _name;
+    private final String _name;
 
     private boolean _swtDone;
 
-    public Student(String _name, boolean _swtDone) {
+    public Student(String name, boolean swtDone) {
         // TODO Validator
+        _name = name;
+        _swtDone = swtDone;
     }
 
     public String getName() {

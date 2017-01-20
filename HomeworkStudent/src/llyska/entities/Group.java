@@ -14,7 +14,7 @@ public class Group {
 
 
         addStudents(new Student("Lyuda", false));
-        addStudents(new Student("Mihail", false));
+        addStudents(new Student("Mihail", true));
         addStudents(new Student("Denis", false));
         addStudents(new Student("Max", true));
         addStudents(new Student("Maria", false));
@@ -44,6 +44,10 @@ public class Group {
 
     public void setNumberGroup(int numberGroup) {
         this._numberGroup = numberGroup;
+    }
+
+    public int size() {
+        return _students.size();
     }
 
 }
