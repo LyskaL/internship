@@ -11,8 +11,6 @@ public class Group {
         _students = new ArrayList<>();
         _numberGroup = numberGroup;
 
-
-
         addStudents(new Student("Lyuda", false));
         addStudents(new Student("Mihail", true));
         addStudents(new Student("Denis", false));
