@@ -1,27 +1,24 @@
 package llyska.entities;
 
 public class Student {
-	private String _name;
-	
-	private boolean _swtDone;
-	
-	public Student(String _name, boolean _swtDone) {
-		//TODO Validator
-	}
+    private String _name;
 
-	public String getName() {
-		return _name;
-	}
+    private boolean _swtDone;
 
+    public Student(String _name, boolean _swtDone) {
+        // TODO Validator
+    }
 
-	public boolean isSwtDone() {
-		return _swtDone;
-	}
+    public String getName() {
+        return _name;
+    }
 
-	public void setSwtDone(boolean swtDone) {
-		_swtDone = swtDone;
-	}
-	
-	
-	
+    public boolean isSwtDone() {
+        return _swtDone;
+    }
+
+    public void setSwtDone(boolean swtDone) {
+        _swtDone = swtDone;
+    }
+
 }
