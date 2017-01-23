@@ -8,6 +8,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import llyska.listeners.CancelButtonListener;
+import llyska.listeners.DeleteButtonListener;
+import llyska.listeners.NewButtonListener;
+import llyska.listeners.SaveButtonListener;
+
 public class FormView extends Composite {
     private Text _nameText;
     private Text _numberGroupText;
@@ -38,7 +43,6 @@ public class FormView extends Composite {
 
         _checkButton = new Button(checkPanel, SWT.CHECK);
         _checkButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
-        // TODO listener on button
     }
 
     private void createButtonsPanel() {
@@ -49,19 +53,22 @@ public class FormView extends Composite {
         _newButton = new Button(buttonsPanel, SWT.NONE);
         _newButton.setText("New");
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        _newButton.addListener(SWT.SELECTED, new NewButtonListener());
 
         _saveButton = new Button(buttonsPanel, SWT.NONE);
         _saveButton.setText("Save");
         _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        _saveButton.addListener(SWT.SELECTED, new SaveButtonListener());
 
         _deleteButton = new Button(buttonsPanel, SWT.NONE);
         _deleteButton.setText("Delete");
         _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        _deleteButton.addListener(SWT.SELECTED, new DeleteButtonListener());
 
         _cancelButton = new Button(buttonsPanel, SWT.NONE);
         _cancelButton.setText("Cancel");
         _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // TODO listener on buttons
+        _cancelButton.addListener(SWT.SELECTED, new CancelButtonListener());
     }
 
     private void createTextPanel() {
