@@ -102,7 +102,7 @@ public class View {
                 return p.getLastName();
             }
         });
-        col.setEditingSupport(new NumberEditingSupport(viewer));
+        col.setEditingSupport(new NumberEditorSupport(viewer));
         // now the gender
         col = createTableViewerColumn(titles[2], bounds[2], 2);
         col.setLabelProvider(new ColumnLabelProvider() {

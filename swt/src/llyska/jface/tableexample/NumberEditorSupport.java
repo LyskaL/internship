@@ -5,11 +5,11 @@ import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 
 
-public class NumberEditingSupport  extends EditingSupport {
+public class NumberEditorSupport  extends EditingSupport {
     private final TableViewer _viewer;
     private final CellEditor _editor;
 
-    public NumberEditingSupport(TableViewer viewer) {
+    public NumberEditorSupport(TableViewer viewer) {
         super(viewer);
         _viewer = viewer;
         _editor = new NumberEditing(viewer.getTable());
