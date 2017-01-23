@@ -5,6 +5,8 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -16,9 +18,13 @@ import org.eclipse.swt.widgets.Text;
 
 public class View {
     private TableViewer viewer;
+
+
     // static fields to hold the images
     private static final Image CHECKED = Constance.CHECKED;
     private static final Image UNCHECKED = Constance.UNCHECKED;
+
+    private PersonFilter filter;
 
     public void createPartControl(Composite parent) {
         GridLayout layout = new GridLayout(2, false);
@@ -28,6 +34,19 @@ public class View {
         final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
         searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
         createViewer(parent);
+
+        // New to support the search
+        searchText.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyReleased(KeyEvent ke) {
+                        filter.setSearchText(searchText.getText());
+                        viewer.refresh();
+                }
+
+        });
+        filter = new PersonFilter();
+        viewer.addFilter(filter);
+
     }
 
     private void createViewer(Composite parent) {
@@ -117,7 +136,7 @@ public class View {
                 }
             }
         });
-
+        col.setEditingSupport(new MarriedEditingSupport(viewer));
     }
 
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
