@@ -1,6 +1,7 @@
 package llyska.table.editors;
 
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -14,16 +15,18 @@ public class NumbersCellEditor extends TextCellEditor {
     }
 
     public NumbersCellEditor(Composite parent, int style) {
-        super(parent, style);
+        super(parent, SWT.RIGHT);
     }
 
     public NumbersCellEditor(Composite parent) {
-        super(parent);
+        super(parent, SWT.RIGHT);
     }
 
     @Override
     protected Control createControl(Composite parent) {
         Text text = (Text) super.createControl(parent);
+
+
         text.addVerifyListener(new VerifyListener() {
             @Override
             public void verifyText(VerifyEvent e) {

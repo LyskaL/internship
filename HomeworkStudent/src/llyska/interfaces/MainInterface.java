@@ -25,7 +25,7 @@ public class MainInterface {
         _shell.setLayout(new GridLayout(1, true));
 
         final int width = 700;
-        final int height = 250;
+        final int height = 300;
         Monitor monitor = display.getPrimaryMonitor();
         int x = (monitor.getBounds().width / 2) - width / 2;
         int y = (monitor.getBounds().height / 2) - height / 2;
