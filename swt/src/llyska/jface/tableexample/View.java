@@ -90,7 +90,6 @@ public class View {
             @Override
             public String getText(Object element) {
                 Person p = (Person) element;
-                System.out.println("отработал: p.getFirstName()");
                 return p.getFirstName();
             }
         });
@@ -101,7 +100,6 @@ public class View {
             @Override
             public String getText(Object element) {
                 Person p = (Person) element;
-                System.out.println("отработал: p.getLastName()");
                 return p.getLastName();
             }
         });
@@ -112,7 +110,6 @@ public class View {
             @Override
             public String getText(Object element) {
                 Person p = (Person) element;
-                System.out.println("отработал: p.getGender()");
                 return p.getGender();
             }
         });
@@ -128,10 +125,8 @@ public class View {
             @Override
             public Image getImage(Object element) {
                 if (((Person) element).isMarried()) {
-                    System.out.println("отработал: колонка 4 CHECKED");
                     return CHECKED;
                 } else {
-                    System.out.println("отработал: колонка 4 UNCHECKED");
                     return UNCHECKED;
                 }
             }
@@ -152,4 +147,10 @@ public class View {
     public void setFocus() {
         viewer.getControl().setFocus();
     }
+
+    // Used to update the viewer from outsite
+    public void refresh() {
+        viewer.refresh();
+    }
+
 }
