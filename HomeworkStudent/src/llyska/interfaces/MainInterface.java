@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
+import llyska.services.TableServiceImp;
 import llyska.util.Constants;
 
 public class MainInterface {
@@ -49,10 +50,10 @@ public class MainInterface {
         Composite tablePanel = new Composite(sashForm, SWT.BORDER);
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
-        new TableView(tablePanel);
 
+        new TableServiceImp(tablePanel);
 
-        Composite formPanel = new Composite(sashForm, SWT.NONE);
+        Composite formPanel = new Composite(sashForm, SWT.BORDER);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         formPanel.setLayout(new GridLayout(1, true));
         new FormView(formPanel, SWT.NONE);

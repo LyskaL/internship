@@ -4,7 +4,6 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -17,14 +16,9 @@ import llyska.table.providers.CheckButtonProvider;
 import llyska.table.providers.ModelProvider;
 import llyska.table.providers.NameProvider;
 import llyska.table.providers.NumberGroupProvider;
-import llyska.util.Constants;
 
 public class TableView {
     private TableViewer viewer;
-
-
-    private static final Image CHECKED = Constants.CHECKED;
-    private static final Image UNCHECKED = Constants.UNCHECKED;
 
     public TableView(Composite parent) {
         createViewer(parent);
