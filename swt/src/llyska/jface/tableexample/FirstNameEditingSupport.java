@@ -17,6 +17,7 @@ public class FirstNameEditingSupport extends EditingSupport {
 
     @Override
     protected CellEditor getCellEditor(Object element) {
+
         return editor;
     }
 
@@ -32,6 +33,7 @@ public class FirstNameEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object userInputValue) {
+        //заходит после изменени€ €чейки
         ((Person) element).setFirstName(String.valueOf(userInputValue));
         viewer.update(element, null);
     }
