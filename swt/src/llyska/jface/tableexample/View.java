@@ -35,7 +35,6 @@ public class View {
         searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.HORIZONTAL_ALIGN_FILL));
         createViewer(parent);
 
-        // New to support the search
         searchText.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyReleased(KeyEvent ke) {
@@ -103,7 +102,7 @@ public class View {
                 return p.getLastName();
             }
         });
-
+        col.setEditingSupport(new NumberEditingSupport(viewer));
         // now the gender
         col = createTableViewerColumn(titles[2], bounds[2], 2);
         col.setLabelProvider(new ColumnLabelProvider() {
