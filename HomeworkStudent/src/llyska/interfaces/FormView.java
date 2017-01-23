@@ -34,10 +34,10 @@ public class FormView extends Composite {
 
         Label swtTaskLabel = new Label(checkPanel, SWT.NONE);
         swtTaskLabel.setText("SWT task done");
-        swtTaskLabel.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false));
+        swtTaskLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, true));
 
         _checkButton = new Button(checkPanel, SWT.CHECK);
-        _checkButton.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, true, false));
+        _checkButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
         // TODO listener on button
     }
 

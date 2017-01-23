@@ -1,4 +1,4 @@
-package llyska.tableproviders;
+package llyska.table.providers;
 
 import llyska.entities.Student;
 

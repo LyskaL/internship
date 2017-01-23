@@ -24,7 +24,7 @@ public class MainInterface {
         _shell.setLayout(new GridLayout(1, true));
 
         final int width = 700;
-        final int height = 300;
+        final int height = 250;
         Monitor monitor = display.getPrimaryMonitor();
         int x = (monitor.getBounds().width / 2) - width / 2;
         int y = (monitor.getBounds().height / 2) - height / 2;
@@ -49,13 +49,13 @@ public class MainInterface {
         Composite tablePanel = new Composite(sashForm, SWT.BORDER);
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
-        new TableView(tablePanel, SWT.NONE);
+        new TableView(tablePanel);
 
-        Composite formPanel = new Composite(sashForm, SWT.BORDER); // FormView
+
+        Composite formPanel = new Composite(sashForm, SWT.NONE);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         formPanel.setLayout(new GridLayout(1, true));
         new FormView(formPanel, SWT.NONE);
-        // sashForm.setWeights(new int[] {1, 2});
     }
 
     private void setMenuPanel() {

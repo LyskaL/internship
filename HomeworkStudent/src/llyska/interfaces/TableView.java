@@ -1,123 +1,97 @@
 package llyska.interfaces;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
-import llyska.entities.Group;
-import llyska.tableproviders.CheckButtonProvider;
-import llyska.tableproviders.NameProvider;
-import llyska.tableproviders.NumberGroupProvider;
-import llyska.tableproviders.TableModel;
+import llyska.table.editors.CheckBoxEditingSupport;
+import llyska.table.editors.NameEditingSupport;
+import llyska.table.editors.NumberEditingSupport;
+import llyska.table.providers.CheckButtonProvider;
+import llyska.table.providers.ModelProvider;
+import llyska.table.providers.NameProvider;
+import llyska.table.providers.NumberGroupProvider;
 import llyska.util.Constants;
 
-public class TableView extends Composite {
-    private TableViewer _viewer;
-    private final Group _group = new Group(30);
+public class TableView {
+    private TableViewer viewer;
 
-    public TableView(Composite parent, int style) {
-        super(parent, style);
-        setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        setLayout(new FillLayout());
 
-        createTable();
+    private static final Image CHECKED = Constants.CHECKED;
+    private static final Image UNCHECKED = Constants.UNCHECKED;
 
+    public TableView(Composite parent) {
+        createViewer(parent);
     }
 
-    private void createTable() {
-        _viewer = new TableViewer(this, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-        _viewer.setContentProvider(ArrayContentProvider.getInstance());
+    private void createViewer(Composite parent) {
+        viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+        createColumns(parent, viewer);
+        final Table table = viewer.getTable();
+        table.setHeaderVisible(true);
+        table.setLinesVisible(true);
 
+        viewer.setContentProvider(new ArrayContentProvider());
+        viewer.setInput(ModelProvider.INSTANCE.getPersons());
+
+        GridData gridData = new GridData();
+        gridData.verticalAlignment = GridData.FILL;
+        gridData.horizontalSpan = 2;
+        gridData.grabExcessHorizontalSpace = true;
+        gridData.grabExcessVerticalSpace = true;
+        gridData.horizontalAlignment = GridData.FILL;
+        viewer.getControl().setLayoutData(gridData);
+    }
+
+    public TableViewer getViewer() {
+        return viewer;
+    }
+
+    private void createColumns(final Composite parent, final TableViewer viewer) {
         String[] titles = { "Name", "Group", "SWT done" };
-        int[] bounds = { 140, 70, 100 };
+        int[] bounds = { 140, 70, 90 };
 
         //Avoiding of padding in the first column
         //see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=43910
-        TableViewerColumn bagColumn = createTableViewerColumn("", 0);
+        TableViewerColumn bagColumn = createTableViewerColumn("", 0, 0);
         bagColumn.setLabelProvider(new NameProvider());
 
-        TableViewerColumn nameColumn = createTableViewerColumn(titles[0], bounds[0]);
-        nameColumn.setLabelProvider(new NameProvider());
-        nameColumn.getColumn().setAlignment(SWT.LEFT);
+        TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
+        col.setEditingSupport(new NameEditingSupport(viewer));
+        col.setLabelProvider(new NameProvider());
 
-        TableViewerColumn numberColumn = createTableViewerColumn(titles[1], bounds[1]);
-        numberColumn.setLabelProvider(new NumberGroupProvider());
-        numberColumn.getColumn().setAlignment(SWT.LEFT);
+        col = createTableViewerColumn(titles[1], bounds[1], 1);
+        col.setEditingSupport(new NumberEditingSupport(viewer));
+        col.setLabelProvider(new NumberGroupProvider());
+        col.getColumn().setAlignment(SWT.RIGHT);
 
-        TableViewerColumn checkButtonColumn = createTableViewerColumn(titles[2], bounds[2]);
-        checkButtonColumn.setLabelProvider(new CheckButtonProvider());
-
-        TableModel[] model = createModel();
-        _viewer.setInput(model);
-        _viewer.getTable().setLinesVisible(true);
-        _viewer.getTable().setHeaderVisible(true);
-
-        _viewer.addSelectionChangedListener(new ISelectionChangedListener()
-        {
-            @Override
-            public void selectionChanged(SelectionChangedEvent selectionEvent)
-            {
-                //changed rows
-                //get Table Model
-                final IStructuredSelection selection = (IStructuredSelection) _viewer.getSelection();
-                if (selection != null) {
-                   //System.out.println(selection.toString());
-                }
-            }
-        });
-
-        _viewer.getTable().addListener(SWT.MouseDown, new Listener(){
-            @Override
-            public void handleEvent(Event event){
-                Point pt = new Point(event.x, event.y);
-                TableItem item = _viewer.getTable().getItem(pt);
-                if(item != null) {
-                    for (int col = 0; col < _viewer.getTable().getColumnCount(); col++) {
-                        Rectangle rect = item.getBounds(col);
-                        if (rect.contains(pt) && col == 3) {
-                            if(_viewer.getCell(pt).getImage().equals(Constants.CHECKED)) {
-                                _viewer.getCell(pt).setImage(Constants.UNCHECKED);
-                            } else {
-                                _viewer.getCell(pt).setImage(Constants.CHECKED);
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
+        col = createTableViewerColumn(titles[2], bounds[2], 2);
+        col.setLabelProvider(new CheckButtonProvider());
+        col.setEditingSupport(new CheckBoxEditingSupport(viewer));
     }
 
-    private TableModel[] createModel() {
-        TableModel[] elements = new TableModel[_group.size()];
-
-        for (int i = 0; i < _group.size(); i++) {
-            elements[i] = new TableModel(_group.getStudent(i), _group.getNumberGroup());
-        }
-
-        return elements;
-    }
-
-    private TableViewerColumn createTableViewerColumn(String title, int bound) {
-        TableViewerColumn viewerColumn = new TableViewerColumn(_viewer, SWT.NONE);
+    private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
+        TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
         TableColumn column = viewerColumn.getColumn();
         column.setText(title);
         column.setWidth(bound);
-        column.setResizable(false);
-        column.setMoveable(false);
+        column.setResizable(true);
+        column.setMoveable(true);
         return viewerColumn;
     }
+
+    public void setFocus() {
+        viewer.getControl().setFocus();
+    }
+
+    public void refresh() {
+        viewer.refresh();
+    }
+
 }
