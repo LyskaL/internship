@@ -1,9 +1,18 @@
 package llyska.interfaces;
 
+import java.util.EventObject;
+
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ColumnViewerEditor;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
+import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
+import org.eclipse.jface.viewers.FocusCellOwnerDrawHighlighter;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.TableViewerEditor;
+import org.eclipse.jface.viewers.TableViewerFocusCellManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -38,6 +47,24 @@ public class TableView {
         ModelProvider.INSTANCE.setPersons(_service.getGroup());
         _viewer.setInput(ModelProvider.INSTANCE.getPersons());
 
+        TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(_viewer,
+                new FocusCellOwnerDrawHighlighter(_viewer));
+        ColumnViewerEditorActivationStrategy activationSupport = new ColumnViewerEditorActivationStrategy(_viewer) {
+            @Override
+            protected boolean isEditorActivationEvent(ColumnViewerEditorActivationEvent event) {
+                // Enable editor only with mouse double click
+                if (event.eventType == ColumnViewerEditorActivationEvent.MOUSE_DOUBLE_CLICK_SELECTION) {
+                    EventObject source = event.sourceEvent;
+                    if (source instanceof MouseEvent && ((MouseEvent) source).button == 3) {
+                        return false;
+                    }
+                    return true;
+                }
+                return false;
+            }
+        };
+        TableViewerEditor.create(_viewer, focusCellManager, activationSupport,
+                ColumnViewerEditor.DEFAULT);
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
@@ -45,6 +72,7 @@ public class TableView {
         gridData.grabExcessHorizontalSpace = true;
         gridData.grabExcessVerticalSpace = true;
         gridData.horizontalAlignment = GridData.FILL;
+
     }
 
     private void createColumns(final Composite parent, final TableViewer viewer) {
@@ -59,6 +87,7 @@ public class TableView {
         TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
         col.setEditingSupport(new NameEditingSupport(viewer));
         col.setLabelProvider(new NameProvider());
+
 
         col = createTableViewerColumn(titles[1], bounds[1], 1);
         col.setEditingSupport(new NumberEditingSupport(viewer));
