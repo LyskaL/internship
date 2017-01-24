@@ -9,22 +9,30 @@ public class Group {
 
     public Group() {
         _students = new ArrayList<>();
+
+        _students.add(new Student("Lyuda", 1, true));
+        _students.add(new Student("Max", 3, true));
+        _students.add(new Student("Adam", 1, false));
+        _students.add(new Student("Maria", 1, true));
+        _students.add(new Student("Denis", 3, true));
+        _students.add(new Student("Alex", 1, false));
+        _students.add(new Student("Irina", 1, true));
     }
 
     public void add(Student student) {
-        if(student != null) {
+        if (student != null) {
             _students.add(student);
         }
     }
 
     public void remove(Student student) {
-        if(student != null) {
+        if (student != null) {
             _students.remove(student);
         }
     }
 
     public void remove(int index) {
-        if(index < size() && index >= 0) {
+        if (index < size() && index >= 0) {
             _students.remove(index);
         }
     }

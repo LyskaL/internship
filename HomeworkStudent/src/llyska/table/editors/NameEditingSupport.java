@@ -11,6 +11,8 @@ public class NameEditingSupport extends EditingSupport {
     private final TableViewer viewer;
     private final CellEditor editor;
 
+
+
     public NameEditingSupport(TableViewer viewer) {
         super(viewer);
         this.viewer = viewer;
@@ -19,7 +21,6 @@ public class NameEditingSupport extends EditingSupport {
 
     @Override
     protected CellEditor getCellEditor(Object element) {
-
         return editor;
     }
 

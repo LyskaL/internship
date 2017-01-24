@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import llyska.services.TableService;
+import llyska.services.TableServiceImp;
 import llyska.table.editors.CheckBoxEditingSupport;
 import llyska.table.editors.NameEditingSupport;
 import llyska.table.editors.NumberEditingSupport;
@@ -18,21 +20,24 @@ import llyska.table.providers.NameProvider;
 import llyska.table.providers.NumberGroupProvider;
 
 public class TableView {
-    private TableViewer viewer;
+    private TableViewer _viewer;
+    private final TableService _service = new TableServiceImp();
 
     public TableView(Composite parent) {
         createViewer(parent);
     }
 
     private void createViewer(Composite parent) {
-        viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
-        createColumns(parent, viewer);
-        final Table table = viewer.getTable();
+        _viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+        createColumns(parent, _viewer);
+        Table table = _viewer.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
 
-        viewer.setContentProvider(new ArrayContentProvider());
-        viewer.setInput(ModelProvider.INSTANCE.getPersons());
+        _viewer.setContentProvider(new ArrayContentProvider());
+        ModelProvider.INSTANCE.setPersons(_service.getGroup());
+        _viewer.setInput(ModelProvider.INSTANCE.getPersons());
+
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
@@ -40,19 +45,14 @@ public class TableView {
         gridData.grabExcessHorizontalSpace = true;
         gridData.grabExcessVerticalSpace = true;
         gridData.horizontalAlignment = GridData.FILL;
-        viewer.getControl().setLayoutData(gridData);
-    }
-
-    public TableViewer getViewer() {
-        return viewer;
     }
 
     private void createColumns(final Composite parent, final TableViewer viewer) {
         String[] titles = { "Name", "Group", "SWT done" };
         int[] bounds = { 140, 70, 90 };
 
-        //Avoiding of padding in the first column
-        //see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=43910
+        // Avoiding of padding in the first column
+        // see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=43910
         TableViewerColumn bagColumn = createTableViewerColumn("", 0, 0);
         bagColumn.setLabelProvider(new NameProvider());
 
@@ -71,7 +71,7 @@ public class TableView {
     }
 
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
-        TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
+        TableViewerColumn viewerColumn = new TableViewerColumn(_viewer, SWT.NONE);
         TableColumn column = viewerColumn.getColumn();
         column.setText(title);
         column.setWidth(bound);
@@ -81,11 +81,11 @@ public class TableView {
     }
 
     public void setFocus() {
-        viewer.getControl().setFocus();
+        _viewer.getControl().setFocus();
     }
 
     public void refresh() {
-        viewer.refresh();
+        _viewer.refresh();
     }
 
 }

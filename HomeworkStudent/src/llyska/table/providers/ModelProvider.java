@@ -8,35 +8,21 @@ import llyska.entities.Student;
 public enum ModelProvider {
     INSTANCE;
 
-    private List<Student> persons;
+    private List<Student> _persons;
 
     private ModelProvider() {
-            persons = new ArrayList<Student>();
-
-            persons.add(new Student("Rainer", 1, true));
-            persons.add(new Student("Maris", 3, true));
-            persons.add(new Student("Marie", 1, false));
-            persons.add(new Student("Holger", 1, true));
-            persons.add(new Student("Maris", 3, true));
-            persons.add(new Student("Marie", 1, false));
-            persons.add(new Student("Holger", 1, true));
-            persons.add(new Student("Holger", 1, true));
-
-         /*   _group = new Group();
-            _group.add(new Student("Holger", 1, true));
-            _group.add(new Student("Juliane", 2, false));
-            _group.add(new Student("Maris", 3, true));
-            _group.add(new Student("Marie", 1, false));
-            _group.add(new Student("Holger", 1, true));
-            _group.add(new Student("Maris", 3, true));*/
+            _persons = new ArrayList<Student>();
     }
 
     public List<Student> getPersons() {
-            return persons;
+            return _persons;
     }
 
-  /*  public Group getPersons() {
-        return _group;
-    }*/
+    public void setPersons(List<Student> persons) {
+        if(persons != null) {
+            _persons = persons; //copy
+        }
+    }
+
 
 }

@@ -5,10 +5,14 @@ import org.eclipse.swt.widgets.Listener;
 
 public class NewButtonListener implements Listener {
 
+    public NewButtonListener() {
+        //super();
+
+    }
+
     @Override
     public void handleEvent(Event event) {
-        // TODO Auto-generated method stub
-
+        System.out.println("you pressing New button");
     }
 
 }

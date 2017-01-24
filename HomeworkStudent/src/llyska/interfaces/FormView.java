@@ -52,23 +52,26 @@ public class FormView extends Composite {
 
         _newButton = new Button(buttonsPanel, SWT.NONE);
         _newButton.setText("New");
+        _newButton.setEnabled(false);
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _newButton.addListener(SWT.SELECTED, new NewButtonListener());
+        _newButton.addListener(SWT.Selection, new NewButtonListener());
 
         _saveButton = new Button(buttonsPanel, SWT.NONE);
         _saveButton.setText("Save");
+        _saveButton.setEnabled(false);
         _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _saveButton.addListener(SWT.SELECTED, new SaveButtonListener());
+        _saveButton.addListener(SWT.Selection, new SaveButtonListener());
 
         _deleteButton = new Button(buttonsPanel, SWT.NONE);
         _deleteButton.setText("Delete");
+        _deleteButton.setEnabled(false);
         _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _deleteButton.addListener(SWT.SELECTED, new DeleteButtonListener());
+        _deleteButton.addListener(SWT.Selection, new DeleteButtonListener());
 
         _cancelButton = new Button(buttonsPanel, SWT.NONE);
         _cancelButton.setText("Cancel");
         _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _cancelButton.addListener(SWT.SELECTED, new CancelButtonListener());
+        _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
     }
 
     private void createTextPanel() {
