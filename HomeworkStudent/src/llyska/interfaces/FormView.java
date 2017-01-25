@@ -8,12 +8,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import llyska.events.ChangeStateButtonEvent;
+import llyska.events.ChangeStateButtonEventListener;
 import llyska.listeners.CancelButtonListener;
 import llyska.listeners.DeleteButtonListener;
 import llyska.listeners.NewButtonListener;
 import llyska.listeners.SaveButtonListener;
+import llyska.services.StateButtonService;
 
-public class FormView extends Composite {
+public class FormView extends Composite  implements ChangeStateButtonEventListener {
     private Text _nameText;
     private Text _numberGroupText;
     private Button _checkButton;
@@ -23,8 +26,14 @@ public class FormView extends Composite {
     private Button _deleteButton;
     private Button _cancelButton;
 
+    private final StateButtonService _stateButtonService;
+
     public FormView(Composite parent, int style) {
         super(parent, style);
+
+        _stateButtonService = StateButtonService.getInstance();
+        _stateButtonService.addDataEventListener(this);
+
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         setLayout(new GridLayout(1, true));
 
@@ -93,32 +102,25 @@ public class FormView extends Composite {
         createCheckButtonPanel(textPanel);
     }
 
-    public Text getNameText() {
-        return _nameText;
-    }
+    @Override
+    public void handleEvent(ChangeStateButtonEvent e) {
+        if ((e.getStateButton() & ChangeStateButtonEvent.TABLE_SELECTED) != 0) {
+            _deleteButton.setEnabled(true);
+        } else {
+            _deleteButton.setEnabled(false);
+        }
 
-    public Text getNumberGroupText() {
-        return _numberGroupText;
-    }
+        if ((e.getStateButton() & ChangeStateButtonEvent.TABLE_EDITED) != 0) {
+            _saveButton.setEnabled(true);
+        } else {
+            _saveButton.setEnabled(false);
+        }
 
-    public Button getCheckButton() {
-        return _checkButton;
-    }
-
-    public Button getNewButton() {
-        return _newButton;
-    }
-
-    public Button getSaveButton() {
-        return _saveButton;
-    }
-
-    public Button getDeleteButton() {
-        return _deleteButton;
-    }
-
-    public Button getCancelButton() {
-        return _cancelButton;
+        if ((e.getStateButton() & ChangeStateButtonEvent.FORM_FILLED) != 0) {
+            _newButton.setEnabled(true);
+        } else {
+            _newButton.setEnabled(false);
+        }
     }
 
 }

@@ -15,9 +15,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import llyska.events.ChangeStateButtonEvent;
+import llyska.services.StateButtonService;
 import llyska.services.TableService;
 import llyska.services.TableServiceImp;
 import llyska.table.editors.CheckBoxEditingSupport;
@@ -32,11 +36,14 @@ public class TableView {
     private TableViewer _viewer;
     private final TableService _service = new TableServiceImp();
 
+    private StateButtonService _stateButtonService;
+
     public TableView(Composite parent) {
         createViewer(parent);
     }
 
     private void createViewer(Composite parent) {
+        _stateButtonService = StateButtonService.getInstance();
         _viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, _viewer);
         Table table = _viewer.getTable();
@@ -65,6 +72,26 @@ public class TableView {
         };
         TableViewerEditor.create(_viewer, focusCellManager, activationSupport,
                 ColumnViewerEditor.DEFAULT);
+
+
+        _viewer.getTable().addListener(SWT.Selection, new Listener() {
+            @Override
+            public void handleEvent(Event e) {
+                System.out.println("Запустили runEvent из таблицы - TABLE_SELECTED");
+                ChangeStateButtonEvent.getInstance().setStateButton(ChangeStateButtonEvent.TABLE_SELECTED);
+                _stateButtonService.runEvent();
+              }
+            });
+
+        _viewer.getTable().addListener(SWT.DefaultSelection, new Listener() {
+            @Override
+            public void handleEvent(Event e) {
+              /*  System.out.println("Запустили runEvent из таблицы - TABLE_EDITED");
+                ChangeStateButtonEvent.getInstance().setStateButton(ChangeStateButtonEvent.TABLE_EDITED);
+                _stateButtonService.runEvent();*/
+              }
+            });
+
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
