@@ -1,4 +1,4 @@
-package llyska.events;
+package llyska.events.state;
 
 public class ChangeStateEvent {
     public static final int TABLE_SELECTED = 1;

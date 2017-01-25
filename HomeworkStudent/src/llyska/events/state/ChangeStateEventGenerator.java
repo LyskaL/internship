@@ -1,4 +1,4 @@
-package llyska.events;
+package llyska.events.state;
 
 import java.util.Set;
 
