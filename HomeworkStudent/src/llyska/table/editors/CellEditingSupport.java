@@ -4,16 +4,16 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 
-import llyska.events.ChangeStateButtonEvent;
-import llyska.services.StateButtonService;
+import llyska.events.ChangeStateEvent;
+import llyska.services.StateService;
 
 public class CellEditingSupport extends EditingSupport {
-    private final StateButtonService _stateButtonService;
+    private final StateService _stateService;
 
 
     public CellEditingSupport(ColumnViewer viewer) {
         super(viewer);
-        _stateButtonService = StateButtonService.getInstance();
+        _stateService = StateService.getInstance();
     }
 
     @Override
@@ -33,8 +33,8 @@ public class CellEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object value) {
-        ChangeStateButtonEvent.getInstance().setStateButton(ChangeStateButtonEvent.TABLE_EDITED|ChangeStateButtonEvent.TABLE_SELECTED);
-        _stateButtonService.runEvent();
+        _stateService.enableState(ChangeStateEvent.TABLE_EDITED);
+        _stateService.runEvent();
     }
 
 }

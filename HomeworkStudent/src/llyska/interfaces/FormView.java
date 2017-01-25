@@ -1,6 +1,8 @@
 package llyska.interfaces;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -8,15 +10,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import llyska.events.ChangeStateButtonEvent;
-import llyska.events.ChangeStateButtonEventListener;
+import llyska.events.ChangeStateEvent;
+import llyska.events.ChangeStateEventListener;
 import llyska.listeners.CancelButtonListener;
 import llyska.listeners.DeleteButtonListener;
 import llyska.listeners.NewButtonListener;
 import llyska.listeners.SaveButtonListener;
-import llyska.services.StateButtonService;
+import llyska.services.StateService;
 
-public class FormView extends Composite  implements ChangeStateButtonEventListener {
+public class FormView extends Composite  implements ChangeStateEventListener {
     private Text _nameText;
     private Text _numberGroupText;
     private Button _checkButton;
@@ -26,13 +28,13 @@ public class FormView extends Composite  implements ChangeStateButtonEventListen
     private Button _deleteButton;
     private Button _cancelButton;
 
-    private final StateButtonService _stateButtonService;
+    private final StateService _stateService;
 
     public FormView(Composite parent, int style) {
         super(parent, style);
 
-        _stateButtonService = StateButtonService.getInstance();
-        _stateButtonService.addDataEventListener(this);
+        _stateService = StateService.getInstance();
+        _stateService.addDataEventListener(this);
 
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         setLayout(new GridLayout(1, true));
@@ -91,36 +93,41 @@ public class FormView extends Composite  implements ChangeStateButtonEventListen
         Label nameLabel = new Label(textPanel, SWT.NONE);
         nameLabel.setText("Name");
         nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _nameText = new Text(textPanel, SWT.BORDER);
+        _nameText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _nameText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _nameText.addKeyListener(new TextKeyListener());
 
         Label groupLabel = new Label(textPanel, SWT.NONE);
         groupLabel.setText("Group");
         groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _numberGroupText = new Text(textPanel, SWT.BORDER);
+        _numberGroupText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _numberGroupText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _numberGroupText.addKeyListener(new TextKeyListener());
         createCheckButtonPanel(textPanel);
     }
 
     @Override
-    public void handleEvent(ChangeStateButtonEvent e) {
-        if ((e.getStateButton() & ChangeStateButtonEvent.TABLE_SELECTED) != 0) {
-            _deleteButton.setEnabled(true);
-        } else {
-            _deleteButton.setEnabled(false);
-        }
-
-        if ((e.getStateButton() & ChangeStateButtonEvent.TABLE_EDITED) != 0) {
-            _saveButton.setEnabled(true);
-        } else {
-            _saveButton.setEnabled(false);
-        }
-
-        if ((e.getStateButton() & ChangeStateButtonEvent.FORM_FILLED) != 0) {
-            _newButton.setEnabled(true);
-        } else {
-            _newButton.setEnabled(false);
-        }
+    public void handleEvent(ChangeStateEvent e) {
+        _deleteButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_SELECTED));
+        _saveButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_EDITED));
+        _newButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 
+
+    class TextKeyListener implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {}
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if(_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
+                _stateService.enableState(ChangeStateEvent.FORM_FILLED);
+            } else {
+                _stateService.disableState(ChangeStateEvent.FORM_FILLED);
+            }
+            _stateService.runEvent();
+        }
+
+    }
 }
