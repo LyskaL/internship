@@ -1,12 +1,11 @@
 package llyska.table.editors;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 
 import llyska.entities.Student;
 
-public class NumberEditingSupport extends EditingSupport {
+public class NumberEditingSupport extends CellEditingSupport {
     private final TableViewer _viewer;
     private final CellEditor _editor;
 
@@ -34,7 +33,7 @@ public class NumberEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object userInputValue) {
-        // ((Person) element).setLastName(String.valueOf(userInputValue));
+        super.setValue(element, userInputValue);
         _viewer.update(element, null);
     }
 

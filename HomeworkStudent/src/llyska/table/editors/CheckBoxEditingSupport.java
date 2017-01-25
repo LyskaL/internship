@@ -2,13 +2,12 @@ package llyska.table.editors;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 
 import llyska.entities.Student;
 
-public class CheckBoxEditingSupport extends EditingSupport {
+public class CheckBoxEditingSupport extends CellEditingSupport {
 
     private final TableViewer viewer;
 
@@ -37,6 +36,7 @@ public class CheckBoxEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object value) {
+        super.setValue(element, value);
         Student student = (Student) element;
         student.setSwtDone((Boolean) value);
         viewer.update(element, null);

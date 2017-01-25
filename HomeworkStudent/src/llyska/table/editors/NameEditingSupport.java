@@ -1,13 +1,12 @@
 package llyska.table.editors;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import llyska.entities.Student;
 
-public class NameEditingSupport extends EditingSupport {
+public class NameEditingSupport extends CellEditingSupport {
     private final TableViewer viewer;
     private final CellEditor editor;
 
@@ -36,8 +35,7 @@ public class NameEditingSupport extends EditingSupport {
 
     @Override
     protected void setValue(Object element, Object userInputValue) {
-        //заходит после изменени€ €чейки
-        //((Student) element).setName(String.valueOf(userInputValue));
+       super.setValue(element, userInputValue);
         viewer.update(element, null);
     }
 
