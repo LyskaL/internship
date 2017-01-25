@@ -36,12 +36,10 @@ import llyska.util.Constants;
 public class TableView implements TableEventListener {
     private TableViewer _viewer;
     private final TableService _service = Constants.TABLE_SERVICE;
-
     private StateService _stateService;
 
     public TableView(Composite parent) {
         createViewer(parent);
-
     }
 
     private void createViewer(Composite parent) {
@@ -54,10 +52,9 @@ public class TableView implements TableEventListener {
         table.setLinesVisible(true);
 
         _viewer.setContentProvider(new ArrayContentProvider());
-        //
         ModelProvider.INSTANCE.setPersons(_service.getGroup());
         _viewer.setInput(ModelProvider.INSTANCE.getPersons());
-        //
+
         TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(_viewer,
                 new FocusCellOwnerDrawHighlighter(_viewer));
         ColumnViewerEditorActivationStrategy activationSupport = new ColumnViewerEditorActivationStrategy(_viewer) {
@@ -84,7 +81,6 @@ public class TableView implements TableEventListener {
                 _stateService.runEvent();
               }
             });
-
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;

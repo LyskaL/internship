@@ -82,7 +82,7 @@ public class FormView extends Composite implements ChangeStateEventListener {
         _cancelButton = new Button(buttonsPanel, SWT.NONE);
         _cancelButton.setText("Cancel");
         _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
+        _cancelButton.addListener(SWT.Selection, new CancelButtonListener(this));
     }
 
     private void createTextPanel() {
