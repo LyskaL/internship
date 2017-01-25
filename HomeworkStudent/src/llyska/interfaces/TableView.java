@@ -20,10 +20,10 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import llyska.events.ChangeStateEvent;
+import llyska.events.state.ChangeStateEvent;
+import llyska.events.table.TableEventListener;
 import llyska.services.StateService;
 import llyska.services.TableService;
-import llyska.services.TableServiceImp;
 import llyska.table.editors.CheckBoxEditingSupport;
 import llyska.table.editors.NameEditingSupport;
 import llyska.table.editors.NumberEditingSupport;
@@ -31,19 +31,22 @@ import llyska.table.providers.CheckButtonProvider;
 import llyska.table.providers.ModelProvider;
 import llyska.table.providers.NameProvider;
 import llyska.table.providers.NumberGroupProvider;
+import llyska.util.Constants;
 
-public class TableView {
+public class TableView implements TableEventListener {
     private TableViewer _viewer;
-    private final TableService _service = new TableServiceImp();
+    private final TableService _service = Constants.TABLE_SERVICE;
 
     private StateService _stateService;
 
     public TableView(Composite parent) {
         createViewer(parent);
+
     }
 
     private void createViewer(Composite parent) {
         _stateService = StateService.getInstance();
+        _service.addTableEventListener(this);
         _viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, _viewer);
         Table table = _viewer.getTable();
@@ -51,9 +54,10 @@ public class TableView {
         table.setLinesVisible(true);
 
         _viewer.setContentProvider(new ArrayContentProvider());
+        //
         ModelProvider.INSTANCE.setPersons(_service.getGroup());
         _viewer.setInput(ModelProvider.INSTANCE.getPersons());
-
+        //
         TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(_viewer,
                 new FocusCellOwnerDrawHighlighter(_viewer));
         ColumnViewerEditorActivationStrategy activationSupport = new ColumnViewerEditorActivationStrategy(_viewer) {
@@ -130,6 +134,13 @@ public class TableView {
     }
 
     public void refresh() {
+        _viewer.refresh();
+    }
+
+    @Override
+    public void tableEvent(ChangeStateEvent e) {
+        ModelProvider.INSTANCE.setPersons(_service.getGroup());
+        _viewer.setInput(ModelProvider.INSTANCE.getPersons());
         _viewer.refresh();
     }
 

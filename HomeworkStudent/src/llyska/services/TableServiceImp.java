@@ -1,45 +1,51 @@
 package llyska.services;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import llyska.entities.Group;
 import llyska.entities.Student;
+import llyska.events.table.TableEventListener;
+
 
 public class TableServiceImp implements TableService {
     private final Group _group;
+    private final Set<TableEventListener> _listeners;
 
     public TableServiceImp() {
         _group = new Group();
+        _listeners = new HashSet<>();
     }
 
     @Override
     public void cleanStudents() {
-
+        _group.clean();
     }
 
     @Override
     public void addStudent(Student student) {
-        // TODO Auto-generated method stub
-
+        _group.add(student);
+        notifyListeners();
     }
 
     @Override
     public void removeStudent(Student student) {
-        // TODO Auto-generated method stub
-
+        _group.remove(student);
+        notifyListeners();
     }
 
     @Override
     public void removeStudent(int index) {
-        // TODO Auto-generated method stub
-
+        _group.remove(index);
+        notifyListeners();
     }
 
     @Override
     public void setStudent(Student student, int index) {
-        // TODO Auto-generated method stub
-
+        _group.set(student, index);
+        notifyListeners();
     }
 
     @Override
@@ -47,4 +53,24 @@ public class TableServiceImp implements TableService {
         return Collections.unmodifiableList(_group.getGroup());
     }
 
+    @Override
+    public void addTableEventListener(TableEventListener listener) {
+        _listeners.add(listener);
+    }
+
+    @Override
+    public void removeTableEventListener(TableEventListener listener) {
+        _listeners.remove(listener);
+    }
+
+    @Override
+    public Set<TableEventListener> getListeners() {
+        return Collections.unmodifiableSet(_listeners);
+    }
+
+    private void notifyListeners() {
+        for (TableEventListener listener: _listeners) {
+            listener.tableEvent(null);
+          }
+    }
 }

@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import llyska.events.ChangeStateEvent;
-import llyska.events.ChangeStateEventGenerator;
-import llyska.events.ChangeStateEventListener;
+import llyska.events.state.ChangeStateEvent;
+import llyska.events.state.ChangeStateEventGenerator;
+import llyska.events.state.ChangeStateEventListener;
 
 public class StateService implements ChangeStateEventGenerator {
 

@@ -1,11 +1,12 @@
 package llyska.entities;
 
 public class Student {
+
     private final String _name;
-    private int _numberGroup;
+    private String _numberGroup;
     private boolean _swtDone;
 
-    public Student(String name, int numberGroup, boolean swtDone) {
+    public Student(String name, String numberGroup, boolean swtDone) {
         // TODO Validator
         _name = name;
         _swtDone = swtDone;
@@ -24,12 +25,16 @@ public class Student {
         _swtDone = swtDone;
     }
 
-    public int getNumberGroup() {
+    public String getNumberGroup() {
         return _numberGroup;
     }
 
-    public void setNumberGroup(int numberGroup) {
+    public void setNumberGroup(String numberGroup) {
         _numberGroup = numberGroup;
     }
 
+    @Override
+    public String toString() {
+        return "Student [_name=" + _name + ", _numberGroup=" + _numberGroup + ", _swtDone=" + _swtDone + "]";
+    }
 }

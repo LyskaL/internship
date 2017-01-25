@@ -3,8 +3,9 @@ package llyska.services;
 import java.util.List;
 
 import llyska.entities.Student;
+import llyska.events.table.TableEventGenerator;
 
-public interface TableService {
+public interface TableService extends TableEventGenerator {
 
     List<Student> getGroup();
     void cleanStudents();

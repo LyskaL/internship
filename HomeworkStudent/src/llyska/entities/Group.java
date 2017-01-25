@@ -10,13 +10,13 @@ public class Group {
     public Group() {
         _students = new ArrayList<>();
 
-        _students.add(new Student("Lyuda", 1, true));
-        _students.add(new Student("Max", 3, true));
-        _students.add(new Student("Adam", 1, false));
-        _students.add(new Student("Maria", 1, true));
-        _students.add(new Student("Denis", 3, true));
-        _students.add(new Student("Alex", 1, false));
-        _students.add(new Student("Irina", 1, true));
+        _students.add(new Student("Lyuda", "1", true));
+        _students.add(new Student("Max", "3", true));
+        _students.add(new Student("Adam", "1", false));
+        _students.add(new Student("Maria", "1", true));
+        _students.add(new Student("Denis", "3", true));
+        _students.add(new Student("Alex", "1", false));
+        _students.add(new Student("Irina", "1", true));
     }
 
     public void add(Student student) {

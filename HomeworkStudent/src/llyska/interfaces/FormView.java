@@ -10,15 +10,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import llyska.events.ChangeStateEvent;
-import llyska.events.ChangeStateEventListener;
+import llyska.events.state.ChangeStateEvent;
+import llyska.events.state.ChangeStateEventListener;
 import llyska.listeners.CancelButtonListener;
 import llyska.listeners.DeleteButtonListener;
 import llyska.listeners.NewButtonListener;
 import llyska.listeners.SaveButtonListener;
 import llyska.services.StateService;
 
-public class FormView extends Composite  implements ChangeStateEventListener {
+public class FormView extends Composite implements ChangeStateEventListener {
     private Text _nameText;
     private Text _numberGroupText;
     private Button _checkButton;
@@ -43,7 +43,7 @@ public class FormView extends Composite  implements ChangeStateEventListener {
         createButtonsPanel();
     }
 
-    private void createCheckButtonPanel(Composite textPanel ) {
+    private void createCheckButtonPanel(Composite textPanel) {
         Composite checkPanel = new Composite(textPanel, SWT.NONE);
         checkPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
         checkPanel.setLayout(new GridLayout(2, true));
@@ -65,7 +65,7 @@ public class FormView extends Composite  implements ChangeStateEventListener {
         _newButton.setText("New");
         _newButton.setEnabled(false);
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _newButton.addListener(SWT.Selection, new NewButtonListener());
+        _newButton.addListener(SWT.Selection, new NewButtonListener(this));
 
         _saveButton = new Button(buttonsPanel, SWT.NONE);
         _saveButton.setText("Save");
@@ -113,21 +113,31 @@ public class FormView extends Composite  implements ChangeStateEventListener {
         _newButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 
-
     class TextKeyListener implements KeyListener {
-
         @Override
-        public void keyPressed(KeyEvent e) {}
+        public void keyPressed(KeyEvent e) {
+        }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            if(_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
+            if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
                 _stateService.enableState(ChangeStateEvent.FORM_FILLED);
             } else {
                 _stateService.disableState(ChangeStateEvent.FORM_FILLED);
             }
             _stateService.runEvent();
         }
+    }
 
+    public Text getNameField() {
+        return _nameText;
+    }
+
+    public Text getNumberField() {
+        return _numberGroupText;
+    }
+
+    public Button getCheckButton() {
+        return _checkButton;
     }
 }

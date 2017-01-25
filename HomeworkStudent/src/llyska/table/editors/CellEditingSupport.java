@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 
-import llyska.events.ChangeStateEvent;
+import llyska.events.state.ChangeStateEvent;
 import llyska.services.StateService;
 
 public class CellEditingSupport extends EditingSupport {
