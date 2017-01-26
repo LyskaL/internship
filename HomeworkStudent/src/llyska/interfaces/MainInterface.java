@@ -11,10 +11,21 @@ import org.eclipse.swt.widgets.Shell;
 
 import llyska.util.Constants;
 
+/**
+ * The class is main interface our program.
+ * It consists of some components such as: MenuView, TableView and FormView.
+ *
+ * @author Lyska Lyudmila
+ */
 public class MainInterface {
     private final Shell _shell;
     private MenuView _menu;
 
+    /**
+     * Constructor this class.
+     * Creates shell, sets size window,
+     * adds menu and main panel, starts processing events.
+     */
     public MainInterface() {
         Display display = new Display();
         Constants.setDisplay(display);
@@ -42,6 +53,13 @@ public class MainInterface {
         display.dispose();
     }
 
+    /**
+     * Split main panel on two part by using SashForm.
+     *
+     * On first part adds TableView (table with data).
+     * On second part adds FormView (form with text fields for filling data about a student
+     * and a panel with buttons for management other components.)
+     */
     private void setMainPanel() {
         SashForm sashForm = new SashForm(_shell, SWT.HORIZONTAL | SWT.NONE);
         sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -58,11 +76,17 @@ public class MainInterface {
         new FormView(formPanel, SWT.NONE);
     }
 
+    /**
+     * Adds a menu on shell.
+     */
     private void setMenuPanel() {
         _menu = new MenuView(_shell, SWT.BAR);
         _shell.setMenuBar(_menu.getMenu());
     }
 
+    /**
+     * Starts our application
+     */
     public static void main(String[] args) {
         new MainInterface();
     }

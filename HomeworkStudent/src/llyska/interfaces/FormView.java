@@ -28,6 +28,8 @@ import llyska.util.Constants;
  * The class is composite on which located form for fill information about student.
  * Also, form has panel with buttons for management other components.
  *
+ * The class implements interfaces for tracking events a change state and form event.
+ *
  * @author Lyska Lyudmila
  *
  */
@@ -54,6 +56,13 @@ public class FormView extends Composite implements ChangeStateEventListener, For
     /** Service for working data in table **/
     private final TableService _tableService = Constants.TABLE_SERVICE;
 
+    /**
+     * Constructor this class.
+     * Creates services, sets layouts and adds other components.
+     *
+     * @param parent on what form
+     * @param style form
+     */
     public FormView(Composite parent, int style) {
         super(parent, style);
 
@@ -66,7 +75,34 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         createTextPanel();
         createButtonsPanel();
     }
+    /**
+     * Creates panel with text fields for entering data about student.
+     */
+    private void createTextPanel() {
+        Composite textPanel = new Composite(this, SWT.NONE);
+        textPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        textPanel.setLayout(new GridLayout(2, true));
 
+        Label nameLabel = new Label(textPanel, SWT.NONE);
+        nameLabel.setText("Name");
+        nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _nameText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
+        _nameText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _nameText.addKeyListener(new TextKeyListener());
+
+        Label groupLabel = new Label(textPanel, SWT.NONE);
+        groupLabel.setText("Group");
+        groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _numberGroupText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
+        _numberGroupText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        _numberGroupText.addKeyListener(new TextKeyListener());
+        createCheckButtonPanel(textPanel);
+    }
+    /**
+     * Creates check button for choosing to student task done or not.
+     *
+     * @param textPanel panel on that adds check button
+     */
     private void createCheckButtonPanel(Composite textPanel) {
         Composite checkPanel = new Composite(textPanel, SWT.NONE);
         checkPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false, 2, 1));
@@ -80,6 +116,9 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         _checkButton.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, true));
     }
 
+    /**
+     * Creates buttons for management other components.
+     */
     private void createButtonsPanel() {
         Composite buttonsPanel = new Composite(this, SWT.NONE);
         buttonsPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
@@ -106,27 +145,6 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         _cancelButton.setText("Cancel");
         _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
-    }
-
-    private void createTextPanel() {
-        Composite textPanel = new Composite(this, SWT.NONE);
-        textPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        textPanel.setLayout(new GridLayout(2, true));
-
-        Label nameLabel = new Label(textPanel, SWT.NONE);
-        nameLabel.setText("Name");
-        nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _nameText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
-        _nameText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _nameText.addKeyListener(new TextKeyListener());
-
-        Label groupLabel = new Label(textPanel, SWT.NONE);
-        groupLabel.setText("Group");
-        groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _numberGroupText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
-        _numberGroupText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        _numberGroupText.addKeyListener(new TextKeyListener());
-        createCheckButtonPanel(textPanel);
     }
 
     @Override

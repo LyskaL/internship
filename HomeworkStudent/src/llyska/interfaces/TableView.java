@@ -35,16 +35,43 @@ import llyska.table.providers.NameProvider;
 import llyska.table.providers.NumberGroupProvider;
 import llyska.util.Constants;
 
+/**
+ * The class is table which contains information about group.
+ *
+ * The class implements interface TableEventListener
+ * for tracking events a change state table.
+ *
+ * @author Lyska Lyudmila
+ *
+ */
 public class TableView implements TableEventListener {
+    /** Table with data about group **/
     private TableViewer _viewer;
 
+    /** Service for working data in table **/
     private final TableService _service = Constants.TABLE_SERVICE;
+    /** Service for handling event on form **/
     private StateService _stateService;
 
+    /**
+     * Constructor this class.
+     * Creates services and adds other menu items.
+     *
+     * @param parent on what menu
+     * @param style menu
+     */
     public TableView(Composite parent) {
         createViewer(parent);
     }
 
+    /**
+     * Creates table and configures it.
+     * Adds listener by on click, change default behavior
+     * (row selection by one click and not double-click),
+     * sets layout (to stretch the table across the component).
+     *
+     * @param parent on that to add
+     */
     private void createViewer(Composite parent) {
         _stateService = StateService.getInstance();
         _service.addTableEventListener(this);
@@ -99,6 +126,13 @@ public class TableView implements TableEventListener {
         _viewer.getTable().setLayoutData(gridData);
     }
 
+    /**
+     * Creates columns for table.
+     * Sets LabelProviders and EditingSupports them.
+     *
+     * @param parent on that to add
+     * @param viewer is table
+     */
     private void createColumns(final Composite parent, final TableViewer viewer) {
         String[] titles = { "Name", "Group", "SWT done" };
         int[] bounds = { 140, 70, 90 };
@@ -123,6 +157,14 @@ public class TableView implements TableEventListener {
         col.setEditingSupport(new CheckBoxEditingSupport(viewer));
     }
 
+    /**
+     * Creates new column in table.
+     *
+     * @param title is name of column
+     * @param bound is width of column
+     * @param colNumber is number of column
+     * @return column
+     */
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
         TableViewerColumn viewerColumn = new TableViewerColumn(_viewer, SWT.NONE);
         TableColumn column = viewerColumn.getColumn();
@@ -133,14 +175,9 @@ public class TableView implements TableEventListener {
         return viewerColumn;
     }
 
-    public void setFocus() {
-        _viewer.getControl().setFocus();
-    }
-
-    public void refresh() {
-        _viewer.refresh();
-    }
-
+    /**
+     * Updates the table after data change.
+     */
     @Override
     public void tableEvent(ChangeStateEvent e) {
         ModelProvider.INSTANCE.setPersons(_service.getGroup());
