@@ -2,7 +2,7 @@ package llyska.events.state;
 
 public class ChangeStateEvent {
     public static final int TABLE_SELECTED = 1;
-    public static final int TABLE_EDITED = 1<<1;
+    //public static final int TABLE_EDITED = 1<<1;
     public static final int FORM_FILLED = 1<<2;
 
     private final int _state;

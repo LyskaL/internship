@@ -6,5 +6,4 @@ public interface TableEventGenerator {
     void addTableEventListener(TableEventListener listener);
     void removeTableEventListener(TableEventListener listener);
     Set<TableEventListener> getListeners();
-
 }

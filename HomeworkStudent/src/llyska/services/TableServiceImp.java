@@ -13,6 +13,7 @@ import llyska.events.table.TableEventListener;
 public class TableServiceImp implements TableService {
     private final Group _group;
     private final Set<TableEventListener> _listeners;
+    private int _selectRows;
 
     public TableServiceImp() {
         _group = new Group();
@@ -22,6 +23,8 @@ public class TableServiceImp implements TableService {
     @Override
     public void cleanStudents() {
         _group.clean();
+        _selectRows = 0;
+        notifyListeners();
     }
 
     @Override
@@ -37,8 +40,8 @@ public class TableServiceImp implements TableService {
     }
 
     @Override
-    public void removeStudent(int index) {
-        _group.remove(index);
+    public void removeSelectStudent() {
+        _group.remove(_selectRows);
         notifyListeners();
     }
 
@@ -72,5 +75,20 @@ public class TableServiceImp implements TableService {
         for (TableEventListener listener: _listeners) {
             listener.tableEvent(null);
           }
+    }
+
+    @Override
+    public int getIndex(Student student) {
+        return _group.getIndex(student);
+    }
+
+    @Override
+    public void setIndexSelect(int index) {
+        _selectRows = index;
+    }
+
+    @Override
+    public int getIndexSelect() {
+        return _selectRows;
     }
 }
