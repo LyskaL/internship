@@ -20,7 +20,7 @@ public class MainInterface {
         Constants.setDisplay(display);
 
         _shell = new Shell(display);
-        _shell.setText("JFace homework log");
+        _shell.setText("Task Students");
         _shell.setLayout(new GridLayout(1, true));
 
         final int width = 700;

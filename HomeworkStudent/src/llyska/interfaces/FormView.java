@@ -10,15 +10,21 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import llyska.entities.Student;
+import llyska.events.form.FormEvent;
+import llyska.events.form.FormEventListener;
 import llyska.events.state.ChangeStateEvent;
 import llyska.events.state.ChangeStateEventListener;
 import llyska.listeners.CancelButtonListener;
 import llyska.listeners.DeleteButtonListener;
 import llyska.listeners.NewButtonListener;
 import llyska.listeners.SaveButtonListener;
+import llyska.services.FormEventService;
 import llyska.services.StateService;
+import llyska.services.TableService;
+import llyska.util.Constants;
 
-public class FormView extends Composite implements ChangeStateEventListener {
+public class FormView extends Composite implements ChangeStateEventListener, FormEventListener {
     private Text _nameText;
     private Text _numberGroupText;
     private Button _checkButton;
@@ -28,12 +34,14 @@ public class FormView extends Composite implements ChangeStateEventListener {
     private Button _deleteButton;
     private Button _cancelButton;
 
-    private final StateService _stateService;
+    private final StateService _stateService = StateService.getInstance();;
+    private final FormEventService _formService = FormEventService.getInstance();
+    private final TableService _tableService = Constants.TABLE_SERVICE;
 
     public FormView(Composite parent, int style) {
         super(parent, style);
 
-        _stateService = StateService.getInstance();
+        _formService.addTableEventListener(this);
         _stateService.addDataEventListener(this);
 
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -63,9 +71,8 @@ public class FormView extends Composite implements ChangeStateEventListener {
 
         _newButton = new Button(buttonsPanel, SWT.NONE);
         _newButton.setText("New");
-        _newButton.setEnabled(false);
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _newButton.addListener(SWT.Selection, new NewButtonListener(this));
+        _newButton.addListener(SWT.Selection, new NewButtonListener());
 
         _saveButton = new Button(buttonsPanel, SWT.NONE);
         _saveButton.setText("Save");
@@ -82,7 +89,7 @@ public class FormView extends Composite implements ChangeStateEventListener {
         _cancelButton = new Button(buttonsPanel, SWT.NONE);
         _cancelButton.setText("Cancel");
         _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _cancelButton.addListener(SWT.Selection, new CancelButtonListener(this));
+        _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
     }
 
     private void createTextPanel() {
@@ -109,8 +116,7 @@ public class FormView extends Composite implements ChangeStateEventListener {
     @Override
     public void handleEvent(ChangeStateEvent e) {
         _deleteButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_SELECTED));
-        _saveButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_EDITED));
-        _newButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
+        _saveButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 
     class TextKeyListener implements KeyListener {
@@ -139,5 +145,19 @@ public class FormView extends Composite implements ChangeStateEventListener {
 
     public Button getCheckButton() {
         return _checkButton;
+    }
+
+    @Override
+    public void formEvent(FormEvent e) {
+        if(e.checkCommand(FormEvent.FORM_SAVE)) {
+            Student student = new Student(_nameText.getText(),_numberGroupText.getText(),_checkButton.getSelection());
+            _tableService.addStudent(student);
+        }
+        _nameText.setText("");
+        _numberGroupText.setText("");
+        _checkButton.setSelection(false);
+
+        _stateService.disableState(ChangeStateEvent.FORM_FILLED);
+        _stateService.runEvent();
     }
 }

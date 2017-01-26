@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.FocusCellOwnerDrawHighlighter;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
@@ -20,6 +21,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
+import llyska.entities.Student;
 import llyska.events.state.ChangeStateEvent;
 import llyska.events.table.TableEventListener;
 import llyska.services.StateService;
@@ -45,7 +47,7 @@ public class TableView implements TableEventListener {
     private void createViewer(Composite parent) {
         _stateService = StateService.getInstance();
         _service.addTableEventListener(this);
-        _viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+        _viewer = new TableViewer(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, _viewer);
         Table table = _viewer.getTable();
         table.setHeaderVisible(true);
@@ -77,6 +79,9 @@ public class TableView implements TableEventListener {
         _viewer.getTable().addListener(SWT.Selection, new Listener() {
             @Override
             public void handleEvent(Event e) {
+                IStructuredSelection selection = (IStructuredSelection)_viewer.getSelection();
+                int selectIndex = _service.getIndex((Student)selection.getFirstElement());
+                _service.setIndexSelect(selectIndex);
                 _stateService.enableState(ChangeStateEvent.TABLE_SELECTED);
                 _stateService.runEvent();
               }

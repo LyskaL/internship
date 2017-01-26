@@ -2,7 +2,7 @@ package llyska.entities;
 
 public class Student {
 
-    private final String _name;
+    private String _name;
     private String _numberGroup;
     private boolean _swtDone;
 
@@ -31,6 +31,10 @@ public class Student {
 
     public void setNumberGroup(String numberGroup) {
         _numberGroup = numberGroup;
+    }
+
+    public void setName(String name) {
+        _name = name;
     }
 
     @Override

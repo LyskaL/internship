@@ -7,6 +7,10 @@ import org.eclipse.swt.widgets.MenuItem;
 
 import llyska.events.state.ChangeStateEvent;
 import llyska.events.state.ChangeStateEventListener;
+import llyska.listeners.CancelButtonListener;
+import llyska.listeners.DeleteButtonListener;
+import llyska.listeners.NewButtonListener;
+import llyska.listeners.SaveButtonListener;
 import llyska.services.StateService;
 
 public class MenuView implements ChangeStateEventListener {
@@ -15,11 +19,10 @@ public class MenuView implements ChangeStateEventListener {
     private Menu _editMenu;
     private Menu _helpMenu;
     private MenuItem _fileMenuHeader, _editMenuHeader, _helpMenuHeader;
-
-    private MenuItem _fileNewFileItem, _fileExitItem, _helpGetHelpItem,  _editSaveItem, _editDeleteItem,  _editCancelItem;
+    private MenuItem _fileNewFileItem, _fileExitItem, _helpGetHelpItem,
+                     _editSaveItem, _editDeleteItem,  _editCancelItem;
 
     private final StateService _stateService;
-
 
     public MenuView(Decorations parent, int style) {
         _menu = new Menu(parent, style);
@@ -40,7 +43,7 @@ public class MenuView implements ChangeStateEventListener {
 
         _fileNewFileItem = new MenuItem(_fileMenu, SWT.PUSH);
         _fileNewFileItem.setText("&New");
-        _fileNewFileItem.setEnabled(false);
+        _fileNewFileItem.addListener(SWT.Selection, new NewButtonListener());
 
         new MenuItem(_fileMenu, SWT.SEPARATOR);
 
@@ -59,16 +62,18 @@ public class MenuView implements ChangeStateEventListener {
         _editSaveItem = new MenuItem(_editMenu, SWT.PUSH);
         _editSaveItem.setText("Save");
         _editSaveItem.setEnabled(false);
+        _editSaveItem.addListener(SWT.Selection, new SaveButtonListener());
 
         _editDeleteItem = new MenuItem(_editMenu, SWT.PUSH);
         _editDeleteItem.setText("Delete");
         _editDeleteItem.setEnabled(false);
+        _editDeleteItem.addListener(SWT.Selection, new DeleteButtonListener());
 
         new MenuItem(_editMenu, SWT.SEPARATOR);
 
         _editCancelItem = new MenuItem(_editMenu, SWT.PUSH);
         _editCancelItem.setText("Cancel");
-
+        _editCancelItem.addListener(SWT.Selection, new CancelButtonListener());
     }
 
     private void setupHelpMenu(Decorations parent) {
@@ -89,8 +94,7 @@ public class MenuView implements ChangeStateEventListener {
     @Override
     public void handleEvent(ChangeStateEvent e) {
         _editDeleteItem.setEnabled(e.checkState(ChangeStateEvent.TABLE_SELECTED));
-        _editSaveItem.setEnabled(e.checkState(ChangeStateEvent.TABLE_EDITED));
-        _fileNewFileItem.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
+        _editSaveItem.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 
 }

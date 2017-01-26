@@ -58,4 +58,8 @@ public class Group {
     public List<Student> getGroup() {
         return Collections.unmodifiableList(_students);
     }
+
+    public int getIndex(Student student) {
+        return _students.indexOf(student);
+    }
 }
