@@ -97,7 +97,7 @@ public class Group {
     }
 
     /**
-     * To get a students list.
+     * Gets a students list.
      *
      * @return an immutable list of students
      */
@@ -106,7 +106,7 @@ public class Group {
     }
 
     /**
-     * To get a index of student.
+     * Gets a index of student.
      *
      * @param student for search in group
      * @return index of student

@@ -48,7 +48,7 @@ public class TableView implements TableEventListener {
     /** Table with data about group **/
     private TableViewer _viewer;
 
-    /** Service for working data in table **/
+    /** Service for working with data in table **/
     private final TableService _service = Constants.TABLE_SERVICE;
     /** Service for handling event on form **/
     private StateService _stateService;

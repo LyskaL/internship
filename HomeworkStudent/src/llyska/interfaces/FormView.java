@@ -28,7 +28,7 @@ import llyska.util.Constants;
  * The class is composite on which located form for fill information about student.
  * Also, form has panel with buttons for management other components.
  *
- * The class implements interfaces for tracking events a change state and form event.
+ * The class implements interfaces for tracking events to change state and form event.
  *
  * @author Lyska Lyudmila
  *
@@ -53,7 +53,7 @@ public class FormView extends Composite implements ChangeStateEventListener, For
     private final StateService _stateService = StateService.getInstance();
     /** Service for handling event on form **/
     private final FormEventService _formService = FormEventService.getInstance();
-    /** Service for working data in table **/
+    /** Service for working with data in table **/
     private final TableService _tableService = Constants.TABLE_SERVICE;
 
     /**
