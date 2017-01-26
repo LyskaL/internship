@@ -37,6 +37,7 @@ import llyska.util.Constants;
 
 public class TableView implements TableEventListener {
     private TableViewer _viewer;
+
     private final TableService _service = Constants.TABLE_SERVICE;
     private StateService _stateService;
 
@@ -49,6 +50,7 @@ public class TableView implements TableEventListener {
         _service.addTableEventListener(this);
         _viewer = new TableViewer(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, _viewer);
+
         Table table = _viewer.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
@@ -89,11 +91,12 @@ public class TableView implements TableEventListener {
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
-        gridData.horizontalSpan = 2;
+        gridData.horizontalSpan = 1;
         gridData.grabExcessHorizontalSpace = true;
         gridData.grabExcessVerticalSpace = true;
         gridData.horizontalAlignment = GridData.FILL;
 
+        _viewer.getTable().setLayoutData(gridData);
     }
 
     private void createColumns(final Composite parent, final TableViewer viewer) {

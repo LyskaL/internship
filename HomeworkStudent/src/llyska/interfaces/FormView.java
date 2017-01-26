@@ -24,18 +24,34 @@ import llyska.services.StateService;
 import llyska.services.TableService;
 import llyska.util.Constants;
 
+/**
+ * The class is composite on which located form for fill information about student.
+ * Also, form has panel with buttons for management other components.
+ *
+ * @author Lyska Lyudmila
+ *
+ */
 public class FormView extends Composite implements ChangeStateEventListener, FormEventListener {
+    /** The field for fill name of student **/
     private Text _nameText;
+    /** The field for fill number of group **/
     private Text _numberGroupText;
+    /** The check button for choosing student done task or not **/
     private Button _checkButton;
-
+    /** The New Button for create new table (clean old data) **/
     private Button _newButton;
+    /** The Save Button for save data from form to table **/
     private Button _saveButton;
+    /** The Delete Button for removing selection row from table **/
     private Button _deleteButton;
+    /** The Cancel Button for cleaning data from form **/
     private Button _cancelButton;
 
-    private final StateService _stateService = StateService.getInstance();;
+    /** Service for changing state buttons on form and menu panel **/
+    private final StateService _stateService = StateService.getInstance();
+    /** Service for handling event on form **/
     private final FormEventService _formService = FormEventService.getInstance();
+    /** Service for working data in table **/
     private final TableService _tableService = Constants.TABLE_SERVICE;
 
     public FormView(Composite parent, int style) {
@@ -119,11 +135,20 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         _saveButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 
+    /**
+     * The class handles event on pressing on key.
+     *
+     * @author Lyska Lyudmila
+     *
+     */
     class TextKeyListener implements KeyListener {
         @Override
         public void keyPressed(KeyEvent e) {
         }
 
+        /**
+         *  If filled all text fields to say StateService enabled save of button. Disable it if not.
+         */
         @Override
         public void keyReleased(KeyEvent e) {
             if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
@@ -135,18 +160,12 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         }
     }
 
-    public Text getNameField() {
-        return _nameText;
-    }
-
-    public Text getNumberField() {
-        return _numberGroupText;
-    }
-
-    public Button getCheckButton() {
-        return _checkButton;
-    }
-
+    /**
+     * Depending on the command in event to handle it.
+     *
+     * If command is FORM_SAVE: data from form save to table.
+     * If command is FORM_CANCEL: clean data on form.
+     */
     @Override
     public void formEvent(FormEvent e) {
         if(e.checkCommand(FormEvent.FORM_SAVE)) {
