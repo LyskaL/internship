@@ -9,12 +9,25 @@ import llyska.entities.Group;
 import llyska.entities.Student;
 import llyska.events.table.TableEventListener;
 
-
+/**
+ *
+ *
+ * @author Lyska Lyudmila
+ */
 public class TableServiceImp implements TableService {
+    /** Group of student in table **/
     private final Group _group;
+
+    /** A set of listeners that subscribe to events in this class **/
     private final Set<TableEventListener> _listeners;
+
+    /** Selected row in table **/
     private int _selectRows;
 
+    /**
+     * Constructor this class.
+     * Creates a group of students and a set of listeners.
+     */
     public TableServiceImp() {
         _group = new Group();
         _listeners = new HashSet<>();
@@ -71,6 +84,9 @@ public class TableServiceImp implements TableService {
         return Collections.unmodifiableSet(_listeners);
     }
 
+    /**
+     * Sends event for all listeners.
+     */
     private void notifyListeners() {
         for (TableEventListener listener: _listeners) {
             listener.tableEvent(null);
