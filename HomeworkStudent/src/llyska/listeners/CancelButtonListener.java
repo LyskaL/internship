@@ -1,28 +1,20 @@
 package llyska.listeners;
 
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import llyska.events.state.ChangeStateEvent;
-import llyska.interfaces.FormView;
-import llyska.services.StateService;
+import llyska.events.form.FormEvent;
+import llyska.services.FormEventService;
 
 public class CancelButtonListener implements Listener {
-    private final FormView _textPanel;
-    private final StateService _stateService;
+    private final FormEventService _formService = FormEventService.getInstance();;
 
-    public CancelButtonListener(Composite textPanel) {
-        _textPanel = (FormView)textPanel;
-        _stateService = StateService.getInstance();
+    public CancelButtonListener() {
     }
     @Override
     public void handleEvent(Event event) {
-        _textPanel.getNameField().setText("");
-        _textPanel.getNumberField().setText("");
-        _textPanel.getCheckButton().setSelection(false);
-        _stateService.disableState(ChangeStateEvent.FORM_FILLED);
-        _stateService.runEvent();
+        _formService.setCommand(FormEvent.FORM_CANCEL);
+        _formService.runEvent();
     }
 
 }

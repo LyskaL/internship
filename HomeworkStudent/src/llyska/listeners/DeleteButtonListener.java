@@ -17,8 +17,7 @@ public class DeleteButtonListener implements Listener {
     }
     @Override
     public void handleEvent(Event event) {
-
-        //TODO
+        _service.removeSelectStudent();
         _stateService.disableState(ChangeStateEvent.TABLE_SELECTED);
         _stateService.runEvent();
     }
