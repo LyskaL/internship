@@ -1,17 +1,15 @@
 package llyska.events.state;
 
 /**
- * The interface allow handles event of change state in which
- * it was signed in implementation.
+ * The interface allows state change event handling.
  *
  * @author Lyska Lyudmila
- *
  */
 public interface ChangeStateEventListener {
     /**
      * Handles event
      *
-     * @param e - arose event
+     * @param e - event to handle
      */
     void handleEvent(ChangeStateEvent e);
 }

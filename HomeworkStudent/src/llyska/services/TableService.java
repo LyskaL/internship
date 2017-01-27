@@ -6,36 +6,37 @@ import llyska.entities.Student;
 import llyska.events.table.TableEventGenerator;
 
 /**
- * The interface allows to control the change data in group and table.
- * The interface implements TableEventGenerator for generating event the change table.
+ * The interface allows to control the change data in group and a table.
+ * The interface implements TableEventGenerator for generating event the change a table.
  *
  * @author Lyska Lyudmila
  */
 public interface TableService extends TableEventGenerator {
-    /** Gets list of student in group **/
+    /** List of student **/
     List<Student> getGroup();
 
-    /** Cleans group of student in group **/
+    /** Cleans group **/
     void cleanStudents();
 
    /**
-    * Adds new student in group
+    * Adds new student to group
+    *
     * @param student
     */
     void addStudent(Student student);
 
     /**
-     * Removes student in group
+     * Removes student from group
      *
      * @param student for removing
      */
     void removeStudent(Student student);
 
-    /** Removes selected student in table **/
+    /** Removes selected student from table **/
     void removeSelectStudent();
 
     /**
-     * Replaces a old student on the new.
+     * Replaces an old student with the new one.
      *
      * @param student for replacing
      * @param index where to write in group

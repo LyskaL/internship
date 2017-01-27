@@ -20,11 +20,7 @@ public class DeleteButtonListener implements Listener {
     /** Service for working with data on table **/
     private final TableService _service = Constants.TABLE_SERVICE;
     /** Service for changing state buttons on form and menu panel **/
-    private final StateService _stateService;
-
-    public DeleteButtonListener() {
-        _stateService = StateService.getInstance();
-    }
+    private final StateService _stateService = StateService.getInstance();;
 
     /**
      * Processes event pressing the "Delete" button.

@@ -25,39 +25,44 @@ import llyska.services.TableService;
 import llyska.util.Constants;
 
 /**
- * The class is composite on which located form for fill information about student.
- * Also, form has panel with buttons for management other components.
- *
- * The class implements interfaces for tracking events to change state and form event.
+ * The class is composite on which form located for information about student.
+ * Also, form has panel with buttons for managing other components.
  *
  * @author Lyska Lyudmila
- *
  */
 public class FormView extends Composite implements ChangeStateEventListener, FormEventListener {
-    /** The field for fill name of student **/
+    /** Stores a name of student **/
     private Text _nameText;
-    /** The field for fill number of group **/
+
+    /** Stores a group number **/
     private Text _numberGroupText;
-    /** The check button for choosing student done task or not **/
+
+    /** Stores a task done status **/
     private Button _checkButton;
-    /** The New Button for create new table (clean old data) **/
+
+    /** The New Button for creating a new table (to clean old data) **/
     private Button _newButton;
-    /** The Save Button for save data from form to table **/
+
+    /** The Save Button for saving data from form to table **/
     private Button _saveButton;
+
     /** The Delete Button for removing selection row from table **/
     private Button _deleteButton;
+
     /** The Cancel Button for cleaning data from form **/
     private Button _cancelButton;
 
     /** Service for changing state buttons on form and menu panel **/
     private final StateService _stateService = StateService.getInstance();
+
     /** Service for handling event on form **/
     private final FormEventService _formService = FormEventService.getInstance();
+
     /** Service for working with data in table **/
     private final TableService _tableService = Constants.TABLE_SERVICE;
 
     /**
-     * Constructor this class.
+     * Constructor to create a panel with a table.
      * Creates services, sets layouts and adds other components.
      *
      * @param parent on what form
@@ -75,8 +80,9 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         createTextPanel();
         createButtonsPanel();
     }
+
     /**
-     * Creates panel with text fields for entering data about student.
+     * Creates panel with text fields for entering data about a student.
      */
     private void createTextPanel() {
         Composite textPanel = new Composite(this, SWT.NONE);
@@ -98,10 +104,11 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         _numberGroupText.addKeyListener(new TextKeyListener());
         createCheckButtonPanel(textPanel);
     }
+
     /**
-     * Creates check button for choosing to student task done or not.
+     * Creates a check button for choosing to student task done or not.
      *
-     * @param textPanel panel on that adds check button
+     * @param textPanel a panel on that adds a check button
      */
     private void createCheckButtonPanel(Composite textPanel) {
         Composite checkPanel = new Composite(textPanel, SWT.NONE);
@@ -117,7 +124,7 @@ public class FormView extends Composite implements ChangeStateEventListener, For
     }
 
     /**
-     * Creates buttons for management other components.
+     * Creates buttons for management state a table and a form.
      */
     private void createButtonsPanel() {
         Composite buttonsPanel = new Composite(this, SWT.NONE);
@@ -165,7 +172,8 @@ public class FormView extends Composite implements ChangeStateEventListener, For
         }
 
         /**
-         *  If filled all text fields to say StateService enabled save of button. Disable it if not.
+         *  Sets application's state to FORM_FILLED if all text fields are filled.
+         *  Disables this state in other cases.
          */
         @Override
         public void keyReleased(KeyEvent e) {
@@ -179,10 +187,10 @@ public class FormView extends Composite implements ChangeStateEventListener, For
     }
 
     /**
-     * Depending on the command in event to handle it.
+     * Handles form event
      *
-     * If command is FORM_SAVE: data from form save to table.
-     * If command is FORM_CANCEL: clean data on form.
+     * If command is FORM_SAVE: data from form is saved to table.
+     * If command is FORM_CANCEL: cleans data from form.
      */
     @Override
     public void formEvent(FormEvent e) {

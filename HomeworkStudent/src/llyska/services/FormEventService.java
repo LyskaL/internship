@@ -55,7 +55,7 @@ public class FormEventService implements FormEventGenerator {
     }
 
     /**
-     * Sends event for all listeners.
+     * Sends event to all listeners.
      */
     public void runEvent() {
         for (FormEventListener listener : _listeners) {

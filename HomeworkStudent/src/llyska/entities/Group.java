@@ -5,14 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The class stores a information about students.
+ * The class stores an information about students.
  *
  * @author Lyska Lyudmila
- *
  */
 public class Group {
     private final List<Student> _students;
 
+    /**
+     * fake data
+     */
     public Group() {
         _students = new ArrayList<>();
 
@@ -26,9 +28,9 @@ public class Group {
     }
 
     /**
-     * Adds a new student in group.
+     * Adds a new student to group.
      *
-     * @param student for adding in group
+     * @param student for adding to group
      */
     public void add(Student student) {
         if (student != null) {
@@ -37,7 +39,7 @@ public class Group {
     }
 
     /**
-     * Removes a student at the link from group.
+     * Removes a student from group.
      *
      * @param student for removing
      */
@@ -66,7 +68,7 @@ public class Group {
     }
 
     /**
-     * Replaces a old student on the new.
+     * Replaces an old student with the new one.
      *
      * @param student for replacing
      * @param index where to write in group
@@ -106,7 +108,7 @@ public class Group {
     }
 
     /**
-     * Gets a index of student.
+     * Gets an index of student.
      *
      * @param student for search in group
      * @return index of student

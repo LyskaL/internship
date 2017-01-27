@@ -16,11 +16,7 @@ import llyska.services.StateService;
 /**
  * The class is menu panel that adds on shell.
  *
- * It implements a interface ChangeStateEventListener
- * for tracking events a change state.
- *
  * @author Lyska Lyudmila
- *
  */
 public class MenuView implements ChangeStateEventListener {
     private final Menu _menu;
@@ -52,9 +48,9 @@ public class MenuView implements ChangeStateEventListener {
     }
 
     /**
-     * Creates the first item is "File" on menu and adds to it items.
+     * Creates the first "File" item on menu and adds to it items.
      *
-     * @param parent for creates
+     * @param parent for creating
      */
     private void setupFileMenu(Decorations parent) {
         _fileMenuHeader = new MenuItem(_menu, SWT.CASCADE);
@@ -74,9 +70,9 @@ public class MenuView implements ChangeStateEventListener {
     }
 
     /**
-     * Creates the second item is "Edit" on menu and adds to it items.
+     * Creates the second "Edit" item on menu and adds to it items.
      *
-     * @param parent for creates
+     * @param parent for creating
      */
     private void setupEditMenu(Decorations parent) {
         _editMenuHeader = new MenuItem(_menu, SWT.CASCADE);
@@ -103,9 +99,9 @@ public class MenuView implements ChangeStateEventListener {
     }
 
     /**
-     * Creates the third item is "Help" on menu and adds to it items.
+     * Creates the third "Help" item on menu and adds to it items.
      *
-     * @param parent for creates
+     * @param parent for creating
      */
     private void setupHelpMenu(Decorations parent) {
         _helpMenuHeader = new MenuItem(_menu, SWT.CASCADE);
@@ -119,16 +115,16 @@ public class MenuView implements ChangeStateEventListener {
     }
 
     /**
-     * Gets menu
+     * Gets top-level menu
      *
-     * @return menu
+     * @return menu top-level menu
      */
     public Menu getMenu() {
         return _menu;
     }
 
     /**
-     * Changes state menu item depending on event state.
+     * Changes state of menu item depending on event state.
      */
     @Override
     public void handleEvent(ChangeStateEvent e) {

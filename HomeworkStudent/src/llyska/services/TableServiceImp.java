@@ -10,6 +10,11 @@ import llyska.entities.Student;
 import llyska.events.table.TableEventListener;
 
 /**
+ * The interface allows to control the change data in group and a table.
+ *
+ * The class implements a interface TableService.
+ *
+ * This class generates event the change a table.
  *
  *
  * @author Lyska Lyudmila
@@ -25,7 +30,6 @@ public class TableServiceImp implements TableService {
     private int _selectRows;
 
     /**
-     * Constructor this class.
      * Creates a group of students and a set of listeners.
      */
     public TableServiceImp() {

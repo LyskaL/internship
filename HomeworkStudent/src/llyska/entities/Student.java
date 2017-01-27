@@ -1,8 +1,8 @@
 package llyska.entities;
 
 /**
- * The student class stores a data about a student.
- * Its name, group number and if the task is done or not.
+ * The student class stores a data about a student:
+ * its name, group number and if the task is done or not.
  *
  * @author Lyska Lyudmila
  */
@@ -11,17 +11,17 @@ public class Student {
     /** Name of student **/
     private String _name;
 
-    /** Number of group where studying a student **/
+    /** Number of group where a student studies  **/
     private String _numberGroup;
 
-    /** Student done task or not **/
+    /** Task done status **/
     private boolean _swtDone;
 
     /**
      * Constructor to create a student.
      *
-     * @param name of student
-     * @param numberGroup where studying student
+     * @param name of a student
+     * @param numberGroup student's group name
      * @param swtDone is done the task or not
      */
     public Student(String name, String numberGroup, boolean swtDone) {
@@ -40,35 +40,36 @@ public class Student {
     }
 
     /**
-     * Gets information done task or not.
-     * @return student to task is done or not
+     * Gets information about the task.
+     *
+     * @return true if the task is done, false otherwise
      */
     public boolean isSwtDone() {
         return _swtDone;
     }
 
     /**
-     * Sets a information to student done task or not.
+     * Sets task status.
      *
-     * @param swtDone
+     * @param swtDone true if the task is done, false otherwise
      */
     public void setSwtDone(boolean swtDone) {
         _swtDone = swtDone;
     }
 
     /**
-     * Gets a number of group where studying student.
+     * Gets a group name where student studies.
      *
-     * @return number of group
+     * @return group name
      */
     public String getNumberGroup() {
         return _numberGroup;
     }
 
     /**
-     * Sets a number of group where studying student.
+     * Sets a group name where student studies.
      *
-     * @param numberGroup number of group
+     * @param numberGroup group name
      */
     public void setNumberGroup(String numberGroup) {
         _numberGroup = numberGroup;
@@ -77,7 +78,7 @@ public class Student {
     /**
      * Set a name of student
      *
-     * @param name student
+     * @param name name of student
      */
     public void setName(String name) {
         _name = name;

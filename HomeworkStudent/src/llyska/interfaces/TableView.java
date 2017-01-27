@@ -34,15 +34,11 @@ import llyska.table.providers.ModelProvider;
 import llyska.table.providers.NameProvider;
 import llyska.table.providers.NumberGroupProvider;
 import llyska.util.Constants;
-
+/////////WE STOPPED HERE
 /**
  * The class is table which contains information about group.
  *
- * The class implements interface TableEventListener
- * for tracking events a change state table.
- *
  * @author Lyska Lyudmila
- *
  */
 public class TableView implements TableEventListener {
     /** Table with data about group **/

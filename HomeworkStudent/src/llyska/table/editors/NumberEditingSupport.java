@@ -6,11 +6,12 @@ import org.eclipse.jface.viewers.TableViewer;
 
 import llyska.entities.Student;
 
-
 /**
  * The class is designed for editing cell with
- * a number of group where studying student.
+ * a group number where student studies.
+ *
  * Allows to enter only numbers.
+ *
  * The new value is immediately saved to the table.
  *
  * @author Lyska Lyudmila

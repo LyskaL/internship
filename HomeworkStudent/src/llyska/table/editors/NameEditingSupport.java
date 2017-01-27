@@ -20,6 +20,9 @@ public class NameEditingSupport extends EditingSupport {
 
     public NameEditingSupport(TableViewer viewer) {
         super(viewer);
+
+
+
         this.viewer = viewer;
         this.editor = new TextCellEditor(viewer.getTable());
     }

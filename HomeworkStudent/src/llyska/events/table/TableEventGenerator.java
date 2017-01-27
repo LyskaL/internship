@@ -3,29 +3,28 @@ package llyska.events.table;
 import java.util.Set;
 
 /**
- * Interface allows to generate event of change state table
- * and to send it all listeners.
+ * Interface allows to generate event of table state change
+ * and to send it to all listeners.
  *
  * @author Lyska Lyudmila
- *
  */
 public interface TableEventGenerator {
     /**
-     * Returns a list of listeners that signed for the event.
+     * Returns a set of listeners that are signed for the event.
      *
-     * @return list of listeners
+     * @return set of listeners
      */
     Set<TableEventListener> getListeners();
 
     /**
-     * Adds listener in a list of listeners.
+     * Adds listener to a set of listeners.
      *
      * @param listener
      */
     void addTableEventListener(TableEventListener listener);
 
     /**
-     * Removes listener from a list of listeners.
+     * Removes listener from a set of listeners.
      *
      * @param listener
      */

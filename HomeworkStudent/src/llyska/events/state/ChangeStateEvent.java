@@ -1,10 +1,9 @@
 package llyska.events.state;
 
 /**
- * The class event arising when the state changes.
+ * Event arising when the state changes.
  *
  * @author Lyska Lyudmila
- *
  */
 public class ChangeStateEvent {
     /**
@@ -18,17 +17,35 @@ public class ChangeStateEvent {
     public static final int FORM_FILLED = 1<<2;
 
     /**
-     * Variable stores a state in a bits.
+     * Stores a state in a bits.
+     *
+     * Supported bits:
+     * <ul>
+     *     <li>ChangeStateEvent.TABLE_SELECTED</li>
+     *     <li>ChangeStateEvent.FORM_FILLED</li>
+     * </ul>
      */
     private final int _state;
 
+
+    /**
+     * Constructor to create a event.
+     *
+     * @param state stores a state in a bits.
+     *
+     * Supported bits:
+     * <ul>
+     *     <li>ChangeStateEvent.TABLE_SELECTED</li>
+     *     <li>ChangeStateEvent.FORM_FILLED</li>
+     * </ul>
+     */
     public ChangeStateEvent(int state) {
         super();
         _state = state;
     }
 
     /**
-     * Check to event state equals state transmitted or not.
+     * Checks that event state is equal to state passed in arg.
      *
      * @param state for checking
      * @return true - if equal, false - if not
