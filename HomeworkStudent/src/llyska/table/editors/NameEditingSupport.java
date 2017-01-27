@@ -7,6 +7,13 @@ import org.eclipse.jface.viewers.TextCellEditor;
 
 import llyska.entities.Student;
 
+/**
+ * The class is designed for editing cell with a name of student.
+ * The new value is immediately saved to the table.
+ *
+ * @author Lyska Lyudmila
+ *
+ */
 public class NameEditingSupport extends EditingSupport {
     private final TableViewer viewer;
     private final CellEditor editor;

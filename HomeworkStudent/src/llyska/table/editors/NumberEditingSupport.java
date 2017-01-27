@@ -6,6 +6,16 @@ import org.eclipse.jface.viewers.TableViewer;
 
 import llyska.entities.Student;
 
+
+/**
+ * The class is designed for editing cell with
+ * a number of group where studying student.
+ * Allows to enter only numbers.
+ * The new value is immediately saved to the table.
+ *
+ * @author Lyska Lyudmila
+ *
+ */
 public class NumberEditingSupport extends EditingSupport {
     private final TableViewer _viewer;
     private final CellEditor _editor;

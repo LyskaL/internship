@@ -8,8 +8,15 @@ import org.eclipse.swt.SWT;
 
 import llyska.entities.Student;
 
+/**
+ * The class is designed for editing cell with a check of button.
+ * By clicking on cell with button to change the value on the opposite.
+ *
+ * @author Lyska Lyudmila
+ *
+ */
 public class CheckBoxEditingSupport extends EditingSupport {
-
+    /** Table with values **/
     private final TableViewer viewer;
 
     public CheckBoxEditingSupport(TableViewer viewer) {

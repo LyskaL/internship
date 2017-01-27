@@ -8,6 +8,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * The class extends TextCellEditor.
+ * Allows to enter only numbers in field of edit.
+ *
+ * @author Lyska Lyudmila
+ */
 public class NumbersCellEditor extends TextCellEditor {
 
     public NumbersCellEditor() {

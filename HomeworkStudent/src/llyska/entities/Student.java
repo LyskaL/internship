@@ -8,19 +8,13 @@ package llyska.entities;
  */
 public class Student {
 
-    /**
-     * Name of student.
-     */
+    /** Name of student **/
     private String _name;
 
-    /**
-     * Number of group where studying a student
-     */
+    /** Number of group where studying a student **/
     private String _numberGroup;
 
-    /**
-     * Student done task or not.
-     */
+    /** Student done task or not **/
     private boolean _swtDone;
 
     /**
@@ -47,7 +41,7 @@ public class Student {
 
     /**
      * Gets information done task or not.
-     * @return
+     * @return student to task is done or not
      */
     public boolean isSwtDone() {
         return _swtDone;
