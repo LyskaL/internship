@@ -5,7 +5,9 @@ import org.eclipse.ui.IPerspectiveFactory;
 
 public class Perspective implements IPerspectiveFactory {
 
-	@Override	
+	@Override
 	public void createInitialLayout(IPageLayout layout) {
+	    layout.addView("MyView", IPageLayout.TOP,
+              IPageLayout.RATIO_MAX, IPageLayout.ID_EDITOR_AREA);
 	}
 }
