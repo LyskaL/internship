@@ -13,7 +13,7 @@ public class Group {
     private final List<Student> _students;
 
     /**
-     * fake data
+     * Fake data
      */
     public Group() {
         _students = new ArrayList<>();
