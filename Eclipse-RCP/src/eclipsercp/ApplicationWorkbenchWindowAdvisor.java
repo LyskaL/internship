@@ -32,7 +32,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setTitle("Eclipse-RCP task 1"); //$NON-NLS-1$
         configurer.setShowPerspectiveBar(false);
         configurer.setShowMenuBar(false);
-
     }
 
     @Override
