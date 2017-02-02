@@ -19,5 +19,15 @@
             id="Eclipse-RCP.perspective">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="viewpart.ContactsView"
+            icon="icons/contacts.png"
+            id="eclipsercp.contacts"
+            name="Contacts"
+            restorable="true">
+      </view>
+   </extension>
 
 </plugin>

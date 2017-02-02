@@ -38,10 +38,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowCreate() {
         //remove unwanted menu entries
         List<String> unwantedItems = Arrays.asList("org.eclipse.ui.run");
-
         IMenuManager menuManager = getWindowConfigurer().getActionBarConfigurer().getMenuManager();
         removeUnwantedItems(unwantedItems, menuManager);
-
     }
 
    private void removeUnwantedItems(final List<String> unwantedItems, final IMenuManager menuManager) {
