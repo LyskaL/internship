@@ -5,7 +5,8 @@
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">
-      <application>
+      <application
+            icon="icons/calculator_icon.png">
          <run
                class="eclipsercp.Application">
          </run>
@@ -14,20 +15,27 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
             class="eclipsercp.Perspective"
-            id="Eclipse-RCP.perspective">
+            icon="icons/calculator_icon.png"
+            id="Eclipse-RCP.perspective"
+            name="RCP Perspective">
       </perspective>
    </extension>
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="viewpart.ContactsView"
-            icon="icons/contacts.png"
-            id="eclipsercp.contacts"
-            name="Contacts"
+            class="viewpart.CalculatorTab"
+            icon="icons/calculator_icon.png"
+            id="eclipsercp.calculatortab"
+            name="CalculatorTab"
+            restorable="true">
+      </view>
+      <view
+            class="viewpart.HistoryTab"
+            icon="icons/icon_history.png"
+            id="eclipsercp.historytab"
+            name="History"
             restorable="true">
       </view>
    </extension>
-
 </plugin>

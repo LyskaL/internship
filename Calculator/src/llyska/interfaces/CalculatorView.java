@@ -1,27 +1,38 @@
 package llyska.interfaces;
 
-import org.eclipse.swt.*; 
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 
-import llyska.services.*;
+import llyska.services.CalculatorService;
+import llyska.services.HistoryManager;
+import llyska.services.ServiceProvider;
 import llyska.util.Constants;
 
 public class CalculatorView extends Composite {
 	private Button _calculateButton;
 	private Button _checkButton;
-	private Text _fromNumber;
-	private Combo _sign;
-	private Text _toNumber;
+	private final Text _fromNumber;
+	private final Combo _sign;
+	private final Text _toNumber;
 	private TextWithBorder _resultText;
-	private Timer _timer = new Timer(2000);
-	
-	private HistoryManager _historyTab = ServiceProvider.getService(HistoryManager.class);
-	private CalculatorService _calculator = ServiceProvider.getService(CalculatorService.class);
-	
+	private final Timer _timer = new Timer(2000);
+
+	private final HistoryManager _historyTab = ServiceProvider.getService(HistoryManager.class);
+	private final CalculatorService _calculator = ServiceProvider.getService(CalculatorService.class);
+
 	private static final int KEY_CODE_ENTER = 13;
-	
+
 	public CalculatorView(Composite parent, int style) {
 		super(parent, style);
 		_timer.start();
@@ -44,11 +55,11 @@ public class CalculatorView extends Composite {
 		_toNumber = new Text(dataPanel, SWT.BORDER);
 		_toNumber.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
 		_toNumber.addKeyListener(new EnterListener());
-		
+
 		Composite buttonPanel = new Composite(this, SWT.NONE);
 		buttonPanel.setLayout(new GridLayout(2, true));
 		setupButtonPanel(buttonPanel);
-		
+
 		_sign.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -65,7 +76,7 @@ public class CalculatorView extends Composite {
 		resultPanel.setLayout(new GridLayout(2, true));
 		setupResultPanel(resultPanel);
 	}
-	
+
 	private void setupResultPanel(Composite resultPanel) {
 		Composite labelPanel = new Composite(resultPanel, SWT.NONE);
 		labelPanel.setLayout(new GridLayout(1, true));
@@ -73,7 +84,7 @@ public class CalculatorView extends Composite {
 		Label result = new Label(labelPanel, SWT.NONE);
 		result.setText("Result: ");
 		result.setLayoutData(new GridData(SWT.FILL, SWT.BOTTOM, true, true));
-		
+
 		_resultText = new TextWithBorder(resultPanel, SWT.NONE);
 		_resultText.setEditable(false);
 		_resultText.changeStyle(SWT.RIGHT);
@@ -125,11 +136,11 @@ public class CalculatorView extends Composite {
 		}
 		return true;
 	}
-	
+
 	private void saveInHistory(String item) {
 		_historyTab.addItem(item);
 	}
-	
+
 	class EnterListener implements KeyListener {
 		@Override
 		public void keyReleased(KeyEvent e) {
@@ -149,11 +160,11 @@ public class CalculatorView extends Composite {
 		@Override
 		public void keyPressed(KeyEvent e) {}
 	}
-	
+
 	private class Timer extends Thread {
-		private int _delay;
+		private final int _delay;
 		private long _runTime;
-		
+
 		private boolean _startTime;
 
 		public Timer(int seconds) {
@@ -161,7 +172,7 @@ public class CalculatorView extends Composite {
 			_startTime = false;
 			setDaemon(true);
 		}
-		
+
 		@Override
 		public void run() {
 			try {
@@ -187,7 +198,7 @@ public class CalculatorView extends Composite {
 		public void updateTime() {
 			_runTime = System.currentTimeMillis();
 		}
-		
+
 		private void countdown() {
 			try {
 				_runTime = System.currentTimeMillis();
@@ -206,5 +217,5 @@ public class CalculatorView extends Composite {
 				System.out.println("Just exiting...");
 			}
 		}
-	}   
+	}
 }
