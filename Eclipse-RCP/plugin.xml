@@ -23,19 +23,5 @@
    </extension>
    <extension
          point="org.eclipse.ui.views">
-      <view
-            class="viewpart.CalculatorTab"
-            icon="icons/calculator_icon.png"
-            id="eclipsercp.calculatortab"
-            name="CalculatorTab"
-            restorable="true">
-      </view>
-      <view
-            class="viewpart.HistoryTab"
-            icon="icons/icon_history.png"
-            id="eclipsercp.historytab"
-            name="History"
-            restorable="true">
-      </view>
    </extension>
 </plugin>
