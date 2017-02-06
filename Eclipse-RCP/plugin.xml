@@ -23,5 +23,12 @@
    </extension>
    <extension
          point="org.eclipse.ui.views">
+      <view
+            class="viewpart.ContactsView"
+            icon="icons/contacts.png"
+            id="Eclipse-RCP.viewpart.contacts"
+            name="Contacts"
+            restorable="true">
+      </view>
    </extension>
 </plugin>

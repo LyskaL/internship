@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
+import viewpart.Constants;
+
 /**
  * This class controls all aspects of the application's execution
  */
@@ -14,7 +16,7 @@ public class Application implements IApplication {
     @Override
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
-
+        Constants.setDisplay(display);
         try {
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
             if (returnCode == PlatformUI.RETURN_RESTART) {
