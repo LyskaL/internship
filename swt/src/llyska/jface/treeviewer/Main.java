@@ -12,11 +12,9 @@ public class Main extends ApplicationWindow
 
    public Main() {
       super(null);
-
       // statically create categories
       rootCategory = new Category("Java", null);
       Category j2seCategory = new Category("J2SE", rootCategory);
-
       Link link = new Link("http://java.sun.com/j2se/");
       j2seCategory.addLink(link);
       Category j2eeCategory = new Category("J2EE", rootCategory);
