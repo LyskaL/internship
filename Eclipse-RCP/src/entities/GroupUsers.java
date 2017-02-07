@@ -17,7 +17,7 @@ public class GroupUsers {
     }
 
     public String getNameGroup() {
-        return _nameGroup;
+        return _nameGroup + " (0/" + _users.size() + ")";
     }
 
     public void setNameGroup(String nameGroup) {
@@ -51,26 +51,26 @@ public class GroupUsers {
         return _parent;
     }
 
-    public void addGroup(GroupUsers group) {
+    public void addSubGroup(GroupUsers group) {
         if(group != null) {
             _groups.add(group);
         }
     }
 
-    public void removeGroup(GroupUsers group) {
+    public void removeSubGroup(GroupUsers group) {
         if(group != null) {
             _groups.remove(group);
         }
     }
 
-    public GroupUsers getGroup(int index) {
+    public GroupUsers getSubGroup(int index) {
         if(index >= 0 && index < _groups.size()) {
             return _groups.get(index);
         }
         return null; // so bad!!
     }
 
-    public List<GroupUsers> getAllGroups() {
+    public List<GroupUsers> getAllSubGroups() {
         return _groups;
     }
 
@@ -78,7 +78,7 @@ public class GroupUsers {
         return _users;
     }
 
-    public boolean hasGroups() {
+    public boolean hasSubGroups() {
         return _groups.size() > 0;
      }
 

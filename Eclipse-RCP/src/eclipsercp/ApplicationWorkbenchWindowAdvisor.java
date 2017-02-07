@@ -15,12 +15,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
-
     }
 
     @Override
     public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
-        return new ActionBarAdvisor(configurer);
+        return new ApplicationActionBarAdvisor(configurer);
     }
 
     @Override
@@ -29,20 +28,20 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(350, 400));
         configurer.setShowCoolBar(false);
         configurer.setShowStatusLine(false);
-        configurer.setTitle("Eclipse-RCP task 1"); //$NON-NLS-1$
+        configurer.setTitle("Contacts Chat"); //$NON-NLS-1$
         configurer.setShowPerspectiveBar(false);
-        configurer.setShowMenuBar(false);
+        configurer.setShowMenuBar(true);
     }
 
     @Override
     public void postWindowCreate() {
-        //remove unwanted menu entries
+        // remove unwanted menu entries
         List<String> unwantedItems = Arrays.asList("org.eclipse.ui.run");
         IMenuManager menuManager = getWindowConfigurer().getActionBarConfigurer().getMenuManager();
         removeUnwantedItems(unwantedItems, menuManager);
     }
 
-   private void removeUnwantedItems(final List<String> unwantedItems, final IMenuManager menuManager) {
+    private void removeUnwantedItems(final List<String> unwantedItems, final IMenuManager menuManager) {
         IContributionItem[] items = menuManager.getItems();
 
         for (IContributionItem item : items) {

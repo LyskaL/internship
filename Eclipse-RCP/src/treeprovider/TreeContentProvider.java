@@ -18,7 +18,7 @@ public class TreeContentProvider implements ITreeContentProvider {
     public Object[] getChildren(Object parentElement) {
         GroupUsers groupUsers = (GroupUsers) parentElement;
         ArrayList children = new ArrayList();
-        children.addAll(groupUsers.getAllGroups());
+        children.addAll(groupUsers.getAllSubGroups());
         children.addAll(groupUsers.getAllUsers());
 
         if (children.size() == 0) {
@@ -42,7 +42,7 @@ public class TreeContentProvider implements ITreeContentProvider {
         if (element instanceof GroupUsers) {
             GroupUsers group = (GroupUsers) element;
 
-            return group.hasGroups() || group.hasUsers();
+            return group.hasSubGroups() || group.hasUsers();
          }
 
          return false;

@@ -29,15 +29,16 @@ public class ContactsView extends ViewPart {
         GroupUsers friendsGroup = new GroupUsers("Friends", _root);
         friendsGroup.addUser(new User("aliz", "gmail.com", "Alize"));
         friendsGroup.addUser(new User("syd", "mail.ru", "Sydney"));
+        friendsGroup.addUser(new User("max", "gmail.com", "Maxim"));
         GroupUsers otherGroup = new GroupUsers("Other", _root);
         otherGroup.addUser(new User("sye", "gmail.com", "Sye"));
-        otherGroup.addUser(new User("max", "gmail.com", "Maxim"));
-        _root.addGroup(friendsGroup);
-        _root.addGroup(otherGroup);
+        _root.addSubGroup(friendsGroup);
+        _root.addSubGroup(otherGroup);
 
         _treeViewer.setContentProvider(new TreeContentProvider());
         _treeViewer.setInput(_root);
         _treeViewer.setLabelProvider(new LabelContentProvider());
+        _treeViewer.getTree().setLinesVisible(true);
     }
 
     @Override
