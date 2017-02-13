@@ -6,7 +6,7 @@
          id="application"
          point="org.eclipse.core.runtime.applications">
       <application
-            icon="icons/calculator_icon.png">
+            icon="icons/contacts.png">
          <run
                class="eclipsercp.Application">
          </run>
@@ -16,7 +16,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="eclipsercp.Perspective"
-            icon="icons/calculator_icon.png"
+            icon="icons/contacts.png"
             id="Eclipse-RCP.perspective"
             name="RCP Perspective">
       </perspective>
@@ -30,5 +30,15 @@
             name="Contacts"
             restorable="true">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="editors.ChatEditor"
+            default="false"
+            icon="icons/chat_icon.png"
+            id="Eclipse-RCP.editors.chat"
+            name="Chat">
+      </editor>
    </extension>
 </plugin>

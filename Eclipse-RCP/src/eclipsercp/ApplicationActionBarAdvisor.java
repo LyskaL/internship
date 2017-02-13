@@ -17,6 +17,7 @@ import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
 
 import actions.AddContactAction;
+import actions.ChatAction;
 import actions.DeleteContactAction;
 
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
@@ -25,6 +26,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IWorkbenchAction _aboutAction;
     private IWorkbenchAction _addContactAction;
     private IWorkbenchAction _deleteContactAction;
+    private IWorkbenchAction _chatAction;
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -41,6 +43,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         register(_addContactAction);
         _deleteContactAction = new DeleteContactAction(window);
         register(_deleteContactAction);
+        _chatAction = new ChatAction(window);
+        register(_chatAction);
     }
 
     @Override
@@ -50,14 +54,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         appMenu.add(_deleteContactAction);
         appMenu.add(new Separator());
 
-        MenuManager helpMenu = new MenuManager("&Help", "_help");
-        helpMenu.add(_aboutAction);
-
-        appMenu.add(helpMenu);
+        appMenu.add(_chatAction);
         appMenu.add(new Separator());
         appMenu.add(_exitAction);
 
+        MenuManager helpMenu = new MenuManager("&Help", "_help");
+        helpMenu.add(_aboutAction);
+
         menuBar.add(appMenu);
+        menuBar.add(helpMenu);
     }
 
     @Override
@@ -67,6 +72,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(_addContactAction);
         toolbar.add(new Separator());
         toolbar.add(_deleteContactAction);
+        toolbar.add(new Separator());
+        toolbar.add(_chatAction);
     }
 
     @SuppressWarnings("restriction")

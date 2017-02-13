@@ -3,7 +3,6 @@ package treeprovider;
 import java.util.ArrayList;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.Viewer;
 
 import entities.GroupUsers;
 
@@ -32,9 +31,9 @@ public class TreeContentProvider implements ITreeContentProvider {
     public Object getParent(Object element) {
         if (element instanceof GroupUsers) {
             return ((GroupUsers) element).getParent();
-         }
+        }
 
-         return null;
+        return null;
     }
 
     @Override
@@ -43,9 +42,9 @@ public class TreeContentProvider implements ITreeContentProvider {
             GroupUsers group = (GroupUsers) element;
 
             return group.hasSubGroups() || group.hasUsers();
-         }
+        }
 
-         return false;
+        return false;
     }
 
     @Override
@@ -53,8 +52,4 @@ public class TreeContentProvider implements ITreeContentProvider {
         ITreeContentProvider.super.dispose();
     }
 
-    @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-
-    }
 }
