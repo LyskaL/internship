@@ -72,6 +72,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private void removeUnWantedActions() {
         ActionSetRegistry asr = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = asr.getActionSets();
+        //"org.eclipse.search.searchActionSet"
 
         for (IActionSetDescriptor actionSet : actionSets) {
             System.err.println(actionSet.getId());
