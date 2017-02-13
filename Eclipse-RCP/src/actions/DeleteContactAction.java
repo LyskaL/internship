@@ -14,22 +14,23 @@ import org.eclipse.ui.actions.ActionFactory;
 
 import entities.User;
 
-public class AddContactAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
+public class DeleteContactAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
     private final IWorkbenchWindow _window;
     private IStructuredSelection _selection;
-    public final static String ID = "org.eclipsercp.addContact";
+    public final static String ID = "org.eclipsercp.deleteContact";
 
-    public AddContactAction(IWorkbenchWindow window) {
+    public DeleteContactAction(IWorkbenchWindow window) {
         this._window = window;
         setId(ID);
-        setText("&Add Contact...");
-        setToolTipText("Add a contact to your contacts list.");
+        setText("&Delete Contact...");
+        setToolTipText("Delete a contact from your contacts list.");
 
-        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/add_contact.png");
+        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/delete_contact.png");
         setImageDescriptor(ImageDescriptor.createFromURL(url));
 
         _window.getSelectionService().addSelectionListener(this);
+
     }
 
     @Override
@@ -50,7 +51,7 @@ public class AddContactAction extends Action implements ISelectionListener, Acti
 
     @Override
     public void run() {
-       //TODO
+       // TODO
     }
 
 }
