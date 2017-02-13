@@ -1,6 +1,9 @@
 package eclipsercp;
 
+import java.net.URL;
+
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
@@ -8,6 +11,7 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -45,6 +49,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // appMenu.add(_addContactAction);
         appMenu.add(new Separator());
         appMenu.add(_exitAction);
+
+        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/contacts.png");
+        ImageDescriptor image = ImageDescriptor.createFromURL(url);
+        _exitAction.setImageDescriptor(image);
 
         MenuManager helpMenu = new MenuManager("&Help", "_help");
         helpMenu.add(_aboutAction);

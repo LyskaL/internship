@@ -1,6 +1,7 @@
 package treeprovider;
 
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.graphics.Image;
 
 import entities.GroupUsers;
 import entities.User;
@@ -17,24 +18,18 @@ public class LabelContentProvider extends LabelProvider {
         return "" + element;
     }
 
-   /* @Override
+    @Override
     public Image getImage(Object element) {
 
-        File dir = new File(".");
-        File[] filesList = dir.listFiles();
-        for(File f : filesList){
+        //URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/user_icon.png");
+        //ImageDescriptor imageDescriptor = ImageDescriptor.createFromURL(url);
 
-            if(f.isDirectory()) {
-                System.out.println(f.getName());
-            }
-            if(f.isFile()){
-                System.out.println(f.getName());
-            }
+        if (element instanceof GroupUsers) {
+            return ((GroupUsers) element).getImage();
+        } else if (element instanceof User) {
+            return ((User) element).getImage();
         }
-
-        System.out.println(dir.getAbsolutePath());
-
-        return new Image(Constants.DISPLAY, "/icons/user_icon.png");
-    }*/
+        return null;
+    }
 
 }

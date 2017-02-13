@@ -7,6 +7,7 @@ import org.eclipse.ui.part.ViewPart;
 
 import entities.GroupUsers;
 import entities.User;
+import entities.User.Gender;
 import treeprovider.LabelContentProvider;
 import treeprovider.TreeContentProvider;
 
@@ -27,11 +28,16 @@ public class ContactsView extends ViewPart {
 
         _root = new GroupUsers("Contacts", null);
         GroupUsers friendsGroup = new GroupUsers("Friends", _root);
-        friendsGroup.addUser(new User("aliz", "gmail.com", "Alize"));
-        friendsGroup.addUser(new User("syd", "mail.ru", "Sydney"));
-        friendsGroup.addUser(new User("max", "gmail.com", "Maxim"));
+        friendsGroup.addUser(new User("aliz", "gmail.com", "Alize", Gender.FEMALE));
+        friendsGroup.addUser(new User("_ssid", "mail.ru", "Sid", Gender.MALE));
+        friendsGroup.addUser(new User("max", "yandex.ru", "Maxim", Gender.MALE));
+        GroupUsers familyGroup = new GroupUsers("Family", _root);
+        familyGroup.addUser(new User("sye", "gmail.com", "Sye", Gender.FEMALE));
+        familyGroup.addUser(new User("kost", "mail.ru", "Konstantin", Gender.FEMALE));
         GroupUsers otherGroup = new GroupUsers("Other", _root);
-        otherGroup.addUser(new User("sye", "gmail.com", "Sye"));
+        otherGroup.addUser(new User("den", "mail.ru", "Denis", Gender.MALE));
+
+        _root.addSubGroup(familyGroup);
         _root.addSubGroup(friendsGroup);
         _root.addSubGroup(otherGroup);
 

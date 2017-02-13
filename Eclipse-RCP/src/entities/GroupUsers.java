@@ -1,19 +1,39 @@
 package entities;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
+
+import viewpart.Constants;
 
 public class GroupUsers {
     private String _nameGroup;
     private final GroupUsers _parent;
     private final List<User> _users;
     private final List<GroupUsers> _groups;
+    private Image _image;
 
     public GroupUsers(String name, GroupUsers parent) {
         setNameGroup(name);
         _parent = parent;
         _users = new ArrayList<>();
         _groups = new ArrayList<>();
+
+        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/"+name+"_icon.png");
+        ImageDescriptor image = ImageDescriptor.createFromURL(url);
+        setImage(new Image(Constants.DISPLAY, image.getImageData()));
+    }
+
+    private void setImage(Image image) {
+        _image = image;
+    }
+
+    public Image getImage() {
+        return _image;
     }
 
     public String getNameGroup() {
