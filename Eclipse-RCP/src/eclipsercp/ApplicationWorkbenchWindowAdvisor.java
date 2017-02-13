@@ -25,12 +25,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
-        configurer.setInitialSize(new Point(350, 400));
-        configurer.setShowCoolBar(false);
+        configurer.setInitialSize(new Point(400, 400));
+        configurer.setShowCoolBar(true);
+        configurer.setShowMenuBar(true);
         configurer.setShowStatusLine(false);
         configurer.setTitle("Contacts Chat"); //$NON-NLS-1$
-        configurer.setShowPerspectiveBar(false);
-        configurer.setShowMenuBar(true);
+        //configurer.setShowPerspectiveBar(false);
     }
 
     @Override
@@ -54,4 +54,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             }
         }
     }
+
+
 }

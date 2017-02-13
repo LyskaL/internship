@@ -38,6 +38,7 @@ public class ContactsView extends ViewPart {
         _treeViewer.setContentProvider(new TreeContentProvider());
         _treeViewer.setInput(_root);
         _treeViewer.setLabelProvider(new LabelContentProvider());
+        getSite().setSelectionProvider(_treeViewer);
         _treeViewer.getTree().setLinesVisible(true);
     }
 
