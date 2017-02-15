@@ -23,7 +23,7 @@ public class GroupUsers {
         _users = new ArrayList<>();
         _groups = new ArrayList<>();
 
-        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/"+name+"_icon.png");
+        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/" + name + "_icon.png");
         ImageDescriptor image = ImageDescriptor.createFromURL(url);
         setImage(new Image(Constants.DISPLAY, image.getImageData()));
     }
@@ -45,19 +45,19 @@ public class GroupUsers {
     }
 
     public void addUser(User user) {
-        if(user != null) {
+        if (user != null) {
             _users.add(user);
         }
     }
 
     public void removeUser(User user) {
-        if(user != null) {
+        if (user != null) {
             _users.remove(user);
         }
     }
 
     public User getUser(int index) {
-        if(index >= 0 && index < sizeUsers()) {
+        if (index >= 0 && index < sizeUsers()) {
             return _users.get(index);
         }
         return null; // so bad!!
@@ -72,19 +72,19 @@ public class GroupUsers {
     }
 
     public void addSubGroup(GroupUsers group) {
-        if(group != null) {
+        if (group != null) {
             _groups.add(group);
         }
     }
 
     public void removeSubGroup(GroupUsers group) {
-        if(group != null) {
+        if (group != null) {
             _groups.remove(group);
         }
     }
 
     public GroupUsers getSubGroup(int index) {
-        if(index >= 0 && index < _groups.size()) {
+        if (index >= 0 && index < _groups.size()) {
             return _groups.get(index);
         }
         return null; // so bad!!
@@ -100,14 +100,14 @@ public class GroupUsers {
 
     public boolean hasSubGroups() {
         return _groups.size() > 0;
-     }
+    }
 
-     public boolean hasUsers() {
+    public boolean hasUsers() {
         return _users.size() > 0;
-     }
+    }
 
-     @Override
-     public String toString() {
+    @Override
+    public String toString() {
         return getNameGroup();
-     }
+    }
 }

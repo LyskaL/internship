@@ -13,11 +13,14 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
 import entities.User;
+import services.GroupService;
+import services.GroupServiceImpl;
 
 public class DeleteContactAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
     private final IWorkbenchWindow _window;
     private IStructuredSelection _selection;
+    private final GroupService _service;
     public final static String ID = "org.eclipsercp.deleteContact";
 
     public DeleteContactAction(IWorkbenchWindow window) {
@@ -28,7 +31,7 @@ public class DeleteContactAction extends Action implements ISelectionListener, A
 
         URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/delete_contact.png");
         setImageDescriptor(ImageDescriptor.createFromURL(url));
-
+        _service = GroupServiceImpl.getInstance();
         _window.getSelectionService().addSelectionListener(this);
 
     }
@@ -51,7 +54,7 @@ public class DeleteContactAction extends Action implements ISelectionListener, A
 
     @Override
     public void run() {
-       // TODO
+        _service.removeUser(((User)_selection.getFirstElement()));
     }
 
 }
