@@ -1,12 +1,15 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import entities.GroupUsers;
 import entities.User;
 import entities.User.Gender;
+import entities.User.GroupType;
 import events.GroupChangeListener;
 
 public class GroupServiceImpl implements GroupService {
@@ -21,20 +24,16 @@ public class GroupServiceImpl implements GroupService {
     private GroupServiceImpl() {
         _listeners = new HashSet<>();
 
-        _group = new GroupUsers("Contacts", null);
-        GroupUsers friendsGroup = new GroupUsers("Friends", _group);
-        friendsGroup.addUser(new User("aliz", "gmail.com", "Alize", Gender.FEMALE));
-        friendsGroup.addUser(new User("_ssid", "mail.ru", "Sid", Gender.MALE));
-        friendsGroup.addUser(new User("max", "yandex.ru", "Maxim", Gender.MALE));
-        GroupUsers familyGroup = new GroupUsers("Family", _group);
-        familyGroup.addUser(new User("sye", "gmail.com", "Sye", Gender.FEMALE));
-        familyGroup.addUser(new User("kost", "mail.ru", "Konstantin", Gender.FEMALE));
-        GroupUsers otherGroup = new GroupUsers("Other", _group);
-        otherGroup.addUser(new User("den", "mail.ru", "Denis", Gender.MALE));
+        List<User> users = new ArrayList<>();
+        users.add(new User("aliz", "gmail.com", "Alize", Gender.FEMALE, GroupType.FRIENDS));
+        users.add(new User("_ssid", "mail.ru", "Sid", Gender.MALE, GroupType.FRIENDS));
+        users.add(new User("max", "yandex.ru", "Maxim", Gender.MALE, GroupType.FRIENDS));
+        users.add(new User("sye", "gmail.com", "Sye", Gender.FEMALE, GroupType.FAMILY));
+        users.add(new User("kost", "mail.ru", "Konstantin", Gender.FEMALE, GroupType.FAMILY));
+        users.add(new User("den", "mail.ru", "Denis", Gender.MALE, GroupType.OTHER));
+        users.add(new User("kost", "mail.ru", "Konstantin", Gender.FEMALE, GroupType.BUSINESS));
 
-        _group.addSubGroup(familyGroup);
-        _group.addSubGroup(friendsGroup);
-        _group.addSubGroup(otherGroup);
+        _group = new GroupUsers(users, "Contacts", null);
     }
 
     public static GroupServiceImpl getInstance() {
@@ -42,28 +41,14 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void addUser(User user, GroupUsers toSubGroup) {
-        toSubGroup.addUser(user);
-        notifyListeners();
-    }
-
-    @Override
-    public void addSubGroup(GroupUsers group) {
-        _group.addSubGroup(group);
+    public void addUser(User user) {
+        _group.addUser(user);
         notifyListeners();
     }
 
     @Override
     public void removeUser(User user) {
-        for (GroupUsers group : _group.getAllSubGroups()) {
-            group.removeUser(user);
-        }
-        notifyListeners();
-    }
-
-    @Override
-    public void removeSubGroup(GroupUsers group) {
-        _group.removeSubGroup(group);
+        _group.removeUser(user);
         notifyListeners();
     }
 

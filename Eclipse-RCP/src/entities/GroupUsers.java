@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
+import entities.User.GroupType;
 import viewpart.Constants;
 
 public class GroupUsers {
@@ -17,6 +18,15 @@ public class GroupUsers {
     private final List<GroupUsers> _groups;
     private Image _image;
 
+
+    public GroupUsers(List<User> users, String name, GroupUsers parent) {
+        this(name, parent);
+        for (GroupType element : GroupType.values()) {
+            _groups.add(new GroupUsers(element.toString(), this));
+        }
+        addUsers(users);
+
+    }
     public GroupUsers(String name, GroupUsers parent) {
         setNameGroup(name);
         _parent = parent;
@@ -37,6 +47,10 @@ public class GroupUsers {
     }
 
     public String getNameGroup() {
+        return _nameGroup;
+    }
+
+    public String getFullNameGroup() {
         return _nameGroup + " (0/" + _users.size() + ")";
     }
 
@@ -44,24 +58,39 @@ public class GroupUsers {
         _nameGroup = nameGroup;
     }
 
+
     public void addUser(User user) {
+        addUser(user.getGroupType(), user);
+    }
+
+    private void addUser(GroupType type, User user) {
         if (user != null) {
-            _users.add(user);
+            getSubGroup(type).getAllUsers().add(user);
+        }
+    }
+
+    private void addUsers(List<User> users) {
+        for (User user : users) {
+            addUser(user.getGroupType(), user);
         }
     }
 
     public void removeUser(User user) {
+        removeUser(user.getGroupType(), user);
+    }
+
+    private void removeUser(GroupType type, User user) {
         if (user != null) {
-            _users.remove(user);
+            getSubGroup(type).getAllUsers().remove(user);
         }
     }
 
-    public User getUser(int index) {
-        if (index >= 0 && index < sizeUsers()) {
-            return _users.get(index);
-        }
-        return null; // so bad!!
-    }
+//    public User getUser(int index) {
+//        if (index >= 0 && index < sizeUsers()) {
+//            return _users.get(index);
+//        }
+//        return null; // so bad!!
+//    }
 
     public int sizeUsers() {
         return _users.size();
@@ -71,22 +100,32 @@ public class GroupUsers {
         return _parent;
     }
 
-    public void addSubGroup(GroupUsers group) {
-        if (group != null) {
-            _groups.add(group);
-        }
-    }
+//    public void addSubGroup(GroupUsers group) {
+//        if (group != null) {
+//            _groups.add(group);
+//        }
+//    }
 
-    public void removeSubGroup(GroupUsers group) {
-        if (group != null) {
-            _groups.remove(group);
-        }
-    }
+//    public void removeSubGroup(GroupUsers group) {
+//        if (group != null) {
+//            _groups.remove(group);
+//        }
+//    }
 
     public GroupUsers getSubGroup(int index) {
         if (index >= 0 && index < _groups.size()) {
             return _groups.get(index);
         }
+        return null; // so bad!!
+    }
+
+    public GroupUsers getSubGroup(GroupType type) {
+        for (GroupUsers groupUsers : _groups) {
+            if(groupUsers.getNameGroup().equals(type.toString())) {
+                return groupUsers;
+            }
+        }
+
         return null; // so bad!!
     }
 
@@ -108,6 +147,6 @@ public class GroupUsers {
 
     @Override
     public String toString() {
-        return getNameGroup();
+        return getFullNameGroup();
     }
 }

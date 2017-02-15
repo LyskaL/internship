@@ -6,11 +6,8 @@ import events.GroupChangeGenerator;
 
 public interface GroupService extends GroupChangeGenerator {
 
-    void addUser(User user, GroupUsers toSubGroup);
-    void addSubGroup(GroupUsers user);
-
+    void addUser(User user);
     void removeUser(User user);
-    void removeSubGroup(GroupUsers user);
 
     GroupUsers getGroupRoot();
 }

@@ -14,12 +14,14 @@ public class User {
     private String _name;
     private Image _image;
     private Gender _gender;
+    private GroupType _groupType;
 
-    public User(String login, String service, String name, Gender gender) {
+    public User(String login, String service, String name, Gender gender, GroupType groupType) {
         setLogin(login);
         setName(name);
         setService(service);
         setGender(gender);
+        setGroupType(groupType);
 
         URL url = null;
         if (gender == Gender.FEMALE) {
@@ -68,8 +70,6 @@ public class User {
         _image = image;
     }
 
-
-
     public Gender getGender() {
         return _gender;
     }
@@ -78,10 +78,25 @@ public class User {
         _gender = gender;
     }
 
+    public GroupType getGroupType() {
+        return _groupType;
+    }
+
+    public void setGroupType(GroupType groupType) {
+        _groupType = groupType;
+    }
+
 
 
     public enum Gender {
         FEMALE,
         MALE
+    }
+
+    public enum GroupType {
+        FAMILY,
+        BUSINESS,
+        FRIENDS,
+        OTHER
     }
 }

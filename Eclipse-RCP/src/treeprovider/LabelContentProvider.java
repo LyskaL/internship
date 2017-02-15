@@ -11,7 +11,7 @@ public class LabelContentProvider extends LabelProvider {
     @Override
     public String getText(Object element) {
         if (element instanceof GroupUsers) {
-            return ((GroupUsers) element).getNameGroup();
+            return ((GroupUsers) element).getFullNameGroup();
         } else if (element instanceof User) {
             return ((User) element).toString();
         }
