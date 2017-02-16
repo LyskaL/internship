@@ -29,7 +29,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowCoolBar(true);
         configurer.setShowMenuBar(true);
         configurer.setShowStatusLine(false);
-        configurer.setTitle("Contacts Chat");
+        //configurer.setTitle("Contacts Chat");
         configurer.setShowPerspectiveBar(false);
     }
 

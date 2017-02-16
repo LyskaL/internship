@@ -41,4 +41,28 @@
             name="Chat">
       </editor>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="Eclipse-RCP.application"
+            name="Chat">
+         <property
+               name="appName"
+               value="Chat">
+         </property>
+         <property
+               name="windowImages"
+               value="icons/chat_icon16.gif,icons/chat_icon32.gif">
+         </property>
+         <property
+               name="aboutImage"
+               value="icons/chat_icon300.png">
+         </property>
+         <property
+               name="aboutText"
+               value="Chat Client (Workbench)&#x0D;&#x0A;Version: 1.0.0&#x0D;&#x0A;&#x0D;&#x0A;Chat is an RCP application developed for the book&#x0D;&#x0A;Eclipse Rich Client Platform&#x0D;&#x0A;Designing, Coding, and Packaging Java Applications. &#x0D;&#x0A;&#x0D;&#x0A;(c) Copyright Jeff McAffer and Jean-Michel Lemieux 2005. All Rights Reserved">
+         </property>
+      </product>
+   </extension>
 </plugin>
