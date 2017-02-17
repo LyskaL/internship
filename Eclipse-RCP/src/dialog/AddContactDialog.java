@@ -65,11 +65,6 @@ public class AddContactDialog extends Dialog {
     }
 
     @Override
-    protected void cancelPressed() {
-        super.cancelPressed();
-    }
-
-    @Override
     protected Control createDialogArea(Composite parent) {
         getShell().setText("Add contact");
 
@@ -128,6 +123,7 @@ public class AddContactDialog extends Dialog {
     }
 
     private void addGroupType(Composite containerText) {
+        new Label(containerText, SWT.NULL).setText("Group:");
         _groupType = new Combo(containerText, SWT.READ_ONLY);
 
         for (GroupType group : GroupType.values()) {

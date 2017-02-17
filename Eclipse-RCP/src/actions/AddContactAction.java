@@ -25,9 +25,8 @@ public class AddContactAction extends Action implements ActionFactory.IWorkbench
 
     @Override
     public void run() {
-        System.err.println("AddContactAction.run()");
-
-        AddContactDialog dialog = new AddContactDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+        AddContactDialog dialog = new AddContactDialog(
+                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
         dialog.open();
     }
 
