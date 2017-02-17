@@ -16,6 +16,7 @@ public class Application implements IApplication {
     @Override
     public Object start(IApplicationContext context) throws Exception {
         Display display = PlatformUI.createDisplay();
+
         Constants.setDisplay(display);
         try {
             int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
@@ -27,7 +28,6 @@ public class Application implements IApplication {
         } finally {
             display.dispose();
         }
-
     }
 
     @Override

@@ -61,7 +61,7 @@
          </property>
          <property
                name="aboutText"
-               value="Chat Client (Workbench)&#x0D;&#x0A;Version: 1.0.0&#x0D;&#x0A;&#x0D;&#x0A;Chat is an RCP application developed for the book&#x0D;&#x0A;Eclipse Rich Client Platform&#x0D;&#x0A;Designing, Coding, and Packaging Java Applications. &#x0D;&#x0A;&#x0D;&#x0A;(c) Copyright Jeff McAffer and Jean-Michel Lemieux 2005. All Rights Reserved">
+               value="Chat Client (Workbench)&#x0A;Version: 1.0.0&#x0A;&#x0A;Chat is an RCP application developed for the book&#x0A;Eclipse Rich Client Platform&#x0A;Designing, Coding, and Packaging Java Applications. &#x0A;&#x0A;(c) Copyright Jeff McAffer and Jean-Michel Lemieux 2005. All Rights Reserved">
          </property>
       </product>
    </extension>

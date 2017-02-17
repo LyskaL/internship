@@ -29,8 +29,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowCoolBar(true);
         configurer.setShowMenuBar(true);
         configurer.setShowStatusLine(false);
-        //configurer.setTitle("Contacts Chat");
         configurer.setShowPerspectiveBar(false);
+
+//        // open login dialog before a main window
+//        LoginDialog dialog = new LoginDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+//        if (dialog.open() != Window.OK) {
+//            System.exit(-1);
+//        }
     }
 
     @Override
