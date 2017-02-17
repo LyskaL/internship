@@ -1,7 +1,12 @@
 package dialog;
 
+import java.net.URL;
+
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -19,6 +24,7 @@ import entities.User.Gender;
 import entities.User.GroupType;
 import services.GroupService;
 import services.GroupServiceImpl;
+import viewpart.Constants;
 
 public class AddContactDialog extends Dialog {
 
@@ -66,13 +72,40 @@ public class AddContactDialog extends Dialog {
     @Override
     protected Control createDialogArea(Composite parent) {
         getShell().setText("Add contact");
-        Composite area = (Composite) super.createDialogArea(parent);
 
-        Composite container = new Composite(area, SWT.NULL);
-        container.setLayout(new GridLayout(1, false));
-        container.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        addImageToWindow();
 
-        Composite containerText = new Composite(container, SWT.NULL);
+        Composite dialogComposite = (Composite) super.createDialogArea(parent);
+
+        Composite mainPanel = new Composite(dialogComposite, SWT.NULL);
+        mainPanel.setLayout(new GridLayout(1, false));
+        mainPanel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        createTextPanel(mainPanel);
+        createGroupButtonGender(mainPanel);
+
+        return dialogComposite;
+    }
+
+    private void createGroupButtonGender(Composite mainPanel) {
+        Group groupButtonGender = new Group(mainPanel, SWT.SHADOW_IN);
+        groupButtonGender.setLayout(new GridLayout(2, false));
+        groupButtonGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        groupButtonGender.setText(" Gender ");
+
+        _maleGender = new Button(groupButtonGender, SWT.RADIO | SWT.LEFT_TO_RIGHT);
+        _maleGender.setText("male");
+        _maleGender.setSelection(true);
+        _maleGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        _femaleGender = new Button(groupButtonGender, SWT.RADIO | SWT.RIGHT_TO_LEFT);
+        _femaleGender.setText("female");
+        _femaleGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    }
+
+    private void createTextPanel(Composite mainPanel) {
+
+        Composite containerText = new Composite(mainPanel, SWT.NULL);
         containerText.setLayout(new GridLayout(2, false));
         containerText.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -91,8 +124,10 @@ public class AddContactDialog extends Dialog {
         _textServer = new Text(containerText, SWT.BORDER);
         _textServer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        new Label(containerText, SWT.NULL).setText("Group:");
+        addGroupType(containerText);
+    }
 
+    private void addGroupType(Composite containerText) {
         _groupType = new Combo(containerText, SWT.READ_ONLY);
 
         for (GroupType group : GroupType.values()) {
@@ -104,21 +139,12 @@ public class AddContactDialog extends Dialog {
         _groupType.setSelection(new Point(20, 20));
         _groupType.select(GroupType.values().length - 1);
         _groupType.setCapture(false);
+    }
 
-        Group groupButtonGender = new Group(container, SWT.SHADOW_IN);
-        groupButtonGender.setLayout(new GridLayout(2, false));
-        groupButtonGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        groupButtonGender.setText(" Gender ");
-
-        _maleGender = new Button(groupButtonGender, SWT.RADIO | SWT.LEFT_TO_RIGHT);
-        _maleGender.setText("male");
-        _maleGender.setSelection(true);
-        _maleGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        _femaleGender = new Button(groupButtonGender, SWT.RADIO | SWT.RIGHT_TO_LEFT);
-        _femaleGender.setText("female");
-        _femaleGender.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        return area;
+    private void addImageToWindow() {
+        URL url = Platform.getBundle("Eclipse-RCP").getEntry("icons/add_contact.png");
+        ImageDescriptor image = ImageDescriptor.createFromURL(url);
+        getShell().setImage(new Image(Constants.DISPLAY, image.getImageData()));
     }
 
     @Override
