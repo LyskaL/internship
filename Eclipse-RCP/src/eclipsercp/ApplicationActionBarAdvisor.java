@@ -1,6 +1,7 @@
 package eclipsercp;
 
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -27,6 +28,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IWorkbenchAction _addContactAction;
     private IWorkbenchAction _deleteContactAction;
     private IWorkbenchAction _chatAction;
+    private IWorkbenchAction _helpAction;
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -37,6 +39,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     protected void makeActions(IWorkbenchWindow window) {
         _exitAction = ActionFactory.QUIT.create(window);
         register(_exitAction);
+        _helpAction = ActionFactory.HELP_CONTENTS.create(window);
+        register(_helpAction);
         _aboutAction = ActionFactory.ABOUT.create(window);
         register(_aboutAction);
         _addContactAction = new AddContactAction(window);
@@ -58,8 +62,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         appMenu.add(new Separator());
         appMenu.add(_exitAction);
 
-        MenuManager helpMenu = new MenuManager("&Help", "_help");
+        MenuManager helpMenu = new MenuManager("&Help", "help");
+
+        helpMenu.add(_helpAction);
         helpMenu.add(_aboutAction);
+
+        IContributionItem[] items = helpMenu.getItems();
+        items[0].setVisible(false);
 
         menuBar.add(appMenu);
         menuBar.add(helpMenu);
@@ -78,6 +87,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     @SuppressWarnings("restriction")
     private void removeUnWantedActions() {
+
+
         ActionSetRegistry asr = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = asr.getActionSets();
 
