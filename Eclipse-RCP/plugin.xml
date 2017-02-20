@@ -63,6 +63,23 @@
                name="aboutText"
                value="Chat Client (Workbench)&#x0A;Version: 1.0.0&#x0A;&#x0A;Chat is an RCP application developed for the book&#x0A;Eclipse Rich Client Platform&#x0A;Designing, Coding, and Packaging Java Applications. &#x0A;&#x0A;(c) Copyright Jeff McAffer and Jean-Michel Lemieux 2005. All Rights Reserved">
          </property>
+         <property
+               name="preferenceCustomization "
+               value="preferences.ini">
+         </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="tocgettingstarted.xml">
+      </toc>
+      <toc
+            file="toctasks.xml">
+      </toc>
    </extension>
 </plugin>

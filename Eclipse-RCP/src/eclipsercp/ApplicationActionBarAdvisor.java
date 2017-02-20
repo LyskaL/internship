@@ -68,7 +68,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         helpMenu.add(_aboutAction);
 
         IContributionItem[] items = helpMenu.getItems();
-        items[0].setVisible(false);
+        items[0].setVisible(true);
 
         menuBar.add(appMenu);
         menuBar.add(helpMenu);
