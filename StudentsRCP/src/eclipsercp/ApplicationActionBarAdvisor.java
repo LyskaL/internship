@@ -1,6 +1,9 @@
-package org.eclipsercp.students.ui;
+package eclipsercp;
 
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.jface.action.ICoolBarManager;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
@@ -14,6 +17,21 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         removeUnWantedActions();
     }
 
+    @Override
+    protected void makeActions(IWorkbenchWindow window) {
+
+    }
+
+    @Override
+    protected void fillMenuBar(IMenuManager menuBar) {
+
+    }
+
+    @Override
+    protected void fillCoolBar(ICoolBarManager coolBar) {
+
+    }
+
     @SuppressWarnings("restriction")
     private void removeUnWantedActions() {
         ActionSetRegistry asr = WorkbenchPlugin.getDefault().getActionSetRegistry();
@@ -24,5 +42,4 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
             asr.removeExtension(ext, new Object[] { actionSet });
         }
     }
-
 }

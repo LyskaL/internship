@@ -1,4 +1,4 @@
-package org.eclipsercp.students.ui;
+package eclipsercp;
 
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -20,16 +20,18 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     @Override
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+        configurer.setInitialSize(new Point(300, 300));
         configurer.setShowCoolBar(true);
         configurer.setShowMenuBar(true);
         configurer.setShowStatusLine(false);
         configurer.setShowPerspectiveBar(false);
         configurer.setTitle("Students homework");
-        configurer.setInitialSize(new Point(300, 450));
     }
 
     @Override
     public void postWindowCreate() {
+        getWindowConfigurer().getWindow().getShell().setSize(600, 300);
+
         // remove Run from top-menu
         getWindowConfigurer().getActionBarConfigurer().getMenuManager().removeAll();
     }
