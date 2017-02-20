@@ -5,7 +5,6 @@ import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 public class ContactsView extends ViewPart {
@@ -24,10 +23,10 @@ public class ContactsView extends ViewPart {
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
 
-        Composite formPanel = new Composite(sashForm, SWT.BORDER);
+        Composite formPanel = new Composite(sashForm, SWT.NONE);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         formPanel.setLayout(new GridLayout(1, true));
-        sashForm.setBackground(PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+        //sashForm.setBackground(PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_WHITE));
     }
 
     @Override

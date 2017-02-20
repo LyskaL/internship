@@ -30,9 +30,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void postWindowCreate() {
-        getWindowConfigurer().getWindow().getShell().setSize(600, 300);
-
-        // remove Run from top-menu
-        getWindowConfigurer().getActionBarConfigurer().getMenuManager().removeAll();
+        //getWindowConfigurer().getWindow().getShell().setSize(600, 300);
     }
 }
