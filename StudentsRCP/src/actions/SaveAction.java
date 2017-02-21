@@ -40,7 +40,14 @@ public class SaveAction extends Action implements ISelectionListener, ActionFact
     }
 
     @Override
+    public void setEnabled(boolean enabled) {
+        // TODO Auto-generated method stub
+        super.setEnabled(enabled);
+    }
+
+    @Override
     public void run() {
         super.run();
+        System.out.println("Press Run in Save");
     }
 }
