@@ -23,16 +23,14 @@ public class ContactsView extends ViewPart {
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
 
+        new TableView(tablePanel);
+
         Composite formPanel = new Composite(sashForm, SWT.NONE);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         formPanel.setLayout(new GridLayout(1, true));
         // sashForm.setBackground(PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_WHITE));
         // new ActionContributionItem(new NewAction(getSite().getWorkbenchWindow())).fill(formPanel);
-
         new FormView(formPanel, SWT.NONE, getSite().getWorkbenchWindow());
-
-
-
         // IWorkbenchWindow window = getSite().getWorkbenchWindow();
         // ActionContributionItem newAction = new ActionContributionItem(new NewAction(window));
         // newAction.fill(formPanel);

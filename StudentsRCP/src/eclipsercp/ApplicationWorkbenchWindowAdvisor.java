@@ -30,6 +30,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     @Override
     public void postWindowCreate() {
-        getWindowConfigurer().getWindow().getShell().setSize(800, 300);
+        getWindowConfigurer().getWindow().getShell().setSize(750, 300);
     }
 }
