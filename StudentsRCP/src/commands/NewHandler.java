@@ -1,46 +1,20 @@
 package commands;
 
+import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
-import org.eclipse.core.commands.IHandlerListener;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 
-public class NewHandler implements IHandler {
-
-    @Override
-    public void addHandlerListener(IHandlerListener handlerListener) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void dispose() {
-        // TODO Auto-generated method stub
-
-    }
+public class NewHandler extends AbstractHandler {
 
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        // TODO Auto-generated method stub
+        Display display = PlatformUI.getWorkbench().getDisplay();
+        MessageDialog.openInformation(display.getActiveShell(), "New Command", "New executed.");
+        System.out.println("NewHandler");
         return null;
-    }
-
-    @Override
-    public boolean isEnabled() {
-
-        return false;
-    }
-
-    @Override
-    public boolean isHandled() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void removeHandlerListener(IHandlerListener handlerListener) {
-        // TODO Auto-generated method stub
-
     }
 
 }

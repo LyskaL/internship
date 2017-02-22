@@ -33,6 +33,12 @@
       <handler
             class="commands.NewHandler"
             commandId="StudentsRCP.commands.New">
+         <enabledWhen>
+            <test
+                  forcePluginActivation="true"
+                  property="studentrcp.NewPropertyTester">
+            </test>
+         </enabledWhen>
       </handler>
    </extension>
    <extension
@@ -49,9 +55,6 @@
                   style="push">
             </command>
          </toolbar>
-         <toolbar
-               id="StudentsRCP.commands.toolbar">
-         </toolbar>
       </menuContribution>
       <menuContribution
             allPopups="false"
@@ -65,12 +68,20 @@
                   label="New"
                   style="push">
             </command>
-         </menu>
-         <menu
-               id="fileMenu"
-               label="File">
+            <command
+                  commandId="StudentsRCP.commands.Exit"
+                  label="Exit"
+                  style="push">
+            </command>
          </menu>
       </menuContribution>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="commands.ExitHandler"
+            id="StudentsRCP.commands.Exit"
+            name="Exit">
+      </command>
+   </extension>
 </plugin>
