@@ -1,13 +1,8 @@
 package eclipsercp;
 
 import org.eclipse.core.runtime.IExtension;
-import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
@@ -34,7 +29,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
-        removeUnWantedActions();
+        //removeUnWantedActions();
     }
 
     @Override
@@ -58,33 +53,33 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     @Override
     protected void fillMenuBar(IMenuManager menuBar) {
-        MenuManager fileMenu = new MenuManager("&File", "file");
-        fileMenu.add(_newAction);
-        fileMenu.add(new Separator());
-        fileMenu.add(_exitAction);
-
-        MenuManager editMenu = new MenuManager("&Edit", "edit");
-        editMenu.add(_saveAction);
-        editMenu.add(_deleteAction);
-        editMenu.add(new Separator());
-        editMenu.add(_cancelAction);
-
-        MenuManager helpMenu = new MenuManager("&Help", "help");
-        helpMenu.add(_helpAction);
-        helpMenu.add(_aboutAction);
-
-        // remove help content
-        IContributionItem[] items = helpMenu.getItems();
-        items[0].setVisible(false);
-
-        menuBar.add(fileMenu);
-        menuBar.add(editMenu);
-        menuBar.add(helpMenu);
+//        MenuManager fileMenu = new MenuManager("&File", "file");
+//        fileMenu.add(_newAction);
+//        fileMenu.add(new Separator());
+//        fileMenu.add(_exitAction);
+//
+//        MenuManager editMenu = new MenuManager("&Edit", "edit");
+//        editMenu.add(_saveAction);
+//        editMenu.add(_deleteAction);
+//        editMenu.add(new Separator());
+//        editMenu.add(_cancelAction);
+//
+//        MenuManager helpMenu = new MenuManager("&Help", "help");
+//        helpMenu.add(_helpAction);
+//        helpMenu.add(_aboutAction);
+//
+//        // remove help content
+//        IContributionItem[] items = helpMenu.getItems();
+//        items[0].setVisible(false);
+//
+//        menuBar.add(fileMenu);
+//        menuBar.add(editMenu);
+//        menuBar.add(helpMenu);
     }
 
     @Override
     protected void fillCoolBar(ICoolBarManager coolBar) {
-        IToolBarManager toolbar = new ToolBarManager(coolBar.getStyle());
+        /*IToolBarManager toolbar = new ToolBarManager(coolBar.getStyle());
         coolBar.add(toolbar);
         toolbar.add(_newAction);
         toolbar.add(new Separator());
@@ -92,7 +87,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         toolbar.add(new Separator());
         toolbar.add(_deleteAction);
         toolbar.add(new Separator());
-        toolbar.add(_cancelAction);
+        toolbar.add(_cancelAction);*/
     }
 
     @SuppressWarnings("restriction")
