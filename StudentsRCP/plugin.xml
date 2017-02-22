@@ -28,5 +28,49 @@
             restorable="true">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="commands.NewHandler"
+            commandId="StudentsRCP.commands.New">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+                id="StudentsRCP.commands.toolbar">
+            <command
+                  commandId="StudentsRCP.commands.toolbar.New"
+                  icon="icons/new_icon.png"
+                  label="New"
+                  style="push">
+            </command>
+         </toolbar>
+         <toolbar
+               id="StudentsRCP.commands.toolbar">
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               id="fileMenu"
+               label="File">
+            <command
+                  commandId="StudentsRCP.commands.New"
+                  icon="icons/new_icon.png"
+                  label="New"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="fileMenu"
+               label="File">
+         </menu>
+      </menuContribution>
+   </extension>
 
 </plugin>

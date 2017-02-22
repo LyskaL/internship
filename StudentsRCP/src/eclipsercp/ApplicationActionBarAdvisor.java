@@ -79,15 +79,15 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     @Override
     protected void fillCoolBar(ICoolBarManager coolBar) {
-        /*IToolBarManager toolbar = new ToolBarManager(coolBar.getStyle());
-        coolBar.add(toolbar);
-        toolbar.add(_newAction);
-        toolbar.add(new Separator());
-        toolbar.add(_saveAction);
-        toolbar.add(new Separator());
-        toolbar.add(_deleteAction);
-        toolbar.add(new Separator());
-        toolbar.add(_cancelAction);*/
+        // IToolBarManager toolbar = new ToolBarManager(coolBar.getStyle());
+        // coolBar.add(toolbar);
+        // toolbar.add(_newAction);
+        // toolbar.add(new Separator());
+        // toolbar.add(_saveAction);
+        // toolbar.add(new Separator());
+        // toolbar.add(_deleteAction);
+        // toolbar.add(new Separator());
+        // toolbar.add(_cancelAction);
     }
 
     @SuppressWarnings("restriction")
