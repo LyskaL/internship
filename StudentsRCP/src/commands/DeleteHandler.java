@@ -7,12 +7,12 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
-public class NewHandler extends AbstractHandler {
+public class DeleteHandler extends AbstractHandler {
 
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
         Display display = PlatformUI.getWorkbench().getDisplay();
-        MessageDialog.openInformation(display.getActiveShell(), "New Command", "New executed.");
+        MessageDialog.openInformation(display.getActiveShell(), "Delete Command", "Delete executed.");
         return null;
     }
 

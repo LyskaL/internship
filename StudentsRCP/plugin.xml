@@ -33,12 +33,10 @@
       <handler
             class="commands.NewHandler"
             commandId="StudentsRCP.commands.New">
-         <enabledWhen>
-            <test
-                  forcePluginActivation="true"
-                  property="studentsrcp.newTester.isEnabledState">
-            </test>
-         </enabledWhen>
+      </handler>
+      <handler
+            class="commands.DeleteHandler"
+            commandId="StudentsRCP.commands.Delete">
       </handler>
    </extension>
    <extension
@@ -49,9 +47,17 @@
          <toolbar
                 id="StudentsRCP.commands.toolbar">
             <command
-                  commandId="StudentsRCP.commands.toolbar.New"
+                  commandId="StudentsRCP.commands.New"
                   icon="icons/new_icon.png"
+                  id="StudentsRCP.commands.new"
                   label="New"
+                  style="push">
+            </command>
+            <command
+                  commandId="StudentsRCP.commands.Delete"
+                  icon="icons/delete_icon.png"
+                  id="StudentsRCP.commands.delete"
+                  label="Delete"
                   style="push">
             </command>
          </toolbar>
@@ -65,12 +71,25 @@
             <command
                   commandId="StudentsRCP.commands.New"
                   icon="icons/new_icon.png"
+                  id="StudentsRCP.commands.new"
                   label="New"
                   style="push">
             </command>
             <command
                   commandId="StudentsRCP.commands.Exit"
+                  id="StudentsRCP.commands.exit"
                   label="Exit"
+                  style="push">
+            </command>
+         </menu>
+         <menu
+               id="editFile"
+               label="Edit">
+            <command
+                  commandId="StudentsRCP.commands.Delete"
+                  icon="icons/delete_icon.png"
+                  id="StudentsRCP.commands.delete"
+                  label="Delete"
                   style="push">
             </command>
          </menu>
@@ -83,13 +102,21 @@
             id="StudentsRCP.commands.Exit"
             name="Exit">
       </command>
+      <command
+            id="StudentsRCP.commands.New"
+            name="New">
+      </command>
+      <command
+            id="StudentsRCP.commands.Delete"
+            name="Delete">
+      </command>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="studentsrcp.NewTester"
-            id="StudentsRCP.propertyTestes.NewTester"
-            namespace="studentsrcp.newTester"
+            class="studentsrcp.Tester"
+            id="StudentsRCP.propertyTestes.tester"
+            namespace="studentsrcp.tester"
             properties="isEnabledState"
             type="java.lang.Object">
       </propertyTester>
