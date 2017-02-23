@@ -36,7 +36,7 @@
          <enabledWhen>
             <test
                   forcePluginActivation="true"
-                  property="studentrcp.NewPropertyTester">
+                  property="studentsrcp.newTester.isEnabledState">
             </test>
          </enabledWhen>
       </handler>
@@ -83,5 +83,15 @@
             id="StudentsRCP.commands.Exit"
             name="Exit">
       </command>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="studentsrcp.NewTester"
+            id="StudentsRCP.propertyTestes.NewTester"
+            namespace="studentsrcp.newTester"
+            properties="isEnabledState"
+            type="java.lang.Object">
+      </propertyTester>
    </extension>
 </plugin>
