@@ -38,6 +38,14 @@
             class="commands.DeleteHandler"
             commandId="StudentsRCP.commands.Delete">
       </handler>
+      <handler
+            class="commands.SaveHandler"
+            commandId="StudentsRCP.commands.Save">
+      </handler>
+      <handler
+            class="commands.CancelHadler"
+            commandId="StudentsRCP.commands.Cancel">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -54,10 +62,24 @@
                   style="push">
             </command>
             <command
+                  commandId="StudentsRCP.commands.Save"
+                  icon="icons/save_icon.png"
+                  id="StudentsRCP.commands.save"
+                  label="Save"
+                  style="push">
+            </command>
+            <command
                   commandId="StudentsRCP.commands.Delete"
                   icon="icons/delete_icon.png"
                   id="StudentsRCP.commands.delete"
                   label="Delete"
+                  style="push">
+            </command>
+            <command
+                  commandId="StudentsRCP.commands.Cancel"
+                  icon="icons/cancel_icon.png"
+                  id="StudentsRCP.commands.cancel"
+                  label="Cancel"
                   style="push">
             </command>
          </toolbar>
@@ -86,10 +108,24 @@
                id="editFile"
                label="Edit">
             <command
+                  commandId="StudentsRCP.commands.Save"
+                  icon="icons/save_icon.png"
+                  id="StudentsRCP.commands.save"
+                  label="Save"
+                  style="push">
+            </command>
+            <command
                   commandId="StudentsRCP.commands.Delete"
                   icon="icons/delete_icon.png"
                   id="StudentsRCP.commands.delete"
                   label="Delete"
+                  style="push">
+            </command>
+            <command
+                  commandId="StudentsRCP.commands.Cancel"
+                  icon="icons/cancel_icon.png"
+                  id="StudentsRCP.commands.cancel"
+                  label="Cancel"
                   style="push">
             </command>
          </menu>
@@ -103,12 +139,20 @@
             name="Exit">
       </command>
       <command
+            id="StudentsRCP.commands.Cancel"
+            name="Cancel">
+      </command>"
+      <command
             id="StudentsRCP.commands.New"
             name="New">
       </command>
       <command
             id="StudentsRCP.commands.Delete"
             name="Delete">
+      </command>
+      <command
+            id="StudentsRCP.commands.Save"
+            name="Save">
       </command>
    </extension>
    <extension

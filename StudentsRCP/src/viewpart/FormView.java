@@ -1,6 +1,5 @@
 package viewpart;
 
-import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -9,11 +8,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
-
-import actions.CancelAction;
-import actions.DeleteAction;
-import actions.NewAction;
-import actions.SaveAction;
 
 /**
  * The class is composite on which form located for information about student. Also, form has panel with buttons for
@@ -111,48 +105,52 @@ public class FormView extends Composite {
         buttonsPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         buttonsPanel.setLayout(new GridLayout(4, true));
 
-        ActionContributionItem actionItem = new ActionContributionItem(new NewAction(_window));
-        actionItem.fill(buttonsPanel);
-        _newButton = (Button) actionItem.getWidget();
-        _newButton.setText("New");
-        _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-        // _newButton = new Button(buttonsPanel, SWT.NONE);
-        // _newButton.setText("New");
-        // _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _newButton.addListener(SWT.Selection, new NewButtonListener());
-        actionItem = new ActionContributionItem(new SaveAction(_window));
-        actionItem.fill(buttonsPanel);
-        _saveButton = (Button) actionItem.getWidget();
-        _saveButton.setText("Save");
-        _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-        // _saveButton = new Button(buttonsPanel, SWT.NONE);
-        // _saveButton.setText("Save");
-        // _saveButton.setEnabled(false);
-        // _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _saveButton.addListener(SWT.Selection, new SaveButtonListener());
 
-        actionItem = new ActionContributionItem(new DeleteAction(_window));
-        actionItem.fill(buttonsPanel);
-        _deleteButton = (Button) actionItem.getWidget();
-        _deleteButton.setText("Delete");
-        _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-        // _deleteButton = new Button(buttonsPanel, SWT.NONE);
-        // _deleteButton.setText("Delete");
-        // _deleteButton.setEnabled(false);
-        // _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _deleteButton.addListener(SWT.Selection, new DeleteButtonListener());
-
-        actionItem = new ActionContributionItem(new CancelAction(_window));
-        actionItem.fill(buttonsPanel);
-        _cancelButton = (Button) actionItem.getWidget();
-        _cancelButton.setText("Cancel");
-        // _cancelButton = new Button(buttonsPanel, SWT.NONE);
-        // _cancelButton.setText("Cancel");
-        // _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
+        System.out.println("yeh!");
+//        ActionContributionItem actionItem = new ActionContributionItem(new NewAction(_window));
+//        actionItem.fill(buttonsPanel);
+//        _newButton = (Button) actionItem.getWidget();
+//        _newButton.setText("New");
+//        _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//
+//        // _newButton = new Button(buttonsPanel, SWT.NONE);
+//        // _newButton.setText("New");
+//        // _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//        // _newButton.addListener(SWT.Selection, new NewButtonListener());
+//        actionItem = new ActionContributionItem(new SaveAction(_window));
+//        actionItem.fill(buttonsPanel);
+//        _saveButton = (Button) actionItem.getWidget();
+//        _saveButton.setText("Save");
+//        _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//
+//        // _saveButton = new Button(buttonsPanel, SWT.NONE);
+//        // _saveButton.setText("Save");
+//        // _saveButton.setEnabled(false);
+//        // _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//        // _saveButton.addListener(SWT.Selection, new SaveButtonListener());
+//
+//        actionItem = new ActionContributionItem(new DeleteAction(_window));
+//        actionItem.fill(buttonsPanel);
+//        _deleteButton = (Button) actionItem.getWidget();
+//        _deleteButton.setText("Delete");
+//        _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//
+//        // _deleteButton = new Button(buttonsPanel, SWT.NONE);
+//        // _deleteButton.setText("Delete");
+//        // _deleteButton.setEnabled(false);
+//        // _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//        // _deleteButton.addListener(SWT.Selection, new DeleteButtonListener());
+//
+//        actionItem = new ActionContributionItem(new CancelAction(_window));
+//        actionItem.fill(buttonsPanel);
+//        _cancelButton = (Button) actionItem.getWidget();
+//        _cancelButton.setText("Cancel");
+//        // _cancelButton = new Button(buttonsPanel, SWT.NONE);
+//        // _cancelButton.setText("Cancel");
+//        // _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+//        // _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
     }
 
 }

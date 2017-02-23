@@ -12,6 +12,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import entities.Student;
+
 public class NewAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
     private final IWorkbenchWindow _window;
@@ -26,6 +28,7 @@ public class NewAction extends Action implements ISelectionListener, ActionFacto
 
         URL url = Platform.getBundle("StudentsRCP").getEntry("icons/new_icon.png");
         setImageDescriptor(ImageDescriptor.createFromURL(url));
+        _window.getSelectionService().addSelectionListener(this);
     }
 
     @Override
@@ -35,12 +38,19 @@ public class NewAction extends Action implements ISelectionListener, ActionFacto
 
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        // TODO Auto-generated method stub
-
+        System.out.println("selectionChanged from NewAction");
+        // selection containing elements
+        if (selection instanceof IStructuredSelection) {
+            _selection = (IStructuredSelection) selection;
+            setEnabled(_selection.size() == 1 && _selection.getFirstElement() instanceof Student);
+        } else {
+            setEnabled(false);
+        }
     }
 
     @Override
     public void run() {
         super.run();
+
     }
 }
