@@ -12,6 +12,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import commands.CommandUtil;
+
 public class SaveAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
     private final IWorkbenchWindow _window;
@@ -23,7 +25,6 @@ public class SaveAction extends Action implements ISelectionListener, ActionFact
         setId(ID);
         setText("&Save");
         setToolTipText("Save information to table");
-
         URL url = Platform.getBundle("StudentsRCP").getEntry("icons/save_icon.png");
         setImageDescriptor(ImageDescriptor.createFromURL(url));
     }
@@ -48,6 +49,6 @@ public class SaveAction extends Action implements ISelectionListener, ActionFact
     @Override
     public void run() {
         super.run();
-        System.out.println("Press Run in Save");
+        CommandUtil.commandRunById("StudentsRCP.commands.Save");
     }
 }

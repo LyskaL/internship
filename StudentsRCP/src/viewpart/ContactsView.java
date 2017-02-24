@@ -30,6 +30,7 @@ public class ContactsView extends ViewPart {
         formPanel.setLayout(new GridLayout(1, true));
         // sashForm.setBackground(PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_WHITE));
         // new ActionContributionItem(new NewAction(getSite().getWorkbenchWindow())).fill(formPanel);
+
         new FormView(formPanel, SWT.NONE, getSite().getWorkbenchWindow());
         // IWorkbenchWindow window = getSite().getWorkbenchWindow();
         // ActionContributionItem newAction = new ActionContributionItem(new NewAction(window));

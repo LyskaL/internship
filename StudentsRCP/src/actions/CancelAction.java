@@ -12,6 +12,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import commands.CommandUtil;
+
 public class CancelAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
     private final IWorkbenchWindow _window;
@@ -49,5 +51,6 @@ public class CancelAction extends Action implements ISelectionListener, ActionFa
     @Override
     public void run() {
         super.run();
+        CommandUtil.commandRunById("StudentsRCP.commands.Cancel");
     }
 }
