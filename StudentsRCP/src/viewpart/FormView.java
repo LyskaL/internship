@@ -117,21 +117,11 @@ public class FormView extends Composite {
         _newButton.setText("New");
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-        // _newButton = new Button(buttonsPanel, SWT.NONE);
-        // _newButton.setText("New");
-        // _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _newButton.addListener(SWT.Selection, new NewButtonListener());
         actionItem = new ActionContributionItem(new SaveAction(_window));
         actionItem.fill(buttonsPanel);
         _saveButton = (Button) actionItem.getWidget();
         _saveButton.setText("Save");
         _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-        // _saveButton = new Button(buttonsPanel, SWT.NONE);
-        // _saveButton.setText("Save");
-        // _saveButton.setEnabled(false);
-        // _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _saveButton.addListener(SWT.Selection, new SaveButtonListener());
 
         actionItem = new ActionContributionItem(new DeleteAction(_window));
         actionItem.fill(buttonsPanel);
@@ -139,20 +129,10 @@ public class FormView extends Composite {
         _deleteButton.setText("Delete");
         _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-        // _deleteButton = new Button(buttonsPanel, SWT.NONE);
-        // _deleteButton.setText("Delete");
-        // _deleteButton.setEnabled(false);
-        // _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _deleteButton.addListener(SWT.Selection, new DeleteButtonListener());
-
         actionItem = new ActionContributionItem(new CancelAction(_window));
         actionItem.fill(buttonsPanel);
         _cancelButton = (Button) actionItem.getWidget();
         _cancelButton.setText("Cancel");
-        // _cancelButton = new Button(buttonsPanel, SWT.NONE);
-        // _cancelButton.setText("Cancel");
-        // _cancelButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        // _cancelButton.addListener(SWT.Selection, new CancelButtonListener());
     }
 
 }
