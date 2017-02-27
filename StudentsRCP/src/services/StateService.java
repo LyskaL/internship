@@ -6,8 +6,6 @@ import java.util.List;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.IEvaluationService;
 
-import events.state.StateForm;
-
 /**
  *
  * The class is service stores the state of the form.

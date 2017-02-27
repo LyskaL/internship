@@ -7,6 +7,12 @@ import org.eclipse.core.commands.ExecutionException;
 import services.TableService;
 import services.TableServiceImp;
 
+/**
+ * Called by on click the "Delete" button from menu, toolbar or panel.
+ * Removes a selected row from table.
+ *
+ * @author Lyska Lyudmila
+ */
 public class DeleteHandler extends AbstractHandler {
 
     /** Service for working with data in table **/
