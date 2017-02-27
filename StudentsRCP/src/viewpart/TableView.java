@@ -49,7 +49,8 @@ public class TableView implements TableEventListener {
     }
 
     /**
-     * Creates table and configures it. Adds listener by on click, change default behavior (row selection by one click
+     * Creates table and configures it.
+     * Adds listener by on click, change default behavior (row selection by one click
      * and not double-click), sets layout (to stretch the table across the component).
      *
      * @param parent on that to add

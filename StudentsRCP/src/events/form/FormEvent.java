@@ -3,7 +3,10 @@ package events.form;
 /**
  * The class event arising on a form.
  *
- * Contains such commands as: FORM_SAVE - save data on form; FORM_CANCEL - clean data on form;
+ * Contains such commands as:
+ *
+ * FORM_SAVE - save data on form;
+ * FORM_CANCEL - clean data on form;
  *
  * @author Lyska Lyudmila
  * @see {@link llyska.services.FormEventService}

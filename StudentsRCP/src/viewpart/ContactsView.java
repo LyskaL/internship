@@ -35,7 +35,5 @@ public class ContactsView extends ViewPart {
     }
 
     @Override
-    public void setFocus() {
-
-    }
+    public void setFocus() {}
 }

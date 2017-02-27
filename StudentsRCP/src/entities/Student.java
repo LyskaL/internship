@@ -1,7 +1,8 @@
 package entities;
 
 /**
- * The student class stores a data about a student: its name, group number and if the task is done or not.
+ * The student class stores a data about a student:
+ * its name, group number and if the task is done or not.
  *
  * @author Lyska Lyudmila
  */

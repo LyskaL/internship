@@ -10,11 +10,9 @@ import entities.Student;
  * The class is designed for editing cell with a group number where student studies.
  *
  * Allows to enter only numbers.
- *
  * The new value is immediately saved to the table.
  *
  * @author Lyska Lyudmila
- *
  */
 public class NumberEditingSupport extends EditingSupport {
     private final TableViewer _viewer;

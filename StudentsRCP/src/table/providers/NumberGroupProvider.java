@@ -5,8 +5,9 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import entities.Student;
 
 /**
- * The class extends ColumnLabelProvider. The class is responsible for display information in cell with a number of
- * group where studying student.
+ * The class extends ColumnLabelProvider.
+ * The class is responsible for display information in cell
+ * with a number of group where studying student.
  *
  * @author Lyska Lyudmila
  */

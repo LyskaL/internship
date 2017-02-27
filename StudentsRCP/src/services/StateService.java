@@ -15,7 +15,6 @@ import events.state.StateForm;
  * that are responsible for the state of all buttons of the application.
  *
  * @author Lyska Lyudmila
- *
  */
 public class StateService{
 

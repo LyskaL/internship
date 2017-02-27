@@ -29,12 +29,6 @@ public class NewAction extends Action implements ActionFactory.IWorkbenchAction 
 
     @Override
     public void run() {
-        super.run();
-
-        //to call tester
-        //IEvaluationService evaluationService = PlatformUI.getWorkbench().getService(IEvaluationService.class);
-        //evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
-
         CommandUtil.commandRunById("StudentsRCP.commands.New");
     }
 }

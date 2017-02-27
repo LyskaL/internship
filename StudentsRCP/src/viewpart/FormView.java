@@ -16,18 +16,23 @@ import actions.CancelAction;
 import actions.DeleteAction;
 import actions.NewAction;
 import actions.SaveAction;
+import entities.Student;
+import events.form.FormEvent;
+import events.form.FormEventListener;
 import events.state.StateForm;
+import services.FormService;
 import services.StateService;
 import services.TableService;
 import services.TableServiceImp;
 
 /**
- * The class is composite on which form located for information about student. Also, form has panel with buttons for
+ * The class is composite on which form located for information about student.
+ * Also, form has panel with buttons for
  * managing other components.
  *
  * @author Lyska Lyudmila
  */
-public class FormView extends Composite {
+public class FormView extends Composite implements FormEventListener {
     /** Stores a name of student **/
     private Text _nameText;
 
@@ -57,8 +62,12 @@ public class FormView extends Composite {
     /** Service for working with data in table **/
     private final TableService _tableService = TableServiceImp.getInstance();
 
+    /** Service for handling event on form **/
+    private final FormService _formService = FormService.getInstance();
+
     /**
-     * Constructor to create a panel with a table. Creates services, sets layouts and adds other components.
+     * Constructor to create a panel with a table.
+     * Creates services, sets layouts and adds other components.
      *
      * @param parent on what form
      * @param style form
@@ -72,6 +81,8 @@ public class FormView extends Composite {
 
         createTextPanel();
         createButtonsPanel();
+
+        _formService.addTableEventListener(this);
     }
 
     /**
@@ -144,7 +155,7 @@ public class FormView extends Composite {
         _deleteButton.setText("Delete");
         _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 
-        actionItem = new ActionContributionItem(new CancelAction(_window));
+        actionItem = new ActionContributionItem(new CancelAction());
         actionItem.fill(buttonsPanel);
         _cancelButton = (Button) actionItem.getWidget();
         _cancelButton.setText("Cancel");
@@ -158,7 +169,6 @@ public class FormView extends Composite {
      * The class handles event on pressing on key.
      *
      * @author Lyska Lyudmila
-     *
      */
     class TextKeyListener implements KeyListener {
         @Override
@@ -166,7 +176,8 @@ public class FormView extends Composite {
         }
 
         /**
-         * Sets application's state to FORM_FILLED if all text fields are filled. Disables this state in other cases.
+         * Sets application's state to StateForm.FILLED if all text fields are filled.
+         * Disables this state in other cases.
          */
         @Override
         public void keyReleased(KeyEvent e) {
@@ -177,7 +188,6 @@ public class FormView extends Composite {
                 state = StateForm.FILLED;
                 isEnabled = true;
             }
-
             _saveButton.setEnabled(isEnabled);
             _cancelButton.setEnabled(isEnabled);
             // set state for menu and toolbar
@@ -189,5 +199,26 @@ public class FormView extends Composite {
     @Override
     public boolean setFocus() {
         return super.setFocus();
+    }
+
+    @Override
+    public void formEvent(FormEvent e) {
+        if (e.checkCommand(FormEvent.FORM_SAVE)) {
+            _tableService.addStudent(
+                    new Student(_nameText.getText(), _numberGroupText.getText(), _checkButton.getSelection()));
+        }
+        resetDataFromForm();
+    }
+
+    private void resetDataFromForm() {
+        _nameText.setText("");
+        _numberGroupText.setText("");
+        _checkButton.setSelection(false);
+
+        _saveButton.setEnabled(false);
+        _cancelButton.setEnabled(false);
+
+        _stateService.setState(StateForm.EMPTY);
+        _stateService.runEvent();
     }
 }

@@ -6,7 +6,8 @@ import java.util.List;
 import entities.Student;
 
 /**
- * Model is responsible for how will display information in table. Stores list of student that save in table.
+ * Model is responsible for how will display information in table.
+ * Stores list of student that save in table.
  *
  * @author Lyska Lyudmila
  */

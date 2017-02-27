@@ -9,8 +9,8 @@ import events.form.FormEventGenerator;
 import events.form.FormEventListener;
 
 /**
- * The class is service enabling change a state form. The class implements interface for generating event to change a
- * form.
+ * The class is service enabling change a state form.
+ * The class implements interface for generating event to change a form.
  *
  * @author Lyska Lyudmila
  */
