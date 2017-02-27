@@ -14,9 +14,7 @@ public class DeleteHandler extends AbstractHandler {
 
     /**
      * Processes event pressing the "Delete" button.
-     *
-     * Gives instructions the table of service to remove a selected row. Gives instructions the state service to disable
-     * "Delete" button.
+     * Gives instructions the table of service to remove a selected row.
      */
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {

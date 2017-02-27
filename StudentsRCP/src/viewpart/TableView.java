@@ -86,8 +86,6 @@ public class TableView implements TableEventListener {
         };
         TableViewerEditor.create(_viewer, focusCellManager, activationSupport, ColumnViewerEditor.DEFAULT);
 
-
-
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
         gridData.horizontalSpan = 1;

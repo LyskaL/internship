@@ -5,23 +5,15 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
 import commands.CommandUtil;
 
-public class SaveAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
+public class SaveAction extends Action implements ActionFactory.IWorkbenchAction {
 
-    private final IWorkbenchWindow _window;
     public final static String ID = "StudentsRCP.actions.newAction";
-    private IStructuredSelection _selection;
 
-    public SaveAction(IWorkbenchWindow window) {
-        this._window = window;
+    public SaveAction() {
         setId(ID);
         setText("&Save");
         setToolTipText("Save information to table");
@@ -30,25 +22,10 @@ public class SaveAction extends Action implements ISelectionListener, ActionFact
     }
 
     @Override
-    public void dispose() {
-        _window.getSelectionService().removeSelectionListener(this);
-    }
-
-    @Override
-    public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        // TODO Auto-generated method stub
-        super.setEnabled(enabled);
-    }
+    public void dispose() {}
 
     @Override
     public void run() {
-        super.run();
         CommandUtil.commandRunById("StudentsRCP.commands.Save");
     }
 }

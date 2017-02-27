@@ -16,8 +16,7 @@ import actions.CancelAction;
 import actions.DeleteAction;
 import actions.NewAction;
 import actions.SaveAction;
-import events.state.ChangeStateEvent;
-import events.state.ChangeStateEventListener;
+import events.state.StateForm;
 import services.StateService;
 import services.TableService;
 import services.TableServiceImp;
@@ -28,7 +27,7 @@ import services.TableServiceImp;
  *
  * @author Lyska Lyudmila
  */
-public class FormView extends Composite implements ChangeStateEventListener {
+public class FormView extends Composite {
     /** Stores a name of student **/
     private Text _nameText;
 
@@ -73,7 +72,6 @@ public class FormView extends Composite implements ChangeStateEventListener {
 
         createTextPanel();
         createButtonsPanel();
-        _stateService.addDataEventListener(this);
     }
 
     /**
@@ -134,7 +132,7 @@ public class FormView extends Composite implements ChangeStateEventListener {
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         _newButton.setData("newButton");
 
-        actionItem = new ActionContributionItem(new SaveAction(_window));
+        actionItem = new ActionContributionItem(new SaveAction());
         actionItem.fill(buttonsPanel);
         _saveButton = (Button) actionItem.getWidget();
         _saveButton.setText("Save");
@@ -172,28 +170,24 @@ public class FormView extends Composite implements ChangeStateEventListener {
          */
         @Override
         public void keyReleased(KeyEvent e) {
-            if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
-                _stateService.enableState(ChangeStateEvent.FORM_FILLED);
-            } else {
-                _stateService.disableState(ChangeStateEvent.FORM_FILLED);
-            }
-            _stateService.runEvent();
+            boolean isEnabled = false;
+            StateForm state = StateForm.EMPTY;
 
-            // // to call tester
-            // IEvaluationService evaluationService = PlatformUI.getWorkbench().getService(IEvaluationService.class);
-            // evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
+            if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
+                state = StateForm.FILLED;
+                isEnabled = true;
+            }
+
+            _saveButton.setEnabled(isEnabled);
+            _cancelButton.setEnabled(isEnabled);
+            // set state for menu and toolbar
+            _stateService.setState(state);
+            _stateService.runEvent();
         }
     }
 
     @Override
     public boolean setFocus() {
         return super.setFocus();
-    }
-
-    @Override
-    public void handleEvent(ChangeStateEvent e) {
-        _deleteButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_SELECTED));
-        _saveButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
-        _cancelButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 }
