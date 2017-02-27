@@ -11,9 +11,7 @@ public class Tester extends PropertyTester {
 
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        System.out.println("NewTester");
-
-
+        System.out.println("Save Tester");
         return true;
     }
 

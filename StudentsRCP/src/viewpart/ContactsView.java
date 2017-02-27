@@ -23,7 +23,9 @@ public class ContactsView extends ViewPart {
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
 
-        new TableView(tablePanel);
+        //new TableView(tablePanel);
+        TableView table = new TableView(tablePanel);
+        table.setSelectionProvider(getSite());
 
         Composite formPanel = new Composite(sashForm, SWT.NONE);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

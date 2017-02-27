@@ -17,6 +17,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.IWorkbenchPartSite;
 
 import entities.Group;
 import table.editors.CheckBoxEditingSupport;
@@ -101,6 +102,11 @@ public class TableView {
         gridData.horizontalAlignment = GridData.FILL;
 
         _viewer.getTable().setLayoutData(gridData);
+        //_site.setSelectionProvider(_viewer);
+    }
+
+    public void setSelectionProvider(IWorkbenchPartSite site) {
+        site.setSelectionProvider(_viewer);
     }
 
     /**

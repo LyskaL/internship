@@ -37,10 +37,28 @@
       <handler
             class="commands.DeleteHandler"
             commandId="StudentsRCP.commands.Delete">
+             <enabledWhen>
+                <with
+                     variable="selection">
+                  <instanceof
+                        value="org.eclipse.jface.viewers.ISelection">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="studentsrcp.deleteTester.isSelected">
+                  </test>
+                </with>
+            </enabledWhen> 
       </handler>
       <handler
             class="commands.SaveHandler"
             commandId="StudentsRCP.commands.Save">
+         <enabledWhen>
+            <test
+                  forcePluginActivation="true"
+                  property="studentsrcp.tester.isEnabledState">
+            </test>
+         </enabledWhen>
       </handler>
       <handler
             class="commands.CancelHadler"
@@ -162,6 +180,16 @@
             id="StudentsRCP.propertyTestes.tester"
             namespace="studentsrcp.tester"
             properties="isEnabledState"
+            type="java.lang.Object">
+      </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="studentsrcp.DeleteTester"
+            id="StudentsRCP.propertyTestes.deleteTester"
+            namespace="studentsrcp.deleteTester"
+            properties="isSelected"
             type="java.lang.Object">
       </propertyTester>
    </extension>
