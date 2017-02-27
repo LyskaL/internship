@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
 import org.eclipse.jface.viewers.FocusCellOwnerDrawHighlighter;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TableViewerEditor;
@@ -19,7 +20,11 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IWorkbenchPartSite;
 
-import entities.Group;
+import events.state.ChangeStateEvent;
+import events.table.TableEventListener;
+import services.StateService;
+import services.TableService;
+import services.TableServiceImp;
 import table.editors.CheckBoxEditingSupport;
 import table.editors.NameEditingSupport;
 import table.editors.NumberEditingSupport;
@@ -28,9 +33,15 @@ import table.providers.ModelProvider;
 import table.providers.NameProvider;
 import table.providers.NumberGroupProvider;
 
-public class TableView {
+public class TableView implements TableEventListener {
     /** Table with data about group **/
     private TableViewer _viewer;
+
+    /** Service for working with data in table **/
+    private final TableService _service = TableServiceImp.getInstance();
+
+    /** Service for handling event on form **/
+    private final StateService _stateService = StateService.getInstance();
 
     /**
      * Constructor this class. Creates services and adds other menu items.
@@ -49,10 +60,7 @@ public class TableView {
      * @param parent on that to add
      */
     private void createViewer(Composite parent) {
-//        _stateService = StateService.getInstance();
-//        _service.addTableEventListener(this);
-
-        Group group = new Group();
+        _service.addTableEventListener(this);
 
         _viewer = new TableViewer(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, _viewer);
@@ -62,7 +70,7 @@ public class TableView {
         table.setLinesVisible(true);
 
         _viewer.setContentProvider(new ArrayContentProvider());
-        ModelProvider.INSTANCE.setStudents(group.getGroup());
+        ModelProvider.INSTANCE.setStudents(_service.getGroup());
         _viewer.setInput(ModelProvider.INSTANCE.getStudents());
 
         TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(_viewer,
@@ -102,7 +110,6 @@ public class TableView {
         gridData.horizontalAlignment = GridData.FILL;
 
         _viewer.getTable().setLayoutData(gridData);
-        //_site.setSelectionProvider(_viewer);
     }
 
     public void setSelectionProvider(IWorkbenchPartSite site) {
@@ -154,5 +161,16 @@ public class TableView {
         column.setResizable(true);
         column.setMoveable(true);
         return viewerColumn;
+    }
+
+    /**
+     * Updates the table after data change.
+     */
+    @Override
+    public void tableEvent(ChangeStateEvent e) {
+        ModelProvider.INSTANCE.setStudents(_service.getGroup());
+        _viewer.setInput(ModelProvider.INSTANCE.getStudents());
+        _viewer.setSelection(StructuredSelection.EMPTY);
+        _viewer.refresh();
     }
 }

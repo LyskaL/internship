@@ -63,6 +63,12 @@
       <handler
             class="commands.CancelHadler"
             commandId="StudentsRCP.commands.Cancel">
+         <enabledWhen>
+            <test
+                  forcePluginActivation="true"
+                  property="studentsrcp.tester.isEnabledState">
+            </test>
+         </enabledWhen>
       </handler>
    </extension>
    <extension

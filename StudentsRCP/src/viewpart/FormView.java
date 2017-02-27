@@ -2,6 +2,8 @@ package viewpart;
 
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -14,6 +16,9 @@ import actions.CancelAction;
 import actions.DeleteAction;
 import actions.NewAction;
 import actions.SaveAction;
+import events.state.ChangeStateEvent;
+import events.state.ChangeStateEventListener;
+import services.StateService;
 
 /**
  * The class is composite on which form located for information about student. Also, form has panel with buttons for
@@ -21,7 +26,7 @@ import actions.SaveAction;
  *
  * @author Lyska Lyudmila
  */
-public class FormView extends Composite {
+public class FormView extends Composite implements ChangeStateEventListener {
     /** Stores a name of student **/
     private Text _nameText;
 
@@ -45,6 +50,9 @@ public class FormView extends Composite {
 
     IWorkbenchWindow _window;
 
+    /** Service for handling event on form **/
+    private final StateService _stateService = StateService.getInstance();
+
     /**
      * Constructor to create a panel with a table. Creates services, sets layouts and adds other components.
      *
@@ -54,11 +62,13 @@ public class FormView extends Composite {
     public FormView(Composite parent, int style, IWorkbenchWindow window) {
         super(parent, style);
         _window = window;
+
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         setLayout(new GridLayout(1, true));
 
         createTextPanel();
         createButtonsPanel();
+        _stateService.addDataEventListener(this);
     }
 
     /**
@@ -74,14 +84,15 @@ public class FormView extends Composite {
         nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
         _nameText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _nameText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        // _nameText.addKeyListener(new TextKeyListener());
+        _nameText.addKeyListener(new TextKeyListener());
 
         Label groupLabel = new Label(textPanel, SWT.NONE);
         groupLabel.setText("Group");
         groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
         _numberGroupText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _numberGroupText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
-        // _numberGroupText.addKeyListener(new TextKeyListener());
+        _numberGroupText.addKeyListener(new TextKeyListener());
+
         createCheckButtonPanel(textPanel);
     }
 
@@ -116,6 +127,7 @@ public class FormView extends Composite {
         _newButton = (Button) actionItem.getWidget();
         _newButton.setText("New");
         _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        _newButton.setData("newButton");
 
         actionItem = new ActionContributionItem(new SaveAction(_window));
         actionItem.fill(buttonsPanel);
@@ -135,4 +147,43 @@ public class FormView extends Composite {
         _cancelButton.setText("Cancel");
     }
 
+    /**
+     * The class handles event on pressing on key.
+     *
+     * @author Lyska Lyudmila
+     *
+     */
+    class TextKeyListener implements KeyListener {
+        @Override
+        public void keyPressed(KeyEvent e) {
+        }
+
+        /**
+         * Sets application's state to FORM_FILLED if all text fields are filled. Disables this state in other cases.
+         */
+        @Override
+        public void keyReleased(KeyEvent e) {
+            if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
+                _stateService.enableState(ChangeStateEvent.FORM_FILLED);
+            } else {
+                _stateService.disableState(ChangeStateEvent.FORM_FILLED);
+            }
+            _stateService.runEvent();
+
+//            // to call tester
+//            IEvaluationService evaluationService = PlatformUI.getWorkbench().getService(IEvaluationService.class);
+//            evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
+        }
+    }
+
+    @Override
+    public boolean setFocus() {
+        return super.setFocus();
+    }
+
+    @Override
+    public void handleEvent(ChangeStateEvent e) {
+        // TODO Auto-generated method stub
+
+    }
 }
