@@ -16,7 +16,6 @@ public class Tester extends PropertyTester {
 
     @Override
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-        System.out.println("Save Tester");
         if ((_stateService.getState() & ChangeStateEvent.FORM_FILLED) != 0) {
             return true;
         }

@@ -20,9 +20,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IWorkbenchPartSite;
 
-import events.state.ChangeStateEvent;
 import events.table.TableEventListener;
-import services.StateService;
 import services.TableService;
 import services.TableServiceImp;
 import table.editors.CheckBoxEditingSupport;
@@ -39,9 +37,6 @@ public class TableView implements TableEventListener {
 
     /** Service for working with data in table **/
     private final TableService _service = TableServiceImp.getInstance();
-
-    /** Service for handling event on form **/
-    private final StateService _stateService = StateService.getInstance();
 
     /**
      * Constructor this class. Creates services and adds other menu items.
@@ -91,16 +86,7 @@ public class TableView implements TableEventListener {
         };
         TableViewerEditor.create(_viewer, focusCellManager, activationSupport, ColumnViewerEditor.DEFAULT);
 
-        // _viewer.getTable().addListener(SWT.Selection, new Listener() {
-        // @Override
-        // public void handleEvent(Event e) {
-        // IStructuredSelection selection = (IStructuredSelection) _viewer.getSelection();
-        // int selectIndex = _service.getIndex((Student) selection.getFirstElement());
-        // _service.setIndexSelect(selectIndex);
-        // _stateService.enableState(ChangeStateEvent.TABLE_SELECTED);
-        // _stateService.runEvent();
-        // }
-        // });
+
 
         GridData gridData = new GridData();
         gridData.verticalAlignment = GridData.FILL;
@@ -167,7 +153,7 @@ public class TableView implements TableEventListener {
      * Updates the table after data change.
      */
     @Override
-    public void tableEvent(ChangeStateEvent e) {
+    public void tableEvent() {
         ModelProvider.INSTANCE.setStudents(_service.getGroup());
         _viewer.setInput(ModelProvider.INSTANCE.getStudents());
         _viewer.setSelection(StructuredSelection.EMPTY);

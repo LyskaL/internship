@@ -19,6 +19,8 @@ import actions.SaveAction;
 import events.state.ChangeStateEvent;
 import events.state.ChangeStateEventListener;
 import services.StateService;
+import services.TableService;
+import services.TableServiceImp;
 
 /**
  * The class is composite on which form located for information about student. Also, form has panel with buttons for
@@ -52,6 +54,9 @@ public class FormView extends Composite implements ChangeStateEventListener {
 
     /** Service for handling event on form **/
     private final StateService _stateService = StateService.getInstance();
+
+    /** Service for working with data in table **/
+    private final TableService _tableService = TableServiceImp.getInstance();
 
     /**
      * Constructor to create a panel with a table. Creates services, sets layouts and adds other components.
@@ -145,6 +150,10 @@ public class FormView extends Composite implements ChangeStateEventListener {
         actionItem.fill(buttonsPanel);
         _cancelButton = (Button) actionItem.getWidget();
         _cancelButton.setText("Cancel");
+
+        _saveButton.setEnabled(false);
+        _deleteButton.setEnabled(false);
+        _cancelButton.setEnabled(false);
     }
 
     /**
@@ -170,9 +179,9 @@ public class FormView extends Composite implements ChangeStateEventListener {
             }
             _stateService.runEvent();
 
-//            // to call tester
-//            IEvaluationService evaluationService = PlatformUI.getWorkbench().getService(IEvaluationService.class);
-//            evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
+            // // to call tester
+            // IEvaluationService evaluationService = PlatformUI.getWorkbench().getService(IEvaluationService.class);
+            // evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
         }
     }
 
@@ -183,7 +192,8 @@ public class FormView extends Composite implements ChangeStateEventListener {
 
     @Override
     public void handleEvent(ChangeStateEvent e) {
-        // TODO Auto-generated method stub
-
+        _deleteButton.setEnabled(e.checkState(ChangeStateEvent.TABLE_SELECTED));
+        _saveButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
+        _cancelButton.setEnabled(e.checkState(ChangeStateEvent.FORM_FILLED));
     }
 }

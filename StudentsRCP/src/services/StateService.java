@@ -13,8 +13,7 @@ import events.state.ChangeStateEventListener;
 
 /**
  *
- * The class is service enabling to change state buttons and menu items.
- * The class implements interface for generating
+ * The class is service enabling to change state buttons and menu items. The class implements interface for generating
  * event to change state.
  *
  * @author Lyska Lyudmila
@@ -28,8 +27,10 @@ public class StateService implements ChangeStateEventGenerator {
     /** A set of listeners that subscribe to events in this class **/
     private final Set<ChangeStateEventListener> _listeners;
 
-    private static final IEvaluationService _evaluationService =
-            PlatformUI.getWorkbench().getService(IEvaluationService.class);
+    private static final IEvaluationService _evaluationService = PlatformUI.getWorkbench()
+            .getService(IEvaluationService.class);
+
+    private final Set<String> _listTesters;
 
     static {
         _stateService = new StateService();
@@ -39,6 +40,10 @@ public class StateService implements ChangeStateEventGenerator {
 
     private StateService() {
         _listeners = new HashSet<>();
+
+        _listTesters = new HashSet<>();
+        _listTesters.add("studentsrcp.deleteTester.isSelected");
+        _listTesters.add("studentsrcp.tester.isEnabledState");
     }
 
     /**
@@ -72,8 +77,10 @@ public class StateService implements ChangeStateEventGenerator {
         for (ChangeStateEventListener listener : _listeners) {
             listener.handleEvent(new ChangeStateEvent(_state));
         }
-        _evaluationService.requestEvaluation("studentsrcp.deleteTester.isSelected");
-        _evaluationService.requestEvaluation("studentsrcp.tester.isEnabledState");
+        // get all testers
+        for (String string : _listTesters) {
+            _evaluationService.requestEvaluation(string);
+        }
     }
 
     /**

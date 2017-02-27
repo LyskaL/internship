@@ -45,11 +45,12 @@ public class TableServiceImp implements TableService {
 
     /**
      * Gets a link to itself.
+     *
      * @return table service
      */
     public static TableServiceImp getInstance() {
         return _tableService;
-   }
+    }
 
     @Override
     public void cleanStudents() {
@@ -107,7 +108,7 @@ public class TableServiceImp implements TableService {
      */
     private void notifyListeners() {
         for (TableEventListener listener : _listeners) {
-            listener.tableEvent(null);
+            listener.tableEvent();
         }
     }
 
