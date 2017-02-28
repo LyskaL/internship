@@ -1,4 +1,4 @@
-package studentsrcp;
+package testers;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.StructuredSelection;

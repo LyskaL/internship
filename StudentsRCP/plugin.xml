@@ -45,7 +45,7 @@
                   </instanceof>
                   <test
                         forcePluginActivation="true"
-                        property="studentsrcp.deleteTester.isSelected">
+                        property="testers.deleteTester.isSelected">
                   </test>
                 </with>
             </enabledWhen> 
@@ -56,7 +56,7 @@
          <enabledWhen>
             <test
                   forcePluginActivation="true"
-                  property="studentsrcp.tester.isEnabledState">
+                  property="testers.stateFormTester.isEnabledState">
             </test>
          </enabledWhen>
       </handler>
@@ -66,7 +66,7 @@
          <enabledWhen>
             <test
                   forcePluginActivation="true"
-                  property="studentsrcp.tester.isEnabledState">
+                  property="testers.stateFormTester.isEnabledState">
             </test>
          </enabledWhen>
       </handler>
@@ -83,28 +83,32 @@
                   icon="icons/new_icon.png"
                   id="StudentsRCP.commands.new"
                   label="New"
-                  style="push">
+                  style="push"
+                  tooltip="New table...">
             </command>
             <command
                   commandId="StudentsRCP.commands.Save"
                   icon="icons/save_icon.png"
                   id="StudentsRCP.commands.save"
                   label="Save"
-                  style="push">
+                  style="push"
+                  tooltip="Save information to table">
             </command>
             <command
                   commandId="StudentsRCP.commands.Delete"
                   icon="icons/delete_icon.png"
                   id="StudentsRCP.commands.delete"
                   label="Delete"
-                  style="push">
+                  style="push"
+                  tooltip="Delete information from table">
             </command>
             <command
                   commandId="StudentsRCP.commands.Cancel"
                   icon="icons/cancel_icon.png"
                   id="StudentsRCP.commands.cancel"
                   label="Cancel"
-                  style="push">
+                  style="push"
+                  tooltip="Clear form panel...">
             </command>
          </toolbar>
       </menuContribution>
@@ -119,7 +123,8 @@
                   icon="icons/new_icon.png"
                   id="StudentsRCP.commands.new"
                   label="New"
-                  style="push">
+                  style="push"
+                  tooltip="New table...">
             </command>
             <command
                   commandId="StudentsRCP.commands.Exit"
@@ -136,21 +141,24 @@
                   icon="icons/save_icon.png"
                   id="StudentsRCP.commands.save"
                   label="Save"
-                  style="push">
+                  style="push"
+                  tooltip="Save information to table">
             </command>
             <command
                   commandId="StudentsRCP.commands.Delete"
                   icon="icons/delete_icon.png"
                   id="StudentsRCP.commands.delete"
                   label="Delete"
-                  style="push">
+                  style="push"
+                  tooltip="Delete information from table">
             </command>
             <command
                   commandId="StudentsRCP.commands.Cancel"
                   icon="icons/cancel_icon.png"
                   id="StudentsRCP.commands.cancel"
                   label="Cancel"
-                  style="push">
+                  style="push"
+                  tooltip="Clear form panel...">
             </command>
          </menu>
       </menuContribution>
@@ -182,9 +190,9 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="studentsrcp.Tester"
-            id="StudentsRCP.propertyTestes.tester"
-            namespace="studentsrcp.tester"
+            class="testers.StateFormTester"
+            id="StudentsRCP.propertyTestes.stateFormTester"
+            namespace="testers.stateFormTester"
             properties="isEnabledState"
             type="java.lang.Object">
       </propertyTester>
@@ -192,9 +200,9 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="studentsrcp.DeleteTester"
+            class="testers.DeleteTester"
             id="StudentsRCP.propertyTestes.deleteTester"
-            namespace="studentsrcp.deleteTester"
+            namespace="testers.deleteTester"
             properties="isSelected"
             type="java.lang.Object">
       </propertyTester>
