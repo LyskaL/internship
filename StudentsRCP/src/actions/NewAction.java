@@ -16,7 +16,6 @@ public class NewAction extends Action implements ActionFactory.IWorkbenchAction 
 
     public NewAction(IWorkbenchWindow window) {
         setId(ID);
-        setText("&New");
         setToolTipText("New table...");
 
         URL url = Platform.getBundle("StudentsRCP").getEntry("icons/new_icon.png");

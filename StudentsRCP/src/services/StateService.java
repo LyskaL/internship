@@ -1,10 +1,17 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.services.IEvaluationService;
+
+import events.state.ChangeStateEvent;
+import events.state.ChangeStateEventGenerator;
+import events.state.ChangeStateEventListener;
 
 /**
  *
@@ -14,10 +21,13 @@ import org.eclipse.ui.services.IEvaluationService;
  *
  * @author Lyska Lyudmila
  */
-public class StateService{
+public class StateService implements ChangeStateEventGenerator {
 
     /** Service for changing state buttons on form and menu panel **/
     private static StateService _stateService;
+
+    /** A set of listeners that subscribe to events in this class **/
+    private final Set<ChangeStateEventListener> _listeners;
 
     /** Service to run all testers from list **/
     private static final IEvaluationService _evaluationService = PlatformUI.getWorkbench()
@@ -34,6 +44,8 @@ public class StateService{
     private StateForm _state = StateForm.EMPTY;
 
     private StateService() {
+        _listeners = new HashSet<>();
+
         _listTesters = new ArrayList<>();
         _listTesters.add("studentsrcp.deleteTester.isSelected");
         _listTesters.add("studentsrcp.tester.isEnabledState");
@@ -52,6 +64,9 @@ public class StateService{
      * Sends event for all listeners.
      */
     public void runEvent() {
+        for (ChangeStateEventListener listener : _listeners) {
+            listener.handleEvent(new ChangeStateEvent(getState()));
+        }
         // call all testers
         for (String string : _listTesters) {
             _evaluationService.requestEvaluation(string);
@@ -84,6 +99,21 @@ public class StateService{
      */
     public boolean checkState(StateForm state) {
         return _state.equals(state);
+    }
+
+    @Override
+    public Set<ChangeStateEventListener> getListeners() {
+        return Collections.unmodifiableSet(_listeners);
+    }
+
+    @Override
+    public void addDataEventListener(ChangeStateEventListener listener) {
+        _listeners.add(listener);
+    }
+
+    @Override
+    public void removeDataEventListener(ChangeStateEventListener listener) {
+        _listeners.remove(listener);
     }
 
 }

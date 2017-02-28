@@ -30,7 +30,6 @@ public class DeleteAction extends Action implements ISelectionListener, ActionFa
     public DeleteAction(IWorkbenchWindow window) {
         this._window = window;
         setId(ID);
-        setText("&Delete");
         setToolTipText("Delete information from table");
 
         URL url = Platform.getBundle("StudentsRCP").getEntry("icons/delete_icon.png");

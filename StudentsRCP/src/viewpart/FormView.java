@@ -1,5 +1,6 @@
 package viewpart;
 
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -42,18 +43,6 @@ public class FormView extends Composite implements FormEventListener {
     /** Stores a task done status **/
     private Button _checkButton;
 
-    /** The New Button for creating a new table (to clean old data) **/
-    private Button _newButton;
-
-    /** The Save Button for saving data from form to table **/
-    private Button _saveButton;
-
-    /** The Delete Button for removing selection row from table **/
-    private Button _deleteButton;
-
-    /** The Cancel Button for cleaning data from form **/
-    private Button _cancelButton;
-
     IWorkbenchWindow _window;
 
     /** Service for handling event on form **/
@@ -93,16 +82,12 @@ public class FormView extends Composite implements FormEventListener {
         textPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         textPanel.setLayout(new GridLayout(2, true));
 
-        Label nameLabel = new Label(textPanel, SWT.NONE);
-        nameLabel.setText("Name");
-        nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        createLabel(textPanel, "Name");
         _nameText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _nameText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
         _nameText.addKeyListener(new TextKeyListener());
 
-        Label groupLabel = new Label(textPanel, SWT.NONE);
-        groupLabel.setText("Group");
-        groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        createLabel(textPanel, "Group");
         _numberGroupText = new Text(textPanel, SWT.BORDER | SWT.RIGHT);
         _numberGroupText.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
         _numberGroupText.addKeyListener(new TextKeyListener());
@@ -136,33 +121,10 @@ public class FormView extends Composite implements FormEventListener {
         buttonsPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
         buttonsPanel.setLayout(new GridLayout(4, true));
 
-        ActionContributionItem actionItem = new ActionContributionItem(new NewAction(_window));
-        actionItem.fill(buttonsPanel);
-        _newButton = (Button) actionItem.getWidget();
-        _newButton.setText("New");
-        _newButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-        _newButton.setData("newButton");
-
-        actionItem = new ActionContributionItem(new SaveAction());
-        actionItem.fill(buttonsPanel);
-        _saveButton = (Button) actionItem.getWidget();
-        _saveButton.setText("Save");
-        _saveButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-        actionItem = new ActionContributionItem(new DeleteAction(_window));
-        actionItem.fill(buttonsPanel);
-        _deleteButton = (Button) actionItem.getWidget();
-        _deleteButton.setText("Delete");
-        _deleteButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
-
-        actionItem = new ActionContributionItem(new CancelAction());
-        actionItem.fill(buttonsPanel);
-        _cancelButton = (Button) actionItem.getWidget();
-        _cancelButton.setText("Cancel");
-
-        _saveButton.setEnabled(false);
-        _deleteButton.setEnabled(false);
-        _cancelButton.setEnabled(false);
+        getButtonFromAction(buttonsPanel, "New", new NewAction(_window));
+        getButtonFromAction(buttonsPanel, "Save", new SaveAction());
+        getButtonFromAction(buttonsPanel, "Delete", new DeleteAction(_window));
+        getButtonFromAction(buttonsPanel, "Cancel", new CancelAction());
     }
 
     /**
@@ -172,8 +134,7 @@ public class FormView extends Composite implements FormEventListener {
      */
     class TextKeyListener implements KeyListener {
         @Override
-        public void keyPressed(KeyEvent e) {
-        }
+        public void keyPressed(KeyEvent e) {}
 
         /**
          * Sets application's state to StateForm.FILLED if all text fields are filled.
@@ -181,16 +142,11 @@ public class FormView extends Composite implements FormEventListener {
          */
         @Override
         public void keyReleased(KeyEvent e) {
-            boolean isEnabled = false;
             StateForm state = StateForm.EMPTY;
 
             if (_nameText.getCharCount() > 0 && _numberGroupText.getCharCount() > 0) {
                 state = StateForm.FILLED;
-                isEnabled = true;
             }
-            _saveButton.setEnabled(isEnabled);
-            _cancelButton.setEnabled(isEnabled);
-            // set state for menu and toolbar
             _stateService.setState(state);
             _stateService.runEvent();
         }
@@ -215,10 +171,23 @@ public class FormView extends Composite implements FormEventListener {
         _numberGroupText.setText("");
         _checkButton.setSelection(false);
 
-        _saveButton.setEnabled(false);
-        _cancelButton.setEnabled(false);
-
         _stateService.setState(StateForm.EMPTY);
         _stateService.runEvent();
+    }
+
+    private Button getButtonFromAction(Composite parent, String nameButton, Action action) {
+        ActionContributionItem actionItem = new ActionContributionItem(action);
+        actionItem.fill(parent);
+        Button button = (Button) actionItem.getWidget();
+        button.setText(nameButton);
+        button.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+        return button;
+    }
+
+    private Label createLabel(Composite parent, String text) {
+        Label label = new Label(parent, SWT.NONE);
+        label.setText(text);
+        label.setLayoutData(new GridData(SWT.FILL, SWT.HORIZONTAL, true, true));
+        return label;
     }
 }
