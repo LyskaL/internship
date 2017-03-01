@@ -39,10 +39,6 @@ public class CancelAction extends Action implements ActionFactory.IWorkbenchActi
 
     @Override
     public void handleEvent(ChangeStateEvent event) {
-        if(event.checkState(StateForm.FILLED)) {
-            setEnabled(true);
-        } else {
-            setEnabled(false);
-        }
+        setEnabled(event.checkState(StateForm.FILLED));
     }
 }

@@ -29,7 +29,8 @@ public class SaveAction extends Action implements ActionFactory.IWorkbenchAction
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+    }
 
     @Override
     public void run() {
@@ -38,10 +39,6 @@ public class SaveAction extends Action implements ActionFactory.IWorkbenchAction
 
     @Override
     public void handleEvent(ChangeStateEvent event) {
-        if(event.checkState(StateForm.FILLED)) {
-            setEnabled(true);
-        } else {
-            setEnabled(false);
-        }
+        setEnabled(event.checkState(StateForm.FILLED));
     }
 }
