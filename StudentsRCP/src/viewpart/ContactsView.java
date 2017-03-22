@@ -23,15 +23,17 @@ public class ContactsView extends ViewPart {
         tablePanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         tablePanel.setLayout(new GridLayout(1, true));
 
+        TableView table = new TableView(tablePanel);
+        table.setSelectionProvider(getSite());
+
         Composite formPanel = new Composite(sashForm, SWT.NONE);
         formPanel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         formPanel.setLayout(new GridLayout(1, true));
-        //sashForm.setBackground(PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+
+        new FormView(formPanel, SWT.NONE, getSite().getWorkbenchWindow());
+
     }
 
     @Override
-    public void setFocus() {
-
-    }
-
+    public void setFocus() {}
 }

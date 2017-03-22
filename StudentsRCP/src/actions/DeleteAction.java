@@ -12,20 +12,30 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+import commands.CommandUtil;
+import entities.Student;
+import services.TableService;
+import services.TableServiceImp;
+
 public class DeleteAction extends Action implements ISelectionListener, ActionFactory.IWorkbenchAction {
 
-    private final IWorkbenchWindow _window;
     public final static String ID = "StudentsRCP.actions.newAction";
+
+    private final IWorkbenchWindow _window;
     private IStructuredSelection _selection;
+
+    /** Service for working with data in table **/
+    private final TableService _service = TableServiceImp.getInstance();
 
     public DeleteAction(IWorkbenchWindow window) {
         this._window = window;
         setId(ID);
-        setText("&Delete");
         setToolTipText("Delete information from table");
 
         URL url = Platform.getBundle("StudentsRCP").getEntry("icons/delete_icon.png");
         setImageDescriptor(ImageDescriptor.createFromURL(url));
+
+        _window.getSelectionService().addSelectionListener(this);
     }
 
     @Override
@@ -35,13 +45,21 @@ public class DeleteAction extends Action implements ISelectionListener, ActionFa
 
     @Override
     public void selectionChanged(IWorkbenchPart part, ISelection selection) {
-        // TODO Auto-generated method stub
-
+        // selection containing elements
+        if (selection instanceof IStructuredSelection) {
+            _selection = (IStructuredSelection) selection;
+            if (_selection.size() == 1 && _selection.getFirstElement() instanceof Student) {
+                _service.setIndexSelect(_service.getIndex((Student) _selection.getFirstElement()));
+                setEnabled(true);
+                return;
+            }
+        }
+        setEnabled(false);
     }
 
     @Override
     public void run() {
-        super.run();
+        CommandUtil.commandRunById("StudentsRCP.commands.Delete");
     }
 
 }

@@ -23,13 +23,13 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(300, 300));
         configurer.setShowCoolBar(true);
         configurer.setShowMenuBar(true);
-        configurer.setShowStatusLine(false);
+        configurer.setShowStatusLine(true);
         configurer.setShowPerspectiveBar(false);
         configurer.setTitle("Students homework");
     }
 
     @Override
     public void postWindowCreate() {
-        //getWindowConfigurer().getWindow().getShell().setSize(600, 300);
+        getWindowConfigurer().getWindow().getShell().setSize(680, 300);
     }
 }

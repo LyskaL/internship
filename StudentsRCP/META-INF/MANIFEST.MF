@@ -4,5 +4,7 @@ Bundle-Name: StudentsRCP
 Bundle-SymbolicName: StudentsRCP;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.core.expressions;bundle-version="3.5.100",
+ org.eclipse.core.resources;bundle-version="3.11.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

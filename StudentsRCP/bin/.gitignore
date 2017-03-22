@@ -1,5 +1,11 @@
-/eclipsercp/
 /viewpart/
+/eclipsercp/
 /actions/
+/table/
+/entities/
 /services/
-/treeprovider/
+/commands/
+/studentsrcp/
+/util/
+/events/
+/testers/
