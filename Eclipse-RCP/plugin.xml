@@ -29,6 +29,11 @@
             id="Eclipse-RCP.viewpart.contacts"
             name="Contacts"
             restorable="true">
+     <stickyView
+			closeable="false"
+			id="Eclipse-RCP.viewpart.contacts"
+			location="LEFT"
+			moveable="false"/>
       </view>
    </extension>
    <extension
