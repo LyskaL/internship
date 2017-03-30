@@ -25,10 +25,10 @@ public class Person {
     public Person(String firstName, String lastName) {
         _firstName = new SimpleStringProperty(firstName);
         _lastName = new SimpleStringProperty(lastName);
-        _street = new SimpleStringProperty("Topol 2");
-        _postalCode = new SimpleIntegerProperty(1234);
-        _city = new SimpleStringProperty("Dnipro");
-        _birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        _street = new SimpleStringProperty();
+        _postalCode = new SimpleIntegerProperty();
+        _city = new SimpleStringProperty();
+        _birthday = new SimpleObjectProperty<LocalDate>(null);
     }
 
     public String getFirstName() {
