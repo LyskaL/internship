@@ -1,0 +1,4 @@
+<customer>
+	<age>35</age>
+	<name>aaa</name>
+</customer>

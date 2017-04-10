@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Calculator/src"/>
+	<classpathentry kind="src" path="Eclipse-RCP/src"/>
+	<classpathentry kind="src" path="HomeworkStudent/src"/>
+	<classpathentry kind="src" path="JavaFX/src"/>
+	<classpathentry kind="src" path="org.eclipsercp.tests/src"/>
+	<classpathentry kind="src" path="StudentsRCP/src"/>
+	<classpathentry kind="src" path="swt/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="Calculator/bin"/>
+</classpath>
